@@ -7,18 +7,18 @@ package no.westerdals.tjoida.Models;
 public class User {
     private int id;
     private String email;
-    private String password;
+    private String name;
     private Enum<Type> type;
 
-    public User(int id, String email, String password, Enum<Type> type) {
+    public User(int id, String email, String name, Enum<Type> type) {
         this.id = id;
         this.email = email;
-        this.password = password;
+        this.name = name;
         this.type = type;
     }
 
-    public User(int id, String email, String password) {
-        this(id, email, password, Type.STUDENT);
+    public User(int id, String email, String name) {
+        this(id, email, name, Type.STUDENT);
     }
 
     public int getId() {
@@ -37,12 +37,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Enum<Type> getType() {
@@ -51,5 +51,15 @@ public class User {
 
     public void setType(Enum<Type> type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                '}';
     }
 }
