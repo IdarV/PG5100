@@ -12,7 +12,7 @@ public class MyService {
     @Inject
     private UserDAO userDAO;
 
-    public void printUsers(){
-        System.out.println(userDAO.getUsers());
+    public void printUserNames(){
+        System.out.println(userDAO.names());
     }
 }
