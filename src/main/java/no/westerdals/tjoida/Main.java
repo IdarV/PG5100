@@ -17,7 +17,6 @@ public class Main {
     public static void main(String[] args) {
         WeldContainer container = new Weld().initialize();
         Instance<MyService> service = container.instance().select(MyService.class);
-        service.get().printUsers();
-        System.out.println("Hello");
+        service.get().printUserNames();
     }
 }

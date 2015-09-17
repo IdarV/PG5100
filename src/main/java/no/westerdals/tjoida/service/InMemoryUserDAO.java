@@ -1,12 +1,14 @@
 package no.westerdals.tjoida.service;
 
+import javax.enterprise.inject.Alternative;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Cyzla on 17.09.2015.
  */
-public class InMemoryUserDAO implements UserDAO {
+@Alternative
+public class InMemoryUserDAO implements UserDAO{
 
     private List<String> users = new ArrayList<>();
 
@@ -18,7 +20,7 @@ public class InMemoryUserDAO implements UserDAO {
     }
 
     @Override
-    public List<String> getUsers() {
+    public List<String> names() {
         System.out.println("In Memory");
         return users;
     }
