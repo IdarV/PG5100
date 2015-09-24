@@ -23,7 +23,7 @@ public class H2UserDao implements UserDAO {
     public List<String> names() {
         List<User> users = new ArrayList<>();
         users = executeQuery(SQL_SELECT_ALL);
-        return users.stream().map(User::getName).collect(Collectors.toList());
+        return users.stream().map(User::getPassword).collect(Collectors.toList());
     }
 
     @Override

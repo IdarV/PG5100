@@ -1,19 +1,27 @@
 package no.westerdals.tjoida.Models;
 
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
  * Created by Cyzla on 17.09.2015.
  */
 public class User {
     private int id;
+    @NotNull
+    @Pattern(regexp = "^([A-Z|a-z|0-9](\\.|_){0,1})+[A-Z|a-z|0-9]\\@([A-Z|a-z|0-9])+((\\.){0,1}[A-Z|a-z|0-9]){2}\\.[a-z]{2,3}$")
     private String email;
-    private String name;
+    @Pattern(regexp = "^(([A-Za-z]+[^0-9]*)([0-9]+[^\\W]*)([\\W]+[\\W0-9A-Za-z]*))|(([A-Za-z]+[^\\W]*)([\\W]+[^0-9]*)([0-9]+[\\W0-9A-Za-z]*))|(([\\W]+[^A-Za-z]*)([A-Za-z]+[^0-9]*)([0-9]+[\\W0-9A-Za-z]*))|(([\\W]+[^0-9]*)([0-9]+[^A-Za-z]*)([A-Za-z]+[\\W0-9A-Za-z]*))|(([0-9]+[^A-Za-z]*)([A-Za-z]+[^\\W]*)([\\W]+[\\W0-9A-Za-z]*))|(([0-9]+[^\\W]*)([\\W]+[^A-Za-z]*)([A-Za-z]+[\\W0-9A-Za-z]*))$")
+    @Size(min = 6)
+    private String password;
     private Enum<Type> type;
 
     public User(int id, String email, String name, Enum<Type> type) {
         this.id = id;
         this.email = email;
-        this.name = name;
+        this.password = name;
         this.type = type;
     }
 
@@ -37,12 +45,12 @@ public class User {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Enum<Type> getType() {
@@ -58,7 +66,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
                 ", type=" + type +
                 '}';
     }

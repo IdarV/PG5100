@@ -3,7 +3,6 @@ package no.westerdals.tjoida.service;
 import no.westerdals.tjoida.Models.Type;
 import no.westerdals.tjoida.Models.User;
 
-import javax.enterprise.inject.Alternative;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class InMemoryUserDAO implements UserDAO{
     @Override
     public List<String> names() {
         System.out.println("In Memory");
-        return users.stream().map(User::getName).collect(Collectors.toList());
+        return users.stream().map(User::getPassword).collect(Collectors.toList());
 }
 
     @Override

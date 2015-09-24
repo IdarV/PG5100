@@ -7,9 +7,6 @@ import org.jboss.weld.environment.se.WeldContainer;
 import javax.enterprise.inject.Instance;
 import java.util.List;
 
-/**
- * Created by Cyzla on 17.09.2015.
- */
 public class Main {
 
     static{
@@ -22,6 +19,7 @@ public class Main {
         service.get().printUserNames();
 
         List<User> users= service.get().getUsers();
+        service.get().updateUser(users.get(users.size()-1).getId(), "name", "hi! im update");
         users.forEach(System.out::println);
 
         service.get().deleteUser(1);
