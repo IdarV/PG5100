@@ -4,8 +4,8 @@
         http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
        bean-discovery-mode="all">
 
-    <alternatives>
-        <class>no.westerdals.tjoida.service.H2UserDao</class>
-        <!--<class>no.westerdals.tjoida.service.InMemoryUserDAO</class>-->
-    </alternatives>
+    <!--<alternatives>-->
+        <!--<class>no.westerdals.tjoida.service.H2UserDao</class>-->
+        <!--&lt;!&ndash;<class>no.westerdals.tjoida.service.InMemoryUserDAO</class>&ndash;&gt;-->
+    <!--</alternatives>-->
 </beans>

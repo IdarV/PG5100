@@ -2,8 +2,10 @@ package no.westerdals.tjoida;
 
 import no.westerdals.tjoida.Models.User;
 import no.westerdals.tjoida.service.UserDAO;
+import no.westerdals.tjoida.service.UserQualifier;
 
 import javax.inject.Inject;
+import javax.inject.Qualifier;
 import java.util.List;
 
 /**
@@ -11,7 +13,7 @@ import java.util.List;
  */
 public class MyService {
 
-    @Inject
+    @Inject @UserQualifier
     private UserDAO userDAO;
 
     public void printUserNames(){
@@ -22,7 +24,15 @@ public class MyService {
         return userDAO.getUsers();
     }
 
+    public User getUser(int index) {
+        return userDAO.getUser(index);
+    }
+
     public int updateUser(int userId, String column, String value){
         return userDAO.update(userId, column, value);
+    }
+
+    public int deleteUser(int id) {
+        return userDAO.deleteUser(id);
     }
 }

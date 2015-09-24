@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Cyzla on 17.09.2015.
  */
-@Alternative
+
 public class InMemoryUserDAO implements UserDAO{
 
     private List<User> users = new ArrayList<>();
@@ -59,5 +59,19 @@ public class InMemoryUserDAO implements UserDAO{
     @Override
     public List<User> getUsers() {
         return users;
+    }
+
+    @Override
+    public User getUser(int id) {
+        return users.get(id);
+    }
+
+    @Override
+    public int deleteUser(int id) {
+        if(users.size() > 0){
+            users.remove(users.size()-1);
+            return 1;
+        }
+        return 0;
     }
 }

@@ -3,16 +3,12 @@ package no.westerdals.tjoida.service;
 import no.westerdals.tjoida.Models.Type;
 import no.westerdals.tjoida.Models.User;
 
-import javax.enterprise.inject.Alternative;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Cyzla on 17.09.2015.
- */
-@Alternative
+@UserQualifier
 public class H2UserDao implements UserDAO {
     private static final String URL = "jdbc:h2:tcp://localhost:9092/~/test";
     private static final String SQL_SELECT_ALL = "SELECT id, email, name, type FROM USERS;";
@@ -40,6 +36,20 @@ public class H2UserDao implements UserDAO {
     public List<User> getUsers() {
         return executeQuery(SQL_SELECT_ALL);
     }
+
+    @Override
+    public User getUser(int id) {
+        String sql = String.format("SELECT id, email, name, type FROM USERS WHERE ID = %d", id);
+        List<User> users = executeQuery(sql);
+        return (users.size() > 0) ? users.get(0) : null;
+    }
+
+    @Override
+    public int deleteUser(int id) {
+        String sql = String.format("DELETE FROM USERS WHERE ID = %d", id);
+        return executeUpdate(sql);
+    }
+
 
     private List<User> executeQuery(String sql) {
         List<User> users = new ArrayList<>();

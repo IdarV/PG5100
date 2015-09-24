@@ -21,11 +21,17 @@ public class Main {
         Instance<MyService> service = container.instance().select(MyService.class);
         service.get().printUserNames();
 
-        int i = service.get().updateUser(2, "email", "newEmail@mainmethod.com");
-        System.out.println("Update code: " + i);
-
         List<User> users= service.get().getUsers();
         users.forEach(System.out::println);
+
+        service.get().deleteUser(1);
+
+        User first = service.get().getUser(1);
+        if(first != null){
+            System.out.println("First:" +  first.toString());
+        } else{
+            System.out.println("First in null");
+        }
 
 
     }
