@@ -33,22 +33,15 @@ public class InMemoryUserDAO implements UserDAO {
 
     @Override
     // WOW this actually worked
-    public int update(int userId, String column, String value) {
+    public User update(User user_new) {
+        User updated_user = null;
         for (User user : users) {
-            if (user.getId() == userId) {
-                try {
-                    Class[] paramTypes = new Class[1];
-                    paramTypes[0] = column.getClass();
-                    Method method = user.getClass().getMethod(("set" + Character.toUpperCase(column.charAt(0)) + column.substring(1)), paramTypes);
-                    method.invoke(user, value);
-                    // System.out.println(user.toString());
-                    return 1;
-                } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+            if (user.getId() == user_new.getId()) {
+                user = user_new;
+                updated_user = user;
             }
         }
-        return 0;
+        return updated_user;
     }
 
     @Override
@@ -68,5 +61,10 @@ public class InMemoryUserDAO implements UserDAO {
             return 1;
         }
         return 0;
+    }
+
+    @Override
+    public void close() {
+        //
     }
 }

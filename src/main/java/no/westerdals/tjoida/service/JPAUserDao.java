@@ -4,18 +4,20 @@ package no.westerdals.tjoida.service;
 import no.westerdals.tjoida.Models.User;
 import org.hibernate.jpa.boot.spi.EntityManagerFactoryBuilder;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Cyzla on 08.10.2015.
  */
 @UserQualifier
-public class JPAUserDao implements UserDAO{
+public class JPAUserDao implements UserDAO {
     EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
     EntityManager entityManager;
 
     public JPAUserDao() {
@@ -24,26 +26,28 @@ public class JPAUserDao implements UserDAO{
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<String> names() {
-        //ArrayList<User> users = entityManager.
-        return null;
+        return entityManager.createQuery("SELECT 'email' FROM User").getResultList();
     }
 
     @Override
-    public int update(int userId, String column, String value) {
-        return 0;
+    /**
+     * TODO: entetymanager.merge() ?
+     */
+    public User update(User user) {
+        return entityManager.merge(user);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<User> getUsers() {
-        return null;
+        return entityManager.createQuery("SELECT e FROM User e").getResultList();
     }
 
     @Override
     public User getUser(int id) {
-        User a=  entityManager.find(User.class, id);
-        close();
-        return a;
+        return entityManager.find(User.class, id);
     }
 
     @Override
@@ -53,7 +57,8 @@ public class JPAUserDao implements UserDAO{
         return entityManager.find(User.class, id) == null ? 1 : 0;
     }
 
-    public void close(){
+    @Override
+    public void close() {
         entityManager.close();
         entityManagerFactory.close();
     }

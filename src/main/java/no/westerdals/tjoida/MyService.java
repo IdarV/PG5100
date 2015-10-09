@@ -28,12 +28,16 @@ public class MyService {
         return userDAO.getUser(index);
     }
 
-    public int updateUser(int userId, String column, String value){
-        return userDAO.update(userId, column, value);
+    public User updateUser(User user){
+        return userDAO.update(user);
     }
 
     public int deleteUser(int id) {
         return userDAO.deleteUser(id);
+    }
+
+    public void close(){
+        userDAO.close();
     }
 
 }

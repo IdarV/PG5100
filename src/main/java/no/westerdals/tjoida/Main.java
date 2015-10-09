@@ -16,21 +16,19 @@ public class Main {
     public static void main(String[] args) {
         WeldContainer container = new Weld().initialize();
         Instance<MyService> service = container.instance().select(MyService.class);
-        //service.get().printUserNames();
+        MyService myService = service.get();
 
-//        List<User> users= service.get().getUsers();
-//        service.get().updateUser(users.get(users.size()-1).getId(), "name", "hi! im update");
-//        users.forEach(System.out::println);
-//
-//        service.get().deleteUser(1);
+        List<User> users = myService.getUsers();
+        users.forEach(System.out::println);
 
-        User first = service.get().getUser(1);
-        if(first != null){
-            System.out.println("First:" +  first.toString());
-        } else{
-            System.out.println("First is null");
-        }
+        User user = users.get(0);
+        user.setEmail("hehehe@ehhhehe.com");
 
+        myService.updateUser(users.get(0));
 
+        users = myService.getUsers();
+        users.forEach(System.out::println);
+
+        myService.close();
     }
 }

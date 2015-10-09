@@ -27,9 +27,10 @@ public class H2UserDao implements UserDAO {
     }
 
     @Override
-    public int update(int userId, String column, String value) {
-        String sql = String.format("UPDATE USERS SET %s = '%s' WHERE ID=%d", column, value, userId);
-        return executeUpdate(sql);
+    public User update(User user) {
+//        String sql = String.format("UPDATE USERS SET %s = '%s' WHERE ID=%d", column, value, userId);
+//        return executeUpdate(sql);
+        return user;
     }
 
     @Override
@@ -48,6 +49,11 @@ public class H2UserDao implements UserDAO {
     public int deleteUser(int id) {
         String sql = String.format("DELETE FROM USERS WHERE ID = %d", id);
         return executeUpdate(sql);
+    }
+
+    @Override
+    public void close() {
+        //
     }
 
 

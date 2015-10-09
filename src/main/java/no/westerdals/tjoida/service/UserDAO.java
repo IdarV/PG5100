@@ -5,9 +5,10 @@ import no.westerdals.tjoida.Models.User;
 import java.util.List;
 
 public interface UserDAO {
-    List<String> names();
-    int update(int userId, String column, String value);
+    List names();
+    User update(User user);
     List<User> getUsers();
     User getUser(int id);
     int deleteUser(int id);
+    void close();
 }
