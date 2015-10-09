@@ -19,7 +19,7 @@ public class TypeValidator implements ConstraintValidator<ValidateType, User> {
     @Override
     public boolean isValid(User user, ConstraintValidatorContext constraintValidatorContext) {
         for(Type type : Type.values()){
-            if(type.name().equals(user.getType().name().toUpperCase()))
+            if(type.name().equals(user.getType().toUpperCase()))
             return true;
         }
         return false;

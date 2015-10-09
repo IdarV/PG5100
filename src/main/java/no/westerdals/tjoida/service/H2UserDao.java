@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@UserQualifier
+//@UserQualifier
 public class H2UserDao implements UserDAO {
     private static final String URL = "jdbc:h2:tcp://localhost:9092/~/test";
     private static final String SQL_SELECT_ALL = "SELECT id, email, name, type FROM USERS;";
@@ -59,7 +59,7 @@ public class H2UserDao implements UserDAO {
 
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                users.add(new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), Type.valueOf(resultSet.getString(4).toUpperCase())));
+                users.add(new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), "Student"));
             }
 
         } catch (SQLException | ClassNotFoundException e) {

@@ -17,7 +17,8 @@ public class UserValidationTest {
     private final String STD_EMAIL = "email@email.com";
     private final int STD_ID = 0;
     private final String STD_PASSWORD = "mYP4SSW0RD!";
-    private final Type STD_TYPE = Type.STUDENT;
+//    private final Type STD_TYPE = Type.STUDENT;
+    private final String STD_TYPE = "Student";
     private Validator validator;
 
     @Before

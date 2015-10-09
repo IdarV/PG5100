@@ -1,6 +1,10 @@
 package no.westerdals.tjoida.Models;
 
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -9,7 +13,9 @@ import javax.validation.constraints.Size;
 /**
  * Created by Cyzla on 17.09.2015.
  */
+@Entity
 public class User {
+    @Id
     @Min(value = 0, message = "ID cannot be negatice")
     private int id;
 
@@ -24,9 +30,9 @@ public class User {
 
     @Size(min = 6)
     private String password;
-    private Enum<Type> type;
+    private String type;
 
-    public User(int id, String email, String password, Enum<Type> type) {
+    public User(int id, String email, String password, String type) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -34,7 +40,10 @@ public class User {
     }
 
     public User(int id, String email, String password) {
-        this(id, email, password, Type.STUDENT);
+        this(id, email, password, "Student");
+    }
+
+    public User() {
     }
 
     public int getId() {
@@ -61,11 +70,11 @@ public class User {
         this.password = password;
     }
 
-    public Enum<Type> getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Enum<Type> type) {
+    public void setType(String type) {
         this.type = type;
     }
 
