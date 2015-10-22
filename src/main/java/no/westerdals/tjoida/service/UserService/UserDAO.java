@@ -1,4 +1,4 @@
-package no.westerdals.tjoida.service;
+package no.westerdals.tjoida.service.UserService;
 
 import no.westerdals.tjoida.Models.User;
 

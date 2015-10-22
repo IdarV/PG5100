@@ -1,10 +1,7 @@
-package no.westerdals.tjoida.service;
+package no.westerdals.tjoida.service.UserService;
 
-import no.westerdals.tjoida.Models.Type;
 import no.westerdals.tjoida.Models.User;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

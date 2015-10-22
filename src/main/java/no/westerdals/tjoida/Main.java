@@ -22,13 +22,13 @@ public class Main {
         users.forEach(System.out::println);
 
         User user = users.get(0);
-        user.setEmail("hehehe@ehhhehe.com");
+        user.setEmail("hehehe@hehe.com");
 
         myService.updateUser(users.get(0));
 
         users = myService.getUsers();
         users.forEach(System.out::println);
 
-        myService.close();
+//        myService.close();
     }
 }

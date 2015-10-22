@@ -1,15 +1,12 @@
-package no.westerdals.tjoida.service;
+package no.westerdals.tjoida.service.UserService;
 
 
 import no.westerdals.tjoida.Models.User;
-import org.hibernate.jpa.boot.spi.EntityManagerFactoryBuilder;
 
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.InvocationContext;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Cyzla on 08.10.2015.
@@ -32,9 +29,6 @@ public class JPAUserDao implements UserDAO {
     }
 
     @Override
-    /**
-     * TODO: entetymanager.merge() ?
-     */
     public User update(User user) {
         return entityManager.merge(user);
     }
@@ -59,7 +53,18 @@ public class JPAUserDao implements UserDAO {
 
     @Override
     public void close() {
-        entityManager.close();
         entityManagerFactory.close();
+        entityManager.close();
+    }
+
+    @AroundInvoke
+    private Object intercept(InvocationContext ic) throws Exception {
+        entityManager.getTransaction().begin();
+        System.out.println("HEYIMINTERCEPT");
+        try {
+            return ic.proceed();
+        } finally {
+            entityManager.getTransaction().commit();
+        }
     }
 }

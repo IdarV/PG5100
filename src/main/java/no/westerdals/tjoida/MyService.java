@@ -1,11 +1,10 @@
 package no.westerdals.tjoida;
 
 import no.westerdals.tjoida.Models.User;
-import no.westerdals.tjoida.service.UserDAO;
-import no.westerdals.tjoida.service.UserQualifier;
+import no.westerdals.tjoida.service.UserService.UserDAO;
+import no.westerdals.tjoida.service.UserService.UserQualifier;
 
 import javax.inject.Inject;
-import javax.inject.Qualifier;
 import java.util.List;
 
 /**

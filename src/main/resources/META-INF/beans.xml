@@ -5,7 +5,7 @@
        bean-discovery-mode="all">
 
     <!--<alternatives>-->
-        <!--<class>no.westerdals.tjoida.service.H2UserDao</class>-->
-        <!--&lt;!&ndash;<class>no.westerdals.tjoida.service.InMemoryUserDAO</class>&ndash;&gt;-->
+        <!--<class>no.westerdals.tjoida.service.UserService.H2UserDao</class>-->
+        <!--&lt;!&ndash;<class>no.westerdals.tjoida.service.UserService.InMemoryUserDAO</class>&ndash;&gt;-->
     <!--</alternatives>-->
 </beans>

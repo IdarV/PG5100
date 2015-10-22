@@ -1,5 +1,6 @@
-package no.westerdals.tjoida.Models;
+package no.westerdals.tjoida.Models.Validation;
 
+import no.westerdals.tjoida.Models.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,11 +26,6 @@ public class UserValidationTest {
     public void setUp() throws Exception {
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         validator = validatorFactory.getValidator();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
     }
 
     @Test
@@ -81,4 +77,6 @@ public class UserValidationTest {
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertEquals(0, violations.size());
     }
+
+
 }
