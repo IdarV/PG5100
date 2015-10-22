@@ -17,18 +17,36 @@
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
-    <!--<persistence-unit name="Location" transaction-type="RESOURCE_LOCAL">-->
-        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
-        <!--<class>no.westerdals.tjoida.Models.User</class>-->
-        <!--<properties>-->
-            <!--<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>-->
-            <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:jpa-named-queries;DB_CLOSE_DELAY=-1"/>-->
-            <!--<property name="javax.persistence.jdbc.user" value="sa"/>-->
-            <!--<property name="javax.persistence.jdbc.password" value="sa"/>-->
-            <!--<property name="dialect" value="org.hibernate.dialect.H2Dialect"/>-->
 
-            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
-            <!--<property name="hibernate.show_sql" value="true"/>-->
-        <!--</properties>-->
-    <!--</persistence-unit>-->
+    <persistence-unit name="Location" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>no.westerdals.tjoida.Models.Location</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:jpa-named-queries;"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value="sa"/>
+            <property name="dialect" value="org.hibernate.dialect.H2Dialect"/>
+
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="Course" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>no.westerdals.tjoida.Models.Course</class>
+        <class>no.westerdals.tjoida.Models.User</class>
+        <class>no.westerdals.tjoida.Models.Location</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:jpa-named-queries;"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value="sa"/>
+            <property name="dialect" value="org.hibernate.dialect.H2Dialect"/>
+
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+    </persistence-unit>
 </persistence>

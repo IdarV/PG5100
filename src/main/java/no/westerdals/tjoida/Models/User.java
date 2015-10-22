@@ -6,13 +6,15 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * Created by Cyzla on 17.09.2015.
  */
 @Entity
 public class User {
-    @Id
+    @Id()
+    @Column(nullable = false, insertable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Min(value = 0, message = "ID cannot be negative")
     private int id;

@@ -9,14 +9,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Cyzla on 15.10.2015.
- */
 public class LocationJpaIT {
-    EntityManagerFactory entityManagerFactory;
-    EntityManager entityManager;
+    private EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
 
     @Before
     public void setUp() throws Exception {
@@ -36,6 +34,7 @@ public class LocationJpaIT {
         location.setBuilding("ParadiseBuildning");
         location.setRoom("myRoom");
 
+        assertFalse(0 < location.getId());
         entityManager.persist(location);
         assertTrue(0 < location.getId());
     }

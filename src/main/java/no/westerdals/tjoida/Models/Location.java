@@ -1,14 +1,8 @@
 package no.westerdals.tjoida.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by Cyzla on 15.10.2015.
- */
 @Entity
 public class Location {
     @Id
