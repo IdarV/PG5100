@@ -35,6 +35,7 @@ public class CourseJpaIT {
     @Test
     public void testte() throws Exception {
         Course course = new Course();
+
         User listUser = new User();
         listUser.setEmail("email@email.com");
         listUser.setType("Test");
@@ -42,12 +43,14 @@ public class CourseJpaIT {
         List<User> userList = new ArrayList<>();
         userList.add(listUser);
         course.setUsers(userList);
-        course.setName("CourseTest");
 
+        course.setName("CourseTest");
         assertFalse(0 < course.getId());
+        System.out.println("User id:" + course.getUsers().get(0).getId() + ", course id: " + course.getId() + ", location id: " + course.getLocation());
+        assertFalse(0 < course.getUsers().get(0).getId());
         entityManager.persist(course);
         assertTrue(0 < course.getId());
-
-
+        System.out.println("User id:" + course.getUsers().get(0).getId() + ", course id: " + course.getId() + ", location id: " + course.getLocation());
+        assertTrue(0 < course.getUsers().get(0).getId());
     }
 }

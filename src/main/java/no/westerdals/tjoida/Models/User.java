@@ -13,8 +13,7 @@ import java.util.List;
  */
 @Entity
 public class User {
-    @Id()
-    @Column(nullable = false, insertable = false, updatable = false)
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Min(value = 0, message = "ID cannot be negative")
     private int id;
@@ -32,6 +31,9 @@ public class User {
     private String password;
     private String type;
 
+    @ManyToMany(mappedBy = "users")
+    private List<Course> courses;
+
     public User(int id, String email, String password, String type) {
         this.id = id;
         this.email = email;
@@ -44,6 +46,14 @@ public class User {
     }
 
     public User() {
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     public int getId() {

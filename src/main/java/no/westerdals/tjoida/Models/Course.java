@@ -3,6 +3,7 @@ package no.westerdals.tjoida.Models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -15,10 +16,11 @@ public class Course {
     private int id;
     @NotNull
     private String name;
-    @OneToMany
-    @JoinColumn
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "fk_a")
+    @Size(min = 0, max = 100)
     private List<User> users;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn
     private Location location;
 

@@ -60,7 +60,6 @@ public class JPAUserDao implements UserDAO {
     @AroundInvoke
     private Object intercept(InvocationContext ic) throws Exception {
         entityManager.getTransaction().begin();
-        System.out.println("HEYIMINTERCEPT");
         try {
             return ic.proceed();
         } finally {
