@@ -1,5 +1,6 @@
 package no.westerdals.tjoida.service.CourseService;
 
+import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.Location;
 
 import javax.interceptor.AroundInvoke;
@@ -23,7 +24,10 @@ public class CourseJPA implements CourseDAO{
     public CourseJPA() {
         entityManagerFactory = Persistence.createEntityManagerFactory("Course");
         entityManager = entityManagerFactory.createEntityManager();
+    }
 
+    public CourseJPA(EntityManager entityManager){
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -32,8 +36,8 @@ public class CourseJPA implements CourseDAO{
     }
 
     @Override
-    public Location getLocation() {
-        return null;
+    public void persist(Course course) {
+        entityManager.persist(course);
     }
 
     @Override
@@ -42,18 +46,14 @@ public class CourseJPA implements CourseDAO{
     }
 
     @Override
-    public Location update() {
-        return null;
-    }
-
-    @Override
-    public int deleteCourse() {
-        return 0;
+    public void deleteCourse(Course course) {
+        entityManager.remove(course);
     }
 
     @Override
     public void close() {
-
+        entityManagerFactory.close();
+        entityManager.close();
     }
 
     @AroundInvoke

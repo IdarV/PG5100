@@ -2,6 +2,7 @@ package no.westerdals.tjoida.Models.IT;
 
 import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
+import no.westerdals.tjoida.service.CourseService.CourseJPA;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,18 +13,20 @@ import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CourseJpaIT {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
+    private CourseJPA courseJPA;
+    private Course course;
 
     @Before
     public void setUp() throws Exception {
         entityManagerFactory = Persistence.createEntityManagerFactory("Course");
         entityManager = entityManagerFactory.createEntityManager();
-
+        courseJPA = new CourseJPA(entityManager);
+        course = new Course();
     }
 
     @After
@@ -33,7 +36,7 @@ public class CourseJpaIT {
     }
 
     @Test
-    public void testte() throws Exception {
+    public void testPersistUsers() throws Exception {
         Course course = new Course();
 
         User listUser = new User();
@@ -43,14 +46,25 @@ public class CourseJpaIT {
         List<User> userList = new ArrayList<>();
         userList.add(listUser);
         course.setUsers(userList);
-
         course.setName("CourseTest");
+
         assertFalse(0 < course.getId());
-        System.out.println("User id:" + course.getUsers().get(0).getId() + ", course id: " + course.getId() + ", location id: " + course.getLocation());
         assertFalse(0 < course.getUsers().get(0).getId());
-        entityManager.persist(course);
+        courseJPA.persist(course);
         assertTrue(0 < course.getId());
-        System.out.println("User id:" + course.getUsers().get(0).getId() + ", course id: " + course.getId() + ", location id: " + course.getLocation());
         assertTrue(0 < course.getUsers().get(0).getId());
+    }
+
+    @Test
+    public void testRemoveUser() throws Exception {
+        Course course = new Course();
+        Course existsInDatabase = entityManager.find(Course.class, course.getId());
+        assertNull("course should not exist in database before persisted", existsInDatabase);
+        courseJPA.persist(course);
+        existsInDatabase = entityManager.find(Course.class, course.getId());
+        assertNotNull("when persisted, course should exist", existsInDatabase);
+        courseJPA.deleteCourse(course);
+        existsInDatabase = entityManager.find(Course.class, course.getId());
+        assertNull("after deletion, course should not exist in database", existsInDatabase);
     }
 }
