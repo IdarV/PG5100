@@ -26,9 +26,19 @@ public class LocationJPA implements LocationDAO{
     }
 
 
+    public LocationJPA(EntityManager entityManager){
+        this.entityManager = entityManager;
+    }
+
+
     @Override
     public List<String> getRooms() {
         return null;
+    }
+
+    @Override
+    public void persist(Location location) {
+        entityManager.persist(location);
     }
 
     @Override

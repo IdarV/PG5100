@@ -17,11 +17,11 @@ public class Course {
     @NotNull
     private String name;
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "fk_a")
+    @JoinTable(name = "USR_SUB")
     @Size(min = 0, max = 100)
     private List<User> users;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "FK_LOCATION")
     private Location location;
 
     public Course() {

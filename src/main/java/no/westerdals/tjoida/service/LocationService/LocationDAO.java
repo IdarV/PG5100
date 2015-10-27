@@ -11,6 +11,7 @@ import java.util.List;
 public interface LocationDAO {
 
     List<String> getRooms();
+    void persist(Location location);
     List<String> getBuildings();
     Location update(User user);
     Location getLocation(int id);

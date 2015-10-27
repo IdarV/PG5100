@@ -2,6 +2,7 @@ package no.westerdals.tjoida.Models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class Location {
@@ -12,6 +13,9 @@ public class Location {
     String room;
     @NotNull
     String building;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "FK_LOCATION")
+    List<Course> courses;
 
     public Location() {
     }
@@ -43,6 +47,14 @@ public class Location {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     @Override
