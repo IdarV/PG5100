@@ -66,29 +66,16 @@ public class UserJpaIT {
     public void testCourses() throws Exception{
         User user = new User();
         user.setEmail(DEFAULT_EMAIL);
-        assertNotNull(userJpa.getCourses());
 
         CourseJPA courseJPA = new CourseJPA(entityManager);
         List<Course> courses = courseJPA.getCourses();
 
-        System.out.println("listing corses");
-        for(Course c : courses){
-            System.out.println(c.getName());
-        }
-        System.out.println("done listing corses");
-
         user.setCourses(courses);
         userJpa.persist(user);
 
-        assertNotNull(userJpa.getCourses());
-
         List<Course> persistedCourses = userJpa.getUser(user.getId()).getCourses();
 
-        System.out.println("User email:" + userJpa.getUser(user.getId()).getEmail());
-        System.out.println("listing users");
-        for(Course c : persistedCourses){
-            System.out.println(c.getName());
-        }
-        System.out.println("done listing users");
+        assertEquals(courses.get(0).getName(), persistedCourses.get(0).getName());
+
     }
 }

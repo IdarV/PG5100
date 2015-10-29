@@ -32,8 +32,14 @@ public class CourseJPA implements CourseDAO{
     }
 
     @Override
-    public List getUsers() {
-        return entityManager.createQuery("SELECT 'users' FROM Course").getResultList();
+    public Course getCourse(int id) {
+        return entityManager.find(Course.class, id);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<User> getUsers(Course course) {
+        return entityManager.createQuery("SELECT users from Course ").getResultList();
     }
 
     @SuppressWarnings("unchecked")
