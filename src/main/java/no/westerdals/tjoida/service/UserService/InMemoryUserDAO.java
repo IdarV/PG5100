@@ -1,5 +1,6 @@
 package no.westerdals.tjoida.service.UserService;
 
+import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
 
 import java.util.ArrayList;
@@ -49,6 +50,15 @@ public class InMemoryUserDAO implements UserDAO {
     @Override
     public User getUser(int id) {
         return users.get(id);
+    }
+
+    @Override
+    public List<Course> getCourses() {
+        List<Course> courses = new ArrayList<>();
+        Course c = new Course();
+        c.setName("c");
+        courses.add(c);
+        return courses;
     }
 
     @Override

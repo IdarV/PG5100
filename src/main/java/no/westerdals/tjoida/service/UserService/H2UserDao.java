@@ -1,5 +1,6 @@
 package no.westerdals.tjoida.service.UserService;
 
+import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
 
 import java.sql.*;
@@ -48,6 +49,15 @@ public class H2UserDao implements UserDAO {
     public int deleteUser(int id) {
         String sql = String.format("DELETE FROM USERS WHERE ID = %d", id);
         return executeUpdate(sql);
+    }
+
+    @Override
+    public List<Course> getCourses() {
+        List<Course> courses = new ArrayList<>();
+        Course c = new Course();
+        c.setName("c");
+        courses.add(c);
+        return courses;
     }
 
     @Override

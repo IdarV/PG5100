@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 public class Course {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
     private String name;

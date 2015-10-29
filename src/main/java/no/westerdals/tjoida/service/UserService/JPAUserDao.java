@@ -1,6 +1,7 @@
 package no.westerdals.tjoida.service.UserService;
 
 
+import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
 
 import javax.interceptor.AroundInvoke;
@@ -20,6 +21,10 @@ public class JPAUserDao implements UserDAO {
     public JPAUserDao() {
         entityManagerFactory = Persistence.createEntityManagerFactory("User");
         entityManager = entityManagerFactory.createEntityManager();
+    }
+
+    public JPAUserDao(EntityManager entityManager){
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -49,6 +54,16 @@ public class JPAUserDao implements UserDAO {
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);
         return entityManager.find(User.class, id) == null ? 1 : 0;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Course> getCourses() {
+        return entityManager.createQuery("SELECT courses FROM User").getResultList();
+    }
+
+    public void persist(User user){
+        entityManager.persist(user);
     }
 
     @Override

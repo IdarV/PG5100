@@ -31,7 +31,7 @@ public class User {
     private String password;
     private String type;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
     private List<Course> courses;
 
     public User(int id, String email, String password, String type) {

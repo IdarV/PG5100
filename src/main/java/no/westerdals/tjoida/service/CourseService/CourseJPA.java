@@ -2,6 +2,7 @@ package no.westerdals.tjoida.service.CourseService;
 
 import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.Location;
+import no.westerdals.tjoida.Models.User;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
@@ -33,6 +34,11 @@ public class CourseJPA implements CourseDAO{
     @Override
     public List getUsers() {
         return entityManager.createQuery("SELECT 'users' FROM Course").getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Course> getCourses(){
+        return entityManager.createQuery("SELECT e FROM Course e").getResultList();
     }
 
     @Override
