@@ -14,13 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class LocationJpaIT {
     private static final String DEFAULT_ROOM = "Room 404";
     private static final String DEFAULT_BUILDING = "Building 1";
+
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
+
     private LocationJPA locationJPA;
 
     @Before
@@ -58,9 +61,13 @@ public class LocationJpaIT {
         assertFalse("Location should not persisted", 0 < location.getId());
         assertFalse("Location's courses is not persisted should not have a id", 0 < location.getCourses().get(0).getId());
 
+//        System.out.println("--persisting");
         locationJPA.persist(location);
-
+//        System.out.println("--persisted");
+//
         assertTrue("Location should be persisted", 0 < location.getId());
+//        assertNotNull(location.getCourses().get(0));
+//        System.out.println(location.getCourses().get(0));
         assertTrue("Location's courses should also be persisted and have a id", 0 < location.getCourses().get(0).getId());
     }
 

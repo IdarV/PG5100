@@ -13,7 +13,7 @@ public class Location {
     String room;
     @NotNull
     String building;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "FK_LOCATION")
     List<Course> courses;
 

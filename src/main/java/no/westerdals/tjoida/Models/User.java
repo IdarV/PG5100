@@ -32,7 +32,7 @@ public class User {
     private String password;
     private String type;
 
-    @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "users", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private List<Course> courses;
 
     public User(int id, String email, String password, String type) {
@@ -43,7 +43,7 @@ public class User {
     }
 
     public User(int id, String email, String password) {
-        this(id, email, password, "Student");
+        this(id, email, password, "student");
     }
 
     public User() {

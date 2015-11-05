@@ -68,13 +68,13 @@ public class CourseJPA implements CourseDAO{
         entityManager.close();
     }
 
-    @AroundInvoke
-    private Object intercept(InvocationContext ic) throws Exception {
-        entityManager.getTransaction().begin();
-        try {
-            return ic.proceed();
-        } finally {
-            entityManager.getTransaction().commit();
-        }
-    }
+//    @AroundInvoke
+//    private Object intercept(InvocationContext ic) throws Exception {
+//        entityManager.getTransaction().begin();
+//        try {
+//            return ic.proceed();
+//        } finally {
+//            entityManager.getTransaction().commit();
+//        }
+//    }
 }

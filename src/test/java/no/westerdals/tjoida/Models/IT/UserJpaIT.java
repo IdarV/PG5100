@@ -21,9 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by Cyzla on 15.10.2015.
@@ -68,12 +66,20 @@ public class UserJpaIT {
         user.setEmail(DEFAULT_EMAIL);
 
         CourseJPA courseJPA = new CourseJPA(entityManager);
-        List<Course> courses = courseJPA.getCourses();
+//        List<Course> courses = courseJPA.getCourses();
+        Course course = new Course();
+        course.setName("testCourse");
+        List<Course> courses = new ArrayList<>();
+        courses.add(course);
 
         user.setCourses(courses);
+        assertFalse(0 < user.getId());
         userJpa.persist(user);
+        assertTrue(0 < user.getId());
 
         List<Course> persistedCourses = userJpa.getUser(user.getId()).getCourses();
+        assertNotNull(persistedCourses);
+        System.out.println(persistedCourses.size());
 
         assertEquals(courses.get(0).getName(), persistedCourses.get(0).getName());
 

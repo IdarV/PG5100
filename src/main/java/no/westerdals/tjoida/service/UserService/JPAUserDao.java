@@ -4,6 +4,8 @@ package no.westerdals.tjoida.service.UserService;
 import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import javax.persistence.*;
@@ -12,15 +14,17 @@ import java.util.List;
 /**
  * Created by Cyzla on 08.10.2015.
  */
-@UserQualifier
+//@UserQualifier
+@Stateless
+@LocalBean
 public class JPAUserDao implements UserDAO {
     EntityManagerFactory entityManagerFactory;
-    @PersistenceContext
+    @PersistenceContext(name = "User")
     EntityManager entityManager;
 
     public JPAUserDao() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("User");
-        entityManager = entityManagerFactory.createEntityManager();
+//        entityManagerFactory = Persistence.createEntityManagerFactory("User");
+//        entityManager = entityManagerFactory.createEntityManager();
     }
 
     public JPAUserDao(EntityManager entityManager){
@@ -72,13 +76,13 @@ public class JPAUserDao implements UserDAO {
         entityManager.close();
     }
 
-    @AroundInvoke
-    private Object intercept(InvocationContext ic) throws Exception {
-        entityManager.getTransaction().begin();
-        try {
-            return ic.proceed();
-        } finally {
-            entityManager.getTransaction().commit();
-        }
-    }
+//    @AroundInvoke
+//    private Object intercept(InvocationContext ic) throws Exception {
+//        entityManager.getTransaction().begin();
+//        try {
+//            return ic.proceed();
+//        } finally {
+//            entityManager.getTransaction().commit();
+//        }
+//    }
 }
