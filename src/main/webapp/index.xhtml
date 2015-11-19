@@ -2,11 +2,38 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
-<h:body>
-    <h1>GEKK</h1>
-    <p>Fredrick er flink i java og sånt da</p>
-    <h:outputLabel value="#{userController.first.email}"/>
-    <h:outputLabel value="#{userController.getAll().size()}"/>
-</h:body>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+<ui:composition template="template.xhtml">
+    <ui:define name="content">
+        <h1>INDEXXX360NOSCOPE420BLAZzzzIT</h1>
+        <h:outputLabel value="#{userController.first.email}"/>
+        <br/>
+        <h:outputLabel value="#{userController.getAll().size()}"/>
+        <br/>
+
+        <h2>Users: </h2>
+        <h:dataTable value="#{userController.getAll()}" var="item">
+            <h:column>#{item} <h:link outcome="user-details" value="Details"><f:param name="id" value="#{item.id}"/>
+            </h:link> </h:column>
+        </h:dataTable>
+        <br/>
+
+        <h:form>
+            <h:messages/>
+            <h:outputLabel for="email" value="E-mail"/>
+            <h:inputText id="email" value="#{userController.user.email}"/>
+            <br/>
+            <h:outputLabel for="password" value="password"/>
+            <h:inputText id="password" value="#{userController.user.password}"/>
+            <br/>
+            <h:outputLabel for="type" value="type"/>
+            <h:inputText id="type" value="#{userController.user.type}"/>
+            <br/>
+            <h:commandButton value="Submit" action="#{userController.persistNewUser()}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
 </html>
