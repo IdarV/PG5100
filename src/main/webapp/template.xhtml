@@ -6,29 +6,25 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:b="http://bootsfaces.net/ui">
-
-
 <head>
     <title>PG5100</title>
     <link type="text/css" rel="stylesheet" href="http://bootswatch.com/simplex/bootstrap.min.css"/>
 </head>
 <h:body>
     <b:container>
+        <b:navBar brand="IdarV" brandHref="#" inverse="false">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="index.xhtml"></b:navLink>
+                <b:navLink value="Link" href="#"></b:navLink>
+                <b:navLink value="Link" href="#"></b:navLink>
+            </b:navbarLinks>
+        </b:navBar>
+    </b:container>
+
+    <b:container>
         <b:row>
             <b:column>
-                <h:form>
-                    <p:menubar>
-                        <!--<p:submenu label="User">-->
-                            <!--<p:menuitem value="New" url="/user/user-registration.jsf"/>-->
-                            <!--<p:menuitem value="List" url="/user/users.jsf"/>-->
-                        <!--</p:submenu>-->
-                        <!--<p:submenu label="Subject">-->
-                            <!--<p:menuitem value="New" url="/subject/subject-registration.jsf"/>-->
-                            <!--<p:menuitem value="List" url="/subject/subjects.jsf"/>-->
-                        <!--</p:submenu>-->
-                        <!--<p:menuitem value="New location" url="/location/location-registration.jsf"/>-->
-                    </p:menubar>
-                </h:form>
+                <h:messages/>
                 <br/>
                 <ui:insert name="content">Default content</ui:insert>
                 <br/>
