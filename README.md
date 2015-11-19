@@ -8,3 +8,7 @@
 3) update ```/service/UserDAO.java``` to match your server info. TODO: make .properties
 
 4) specify alternative in ```/resources/META-INF/beans.xml```
+
+### Sources
+- Bootstrap theme: http://bootswatch.com/simplex/
+- Bootsfaces JSF Framework: http://bootsfaces.net/index.jsf
