@@ -65,8 +65,6 @@ public class UserJpaIT {
         User user = new User();
         user.setEmail(DEFAULT_EMAIL);
 
-        CourseJPA courseJPA = new CourseJPA(entityManager);
-//        List<Course> courses = courseJPA.getCourses();
         Course course = new Course();
         course.setName("testCourse");
         List<Course> courses = new ArrayList<>();

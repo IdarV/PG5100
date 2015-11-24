@@ -16,7 +16,7 @@
 
             <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.hbm2ddl.import_files" value="init.sql"/>
-            <property name="hibernate.show_sql" value="true"/>
+            <!--<property name="hibernate.show_sql" value="true"/>-->
         </properties>
     </persistence-unit>
 
@@ -33,7 +33,7 @@
             <property name="dialect" value="org.hibernate.dialect.H2Dialect"/>
 
             <property name="hibernate.hbm2ddl.auto" value="create"/>
-            <property name="hibernate.show_sql" value="true"/>
+            <!--<property name="hibernate.show_sql" value="true"/>-->
         </properties>
     </persistence-unit>
 
@@ -50,7 +50,7 @@
             <property name="dialect" value="org.hibernate.dialect.H2Dialect"/>
 
             <property name="hibernate.hbm2ddl.auto" value="create"/>
-            <property name="hibernate.show_sql" value="true"/>
+            <!--<property name="hibernate.show_sql" value="true"/>-->
         </properties>
     </persistence-unit>
 </persistence>

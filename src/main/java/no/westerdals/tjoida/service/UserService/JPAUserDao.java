@@ -23,8 +23,8 @@ public class JPAUserDao implements UserDAO {
     EntityManager entityManager;
 
     public JPAUserDao() {
-//        entityManagerFactory = Persistence.createEntityManagerFactory("User");
-//        entityManager = entityManagerFactory.createEntityManager();
+        entityManagerFactory = Persistence.createEntityManagerFactory("User");
+        entityManager = entityManagerFactory.createEntityManager();
     }
 
     public JPAUserDao(EntityManager entityManager){

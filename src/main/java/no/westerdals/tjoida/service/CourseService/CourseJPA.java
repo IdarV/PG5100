@@ -4,6 +4,8 @@ import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.Location;
 import no.westerdals.tjoida.Models.User;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
@@ -16,15 +18,17 @@ import java.util.List;
  * Created by Cyzla on 22.10.2015.
  */
 
-@CourseQualifier
+//@CourseQualifier
+@Stateless
+@LocalBean
 public class CourseJPA implements CourseDAO{
     EntityManagerFactory entityManagerFactory;
     @PersistenceContext
     EntityManager entityManager;
 
     public CourseJPA() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("Course");
-        entityManager = entityManagerFactory.createEntityManager();
+//        entityManagerFactory = Persistence.createEntityManagerFactory("Course");
+//        entityManager = entityManagerFactory.createEntityManager();
     }
 
     public CourseJPA(EntityManager entityManager){

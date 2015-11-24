@@ -3,6 +3,8 @@ package no.westerdals.tjoida.service.LocationService;
 import no.westerdals.tjoida.Models.Location;
 import no.westerdals.tjoida.Models.User;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
@@ -14,7 +16,9 @@ import java.util.List;
 /**
  * Created by Cyzla on 15.10.2015.
  */
-@LocationQualifier
+//@LocationQualifier
+@Stateless
+@LocalBean
 public class LocationJPA implements LocationDAO{
     private EntityManagerFactory entityManagerFactory;
     @PersistenceContext
