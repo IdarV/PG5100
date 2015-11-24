@@ -47,9 +47,10 @@ public class UserController {
         return user;
     }
 
-    public void persistNewUser(){
+    public String persistNewUser(){
         System.out.println("saving user " + user.toString());
         persister.persist(user);
+        return "/index.xhtml?faces-redirect=true";
     }
 
     public int getSelectedID() {

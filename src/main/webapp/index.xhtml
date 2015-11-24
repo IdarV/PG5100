@@ -4,10 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="template.xhtml">
+<ui:composition template="/template.xhtml">
     <ui:define name="content">
 
         <h1>Index</h1>
@@ -15,38 +14,26 @@
         <h2>Users: </h2>
 
         <div class="table-responsive">
+            <h:dataTable styleClass="table" value="#{userController.getAll()}" var="item">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email</f:facet>
+                    <h:outputText value="#{item.email}"/>
+                </h:column>
+                <h:column>
 
-        <h:dataTable styleClass="table" value="#{userController.getAll()}" var="item">
-            <h:column>
-                <f:facet name="header">ID</f:facet>
-                <h:outputText value="#{item.id}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Email</f:facet>
-                <h:outputText value="#{item.email}"/>
-            </h:column>
-            <h:column>
-
-                <f:facet name="header">Type</f:facet>
-                <h:outputText value="#{item.type}"/>
-            </h:column>
-        </h:dataTable>
+                    <f:facet name="header">Type</f:facet>
+                    <h:outputText value="#{item.type}"/>
+                </h:column>
+                <h:column>
+                    <h:link outcome="user/user-details" value="Details"><f:param name="id" value="#{item.id}"/>
+                    </h:link>
+                </h:column>
+            </h:dataTable>
         </div>
-
-
-        <br/>
-        <h:form>
-            <h:outputLabel for="email" value="E-mail"/>
-            <h:inputText id="email" value="#{userController.user.email}"/>
-            <br/>
-            <h:outputLabel for="password" value="password"/>
-            <h:inputText id="password" value="#{userController.user.password}"/>
-            <br/>
-            <h:outputLabel for="type" value="type"/>
-            <h:inputText id="type" value="#{userController.user.type}"/>
-            <br/>
-            <h:commandButton value="Submit" action="#{userController.persistNewUser()}"/>
-        </h:form>
     </ui:define>
 </ui:composition>
 </html>
