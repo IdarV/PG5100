@@ -14,21 +14,15 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- * Created by Cyzla on 22.10.2015.
- */
-
 //@CourseQualifier
+//@LocalBean
 @Stateless
-@LocalBean
 public class CourseJPA implements CourseDAO{
     EntityManagerFactory entityManagerFactory;
     @PersistenceContext
     EntityManager entityManager;
 
     public CourseJPA() {
-//        entityManagerFactory = Persistence.createEntityManagerFactory("Course");
-//        entityManager = entityManagerFactory.createEntityManager();
     }
 
     public CourseJPA(EntityManager entityManager){

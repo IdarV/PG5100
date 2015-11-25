@@ -6,9 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-/**
- * Created by Cyzla on 22.10.2015.
- */
 @Entity
 public class Course {
     @Id

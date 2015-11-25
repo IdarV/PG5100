@@ -6,25 +6,21 @@ import no.westerdals.tjoida.Models.User;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- * Created by Cyzla on 08.10.2015.
- */
 //@UserQualifier
 @Stateless
 @LocalBean
 public class JPAUserDao implements UserDAO {
     EntityManagerFactory entityManagerFactory;
-    @PersistenceContext(name = "User")
+    @PersistenceContext(name = "Egentreningprosjekt")
     EntityManager entityManager;
 
     public JPAUserDao() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("User");
-        entityManager = entityManagerFactory.createEntityManager();
     }
 
     public JPAUserDao(EntityManager entityManager){
@@ -75,14 +71,4 @@ public class JPAUserDao implements UserDAO {
         entityManagerFactory.close();
         entityManager.close();
     }
-
-//    @AroundInvoke
-//    private Object intercept(InvocationContext ic) throws Exception {
-//        entityManager.getTransaction().begin();
-//        try {
-//            return ic.proceed();
-//        } finally {
-//            entityManager.getTransaction().commit();
-//        }
-//    }
 }

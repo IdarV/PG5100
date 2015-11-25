@@ -9,9 +9,6 @@ import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Cyzla on 17.09.2015.
- */
 @Entity
 public class User {
     @Id

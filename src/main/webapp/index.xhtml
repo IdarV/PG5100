@@ -10,7 +10,7 @@
     <ui:define name="content">
 
         <h1>Index</h1>
-
+        <p>hei</p>
         <h2>Users: </h2>
 
         <div class="table-responsive">
@@ -29,7 +29,8 @@
                     <h:outputText value="#{item.type}"/>
                 </h:column>
                 <h:column>
-                    <h:link outcome="user/user-details" value="Details"><f:param name="id" value="#{item.id}"/>
+                    <h:link outcome="/user/user-details" value="Details">
+                        <f:param name="id" value="#{item.id}"/>
                     </h:link>
                 </h:column>
             </h:dataTable>

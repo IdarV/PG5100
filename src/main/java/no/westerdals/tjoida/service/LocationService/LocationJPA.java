@@ -18,15 +18,13 @@ import java.util.List;
  */
 //@LocationQualifier
 @Stateless
-@LocalBean
+//@LocalBean
 public class LocationJPA implements LocationDAO{
     private EntityManagerFactory entityManagerFactory;
     @PersistenceContext
     private EntityManager entityManager;
 
     public LocationJPA() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("Location");
-        entityManager = entityManagerFactory.createEntityManager();
     }
 
 

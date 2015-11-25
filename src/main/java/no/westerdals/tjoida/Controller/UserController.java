@@ -1,15 +1,12 @@
 package no.westerdals.tjoida.Controller;
 
-import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
-import no.westerdals.tjoida.service.CourseService.CourseJPA;
 import no.westerdals.tjoida.service.UserService.JPAUserDao;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Cyzla on 29.10.2015.
