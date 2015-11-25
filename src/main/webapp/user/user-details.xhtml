@@ -2,15 +2,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
-
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
 <ui:composition template="/template.xhtml">
     <ui:define name="content">
+    <f:metadata>
+        <f:viewParam name="id" value="#{userController.selectedID}"/>
+        <f:viewAction action="#{userController.initUser()}"/>
+    </f:metadata>
 
-        <h1>User-details</h1>
-        <p>hade</p>
+    <b:container>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">ID: </div>
+            <div class="col-lg-8"><h:outputText value="#{userController.user.id}"/> </div>
+        </b:row>
+        <br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">E-post: </div>
+            <div class="col-lg-8"><h:outputText value="#{userController.user.email}"/> </div>
+        </b:row>
+        <br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">Type:</div>
+            <div class="col-lg-8"><h:outputText value="#{userController.user.type}"/> </div>
+        </b:row>
+        <br/>
+    </b:container>
+
+        <h:link styleClass="col-lg-offset-2" outcome="/user/edit" value="Edit"/>
     </ui:define>
 </ui:composition>
 </html>
