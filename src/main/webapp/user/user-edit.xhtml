@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{userController.selectedID}"/>
+            <f:viewAction action="#{userController.setCurrentUserToSelectedId}"/>
+        </f:metadata>
+
+        <b:container>
+            <h1 class="col-lg-offset-2"><h:outputText value="Edit user #{userController.user.id}"/></h1>
+            <h:form>
+                <b:row>
+                    <h:outputText for="email" value="E-mail" class="col-lg-1 col-lg-offset-2"/>
+                    <h:inputText class="col-lg-3" id="email" value="#{userController.user.email}" />
+                </b:row>
+                <br/>
+                <b:row>
+                    <div class="col-lg-1 col-lg-offset-2">Type:</div>
+                    <div class="col-lg-8"><h:outputText value="#{userController.user.type}"/></div>
+                </b:row>
+
+                <b:row>
+                    <div class="col-lg-1 col-lg-offset-2">ID:</div>
+                    <div class="col-lg-8"><h:outputText value="#{userController.user.type}"/></div>
+                </b:row>
+                <br/>
+                <b:row>
+
+                    <h:commandButton styleClass="btn btn-default col-lg-1 col-lg-offset-2'"
+                                     action="#{userController.updateExistingUser()}" value="Update"/>
+                </b:row>
+            </h:form>
+        </b:container>
+
+    </ui:define>
+</ui:composition>
+</html>

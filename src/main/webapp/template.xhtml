@@ -14,9 +14,10 @@
         <b:navBar brand="IdarV" brandHref="#" inverse="false">
             <b:navbarLinks>
                 <b:navLink value="Home" href="/index.xhtml"/>
-                <b:navLink value="Link" href="#"/>
-                <b:navLink value="Link" href="#"/>
-                <b:navLink value="New User" href="/user/user-new.xhtml"/>
+                <b:dropMenu value="Users">
+                    <b:navLink value="Users" href="/user/user-index.xhtml"/>
+                    <b:navLink value="New User" href="/user/user-new.xhtml"/>
+                </b:dropMenu>
             </b:navbarLinks>
         </b:navBar>
     </b:container>

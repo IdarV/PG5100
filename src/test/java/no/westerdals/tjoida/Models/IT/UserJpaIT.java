@@ -82,4 +82,18 @@ public class UserJpaIT {
         assertEquals(courses.get(0).getName(), persistedCourses.get(0).getName());
 
     }
+
+    @Test
+    public void testUpdateUser() throws Exception {
+        User user = new User();
+        user.setEmail(DEFAULT_EMAIL);
+        userJpa.persist(user);
+        assertTrue(0 < user.getId());
+
+        String newUserEmail = "newUserEmail@email.com";
+        user.setEmail(newUserEmail);
+        userJpa.update(user);
+        User updatedUser = userJpa.getUser(user.getId());
+        assertEquals(newUserEmail, updatedUser.getEmail());
+    }
 }

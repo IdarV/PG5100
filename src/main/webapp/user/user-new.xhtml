@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+        >
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+
+        <b:container>
+            <h1 class="col-lg-offset-2"><h:outputText value="Create a new user"/></h1>
+            <h:form>
+                <h:messages/>
+                <h:outputLabel for="email" value="E-mail" styleClass="col-lg-offset-2 col-lg-1"/>
+                <h:inputText id="email" value="#{userController.user.email}"/>
+                <br/>
+                <h:outputLabel for="password" value="Password" styleClass="col-lg-offset-2 col-lg-1"/>
+                <h:inputText id="password" value="#{userController.user.password}"/>
+                <br/>
+                <h:outputLabel for="type" value="Yype" styleClass="col-lg-offset-2 col-lg-1"/>
+                <h:inputText id="type" value="#{userController.user.type}"/>
+                <br/>
+                <h:commandButton value="Submit" action="#{userController.persistNewUser()}"/>
+            </h:form>
+        </b:container>
+    </ui:define>
+</ui:composition>
+</html>

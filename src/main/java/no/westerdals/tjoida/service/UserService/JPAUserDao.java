@@ -7,6 +7,7 @@ import no.westerdals.tjoida.Models.User;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManager.*;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
@@ -35,7 +36,13 @@ public class JPAUserDao implements UserDAO {
 
     @Override
     public User update(User user) {
-        return entityManager.merge(user);
+        User result;
+        entityManager.getTransaction().begin();
+        //return entityManager.persist(user);
+        result = entityManager.merge(user);
+//        entityManager.getTransaction().commit();
+        entityManager.getTransaction().commit();
+        return user;
     }
 
     @Override
@@ -62,7 +69,7 @@ public class JPAUserDao implements UserDAO {
         return entityManager.createQuery("SELECT courses FROM User").getResultList();
     }
 
-    public void persist(User user){
+    public void persist(User user) {
         entityManager.persist(user);
     }
 

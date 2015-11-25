@@ -81,4 +81,16 @@ public class UserControllerTest {
         User persistedUser = userDao.getUser(1);
         assertEquals(user, persistedUser);
     }
+
+    @Test
+    public void testUpdateExistingUser() throws Exception {
+        userController.init();
+        User user = userController.getUser();
+        String newMail = "newEmail@new.com";
+        userController.persistNewUser();
+        userController.getUser().setEmail(newMail);
+        userController.updateExistingUser();
+        //assertEquals(userController.getUserByID(user.getId()).getEmail(), newMail);
+
+    }
 }

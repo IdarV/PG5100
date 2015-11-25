@@ -44,9 +44,19 @@ public class UserController {
         return user;
     }
 
+    public void setCurrentUserToSelectedId() {
+        user =  persister.getUser(selectedID);
+    }
+
     public String persistNewUser(){
         persister.persist(user);
         return "/index.xhtml?faces-redirect=true";
+    }
+
+    public String updateExistingUser(){
+        persister.update(user);
+
+        return "/user/user-index.xhtml?faces-redirect=true";
     }
 
     public int getSelectedID() {

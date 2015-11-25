@@ -14,6 +14,7 @@
     </f:metadata>
 
     <b:container>
+        <h1 class="col-lg-offset-2">User details</h1>
         <b:row>
             <div class="col-lg-1 col-lg-offset-2">ID: </div>
             <div class="col-lg-8"><h:outputText value="#{userController.user.id}"/> </div>
@@ -29,9 +30,11 @@
             <div class="col-lg-8"><h:outputText value="#{userController.user.type}"/> </div>
         </b:row>
         <br/>
+        <h:link styleClass="col-lg-offset-2" outcome="/user/user-edit" value="Edit">
+            <f:param name="id" value="#{userController.user.id}"/>
+        </h:link>
     </b:container>
 
-        <h:link styleClass="col-lg-offset-2" outcome="/user/edit" value="Edit"/>
     </ui:define>
 </ui:composition>
 </html>
