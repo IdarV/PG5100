@@ -1,7 +1,6 @@
 package no.westerdals.tjoida.Controller;
 
 import no.westerdals.tjoida.Models.User;
-import no.westerdals.tjoida.service.UserService.JPAUserDao;
 import no.westerdals.tjoida.service.UserService.UserDAO;
 
 import javax.annotation.PostConstruct;
@@ -9,14 +8,10 @@ import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import java.util.List;
 
-/**
- * Created by Cyzla on 29.10.2015.
- */
 @Model
 public class UserController {
     private UserDAO persister;
     private User user;
-
     private int selectedID;
 
     @Inject

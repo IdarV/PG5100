@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class Course {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "USR_SUB")
     @Size(min = 0, max = 100)
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "FK_LOCATION")
     private Location location;
@@ -48,6 +49,10 @@ public class Course {
 
     public List<User> getUsers() {
         return users;
+    }
+
+    public int getUserSize(){
+        return users.size();
     }
 
     public void setUsers(List<User> users) {

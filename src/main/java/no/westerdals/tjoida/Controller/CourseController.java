@@ -1,6 +1,7 @@
 package no.westerdals.tjoida.Controller;
 
 import no.westerdals.tjoida.Models.Course;
+import no.westerdals.tjoida.Models.User;
 import no.westerdals.tjoida.service.CourseService.CourseJPA;
 
 import javax.annotation.PostConstruct;
@@ -14,12 +15,11 @@ public class CourseController {
     private Course course;
     private int selectedID;
 
-
-    @Inject
     public CourseController() {
     }
 
-    public CourseController(CourseJPA persister){
+    @Inject
+    public CourseController(CourseJPA persister) {
         this.persister = persister;
     }
 
@@ -32,7 +32,7 @@ public class CourseController {
         this.course = persister.getCourse(selectedID);
     }
 
-    public void persistNewCourse(){
+    public void persistNewCourse() {
         persister.persist(course);
     }
 
@@ -64,7 +64,18 @@ public class CourseController {
         this.selectedID = selectedID;
     }
 
-    public List<Course> getAll(){
+    public List<Course> getAll() {
         return persister.getCourses();
+    }
+
+    public int getUserSize(){
+       return course.getUserSize();
+//        StringBuilder stringBuilder = new StringBuilder();
+//        for(User s : course.getUsers()){
+//            stringBuilder.append(s.getEmail());
+//        }
+//        return stringBuilder.toString();
+//        String s = course.getUsers().stream().map(i->i.getEmail()).
+//        return course.getUsers().stream().forEach(stringBuilder.(User::getEmail));
     }
 }
