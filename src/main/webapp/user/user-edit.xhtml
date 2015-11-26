@@ -14,15 +14,11 @@
         </f:metadata>
 
         <b:container>
-            <h1 class="col-lg-offset-2"><h:outputText value="Edit user #{userController.user.id}"/></h1>
+            <h1 class="col-lg-offset-2"><h:outputText value="Edit user"/></h1>
             <h:form>
                 <b:row>
                     <h:outputText for="email" value="E-mail" class="col-lg-1 col-lg-offset-2"/>
                     <h:inputText class="col-lg-3" id="email" value="#{userController.user.email}" />
-                </b:row>
-                <br/>
-                <b:row>
-                    <h:inputHidden class="col-lg-3" id="psw" value="#{userController.user.password}" />
                 </b:row>
                 <br/>
                 <b:row>
@@ -36,10 +32,9 @@
                 </b:row>
                 <br/>
                 <b:row>
-
-                    <h:inputHidden id="password" value="#{userController.user.password}"/>
+                    <h:inputHidden id="id" value="#{userController.user.id}" binding="#{userID}"/>
                     <h:commandButton styleClass="btn btn-default col-lg-1 col-lg-offset-2'"
-                                     action="#{userController.updateExistingUser()}" value="Update"/>
+                                     action="#{userController.updateExistingUser(userID.value)}" value="Update"/>
                 </b:row>
             </h:form>
         </b:container>

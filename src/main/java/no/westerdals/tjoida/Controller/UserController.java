@@ -17,55 +17,56 @@ public class UserController {
     private String lastPassword;
 
     @Inject
-    public UserController(UserDAO persister){
+    public UserController(UserDAO persister) {
         this.persister = persister;
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         this.user = new User();
     }
 
-    public void initUser(){
+    public void initUser() {
         user = persister.getUser(selectedID);
         lastPassword = user.getPassword();
     }
 
-    public User getFirst(){
+    public User getFirst() {
         return persister.getUsers().get(0);
     }
 
-    public List<User> getAll(){
+    public List<User> getAll() {
         return persister.getUsers();
     }
 
-    public User getUser(){
+    public User getUser() {
         return user;
     }
 
-    public List<Course> getUserCourses(){
+    public List<Course> getUserCourses() {
         return user.getCourses();
     }
 
     public void setCurrentUserToSelectedId() {
-        user =  persister.getUser(selectedID);
+        user = persister.getUser(selectedID);
     }
 
-    public String persistNewUser(){
+    public String persistNewUser() {
         persister.persist(user);
         return "/index.xhtml?faces-redirect=true";
     }
 
-    public String updateExistingUser(){
-//        System.out.println("got type " + type);
+    public String updateExistingUser(int id) {
         System.out.println("User in updateUser = " + user);
-        User updateUser = persister.getUser(selectedID);
+        User updateUser = persister.getUser(id);
         System.out.println("updateuser in updateUser = " + user);
 
-        updateUser.setEmail(user.getEmail());
         updateUser.setType(user.getType());
         updateUser.setEmail(user.getEmail());
-        updateUser.setPassword(user.getPassword());
+        if (user.getPassword() != null) {
+
+            updateUser.setPassword(user.getPassword());
+        }
         System.out.println("Before: " + user.toString());
         System.out.println("After: " + updateUser.toString());
         persister.update(updateUser);
