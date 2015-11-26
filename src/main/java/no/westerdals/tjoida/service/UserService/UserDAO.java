@@ -19,4 +19,6 @@ public interface UserDAO {
     List<Course> getCourses();
 
     void close();
+
+    void persist(User user);
 }

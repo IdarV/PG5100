@@ -2,6 +2,7 @@ package no.westerdals.tjoida.Controller;
 
 import no.westerdals.tjoida.Models.User;
 import no.westerdals.tjoida.service.UserService.JPAUserDao;
+import no.westerdals.tjoida.service.UserService.UserDAO;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -13,13 +14,13 @@ import java.util.List;
  */
 @Model
 public class UserController {
-    private JPAUserDao persister;
+    private UserDAO persister;
     private User user;
 
     private int selectedID;
 
     @Inject
-    public UserController(JPAUserDao persister){
+    public UserController(UserDAO persister){
         this.persister = persister;
     }
 

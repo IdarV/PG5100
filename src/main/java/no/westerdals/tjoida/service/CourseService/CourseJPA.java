@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 //@CourseQualifier
-//@LocalBean
+@LocalBean
 @Stateless
 public class CourseJPA implements CourseDAO{
     EntityManagerFactory entityManagerFactory;

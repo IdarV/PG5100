@@ -4,18 +4,13 @@ package no.westerdals.tjoida.service.UserService;
 import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManager.*;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-//@UserQualifier
 @Stateless
-@LocalBean
 public class JPAUserDao implements UserDAO {
     EntityManagerFactory entityManagerFactory;
     @PersistenceContext(name = "Egentreningprosjekt")
@@ -69,6 +64,7 @@ public class JPAUserDao implements UserDAO {
         return entityManager.createQuery("SELECT courses FROM User").getResultList();
     }
 
+    @Override
     public void persist(User user) {
         entityManager.persist(user);
     }
