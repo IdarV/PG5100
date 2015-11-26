@@ -31,12 +31,8 @@ public class JPAUserDao implements UserDAO {
 
     @Override
     public User update(User user) {
-        User result;
-        entityManager.getTransaction().begin();
-        //return entityManager.persist(user);
-        result = entityManager.merge(user);
-//        entityManager.getTransaction().commit();
-        entityManager.getTransaction().commit();
+        System.out.println("updating user " + user);
+        entityManager.merge(user);
         return user;
     }
 

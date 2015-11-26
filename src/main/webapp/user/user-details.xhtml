@@ -8,32 +8,50 @@
       xmlns:b="http://bootsfaces.net/ui">
 <ui:composition template="/template.xhtml">
     <ui:define name="content">
-    <f:metadata>
-        <f:viewParam name="id" value="#{userController.selectedID}"/>
-        <f:viewAction action="#{userController.initUser()}"/>
-    </f:metadata>
+        <f:metadata>
+            <f:viewParam name="id" value="#{userController.selectedID}"/>
+            <f:viewAction action="#{userController.initUser()}"/>
+        </f:metadata>
 
-    <b:container>
-        <h1 class="col-lg-offset-2">User details</h1>
-        <b:row>
-            <div class="col-lg-1 col-lg-offset-2">ID: </div>
-            <div class="col-lg-8"><h:outputText value="#{userController.user.id}"/> </div>
-        </b:row>
-        <br/>
-        <b:row>
-            <div class="col-lg-1 col-lg-offset-2">E-post: </div>
-            <div class="col-lg-8"><h:outputText value="#{userController.user.email}"/> </div>
-        </b:row>
-        <br/>
-        <b:row>
-            <div class="col-lg-1 col-lg-offset-2">Type:</div>
-            <div class="col-lg-8"><h:outputText value="#{userController.user.type}"/> </div>
-        </b:row>
-        <br/>
-        <h:link styleClass="col-lg-offset-2" outcome="/user/user-edit" value="Edit">
-            <f:param name="id" value="#{userController.user.id}"/>
-        </h:link>
-    </b:container>
+        <b:container>
+            <h1 class="col-lg-offset-2">User details</h1>
+            <b:row>
+                <h:link styleClass="col-lg-1 col-lg-offset-2" outcome="/user/user-edit" value="Edit">
+                    <f:param name="id" value="#{userController.user.id}"/>
+                </h:link>
+            </b:row>
+            <br/>
+            <b:row>
+                <div class="col-lg-1 col-lg-offset-2">ID:</div>
+                <div class="col-lg-8"><h:outputText value="#{userController.user.id}"/></div>
+            </b:row>
+            <br/>
+            <b:row>
+                <div class="col-lg-1 col-lg-offset-2">E-post:</div>
+                <div class="col-lg-8"><h:outputText value="#{userController.user.email}"/></div>
+            </b:row>
+            <br/>
+            <b:row>
+                <div class="col-lg-1 col-lg-offset-2">Type:</div>
+                <div class="col-lg-8"><h:outputText value="#{userController.user.type}"/></div>
+            </b:row>
+            <br/>
+            <b:row>
+                <div class="col-lg-1 col-lg-offset-2">psw:</div>
+                <div class="col-lg-8"><h:outputText value="#{userController.user.password}"/></div>
+            </b:row>
+            <br/>
+            <b:row>
+                <div class="col-lg-1 col-lg-offset-2">Courses:</div>
+                <div class="col-lg-8">
+                    <h:dataTable styleClass="tab-label" value="#{userController.user.courses}" var="item">
+                        <h:column>
+                            <h:outputText value="#{item.name}"/>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </b:row>
+        </b:container>
 
     </ui:define>
 </ui:composition>

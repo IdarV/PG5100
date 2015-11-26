@@ -1,5 +1,6 @@
 package no.westerdals.tjoida.Controller;
 
+import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
 import no.westerdals.tjoida.service.UserService.UserDAO;
 
@@ -13,6 +14,7 @@ public class UserController {
     private UserDAO persister;
     private User user;
     private int selectedID;
+    private String lastPassword;
 
     @Inject
     public UserController(UserDAO persister){
@@ -26,6 +28,7 @@ public class UserController {
 
     public void initUser(){
         user = persister.getUser(selectedID);
+        lastPassword = user.getPassword();
     }
 
     public User getFirst(){
@@ -40,6 +43,10 @@ public class UserController {
         return user;
     }
 
+    public List<Course> getUserCourses(){
+        return user.getCourses();
+    }
+
     public void setCurrentUserToSelectedId() {
         user =  persister.getUser(selectedID);
     }
@@ -50,7 +57,18 @@ public class UserController {
     }
 
     public String updateExistingUser(){
-        persister.update(user);
+//        System.out.println("got type " + type);
+        System.out.println("User in updateUser = " + user);
+        User updateUser = persister.getUser(selectedID);
+        System.out.println("updateuser in updateUser = " + user);
+
+        updateUser.setEmail(user.getEmail());
+        updateUser.setType(user.getType());
+        updateUser.setEmail(user.getEmail());
+        updateUser.setPassword(user.getPassword());
+        System.out.println("Before: " + user.toString());
+        System.out.println("After: " + updateUser.toString());
+        persister.update(updateUser);
 
         return "/user/user-index.xhtml?faces-redirect=true";
     }

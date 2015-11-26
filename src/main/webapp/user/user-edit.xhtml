@@ -10,7 +10,7 @@
     <ui:define name="content">
         <f:metadata>
             <f:viewParam name="id" value="#{userController.selectedID}"/>
-            <f:viewAction action="#{userController.setCurrentUserToSelectedId}"/>
+            <f:viewAction action="#{userController.initUser()}"/>
         </f:metadata>
 
         <b:container>
@@ -22,17 +22,22 @@
                 </b:row>
                 <br/>
                 <b:row>
-                    <div class="col-lg-1 col-lg-offset-2">Type:</div>
-                    <div class="col-lg-8"><h:outputText value="#{userController.user.type}"/></div>
+                    <h:inputHidden class="col-lg-3" id="psw" value="#{userController.user.password}" />
+                </b:row>
+                <br/>
+                <b:row>
+                    <h:outputText for="type" value="Type" class="col-lg-1 col-lg-offset-2"/>
+                    <h:inputText class="col-lg-3" id="type" value="#{userController.user.type}"/>
                 </b:row>
 
                 <b:row>
                     <div class="col-lg-1 col-lg-offset-2">ID:</div>
-                    <div class="col-lg-8"><h:outputText value="#{userController.user.type}"/></div>
+                    <div class="col-lg-8"><h:outputText value="#{userController.user.id}"/></div>
                 </b:row>
                 <br/>
                 <b:row>
 
+                    <h:inputHidden id="password" value="#{userController.user.password}"/>
                     <h:commandButton styleClass="btn btn-default col-lg-1 col-lg-offset-2'"
                                      action="#{userController.updateExistingUser()}" value="Update"/>
                 </b:row>
