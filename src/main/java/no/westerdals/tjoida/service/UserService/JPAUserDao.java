@@ -55,8 +55,23 @@ public class JPAUserDao implements UserDAO {
     }
 
     @Override
+    public void removeFromCourse(int userID, int courseID) {
+        System.out.println("JPAUserDao:removeFromCourse(" + userID + ", " + courseID + ");");
+        User user = getUser(userID);
+        List<Course> courses = user.getCourses();
+        for (Course course : courses) {
+            if(course.getId() == courseID){
+                courses.remove(course);
+            }
+        }
+        user.setCourses(courses);
+        update(user);
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public List<Course> getCourses() {
+        System.out.println("GETCOUSES");
         return entityManager.createQuery("SELECT courses FROM User").getResultList();
     }
 

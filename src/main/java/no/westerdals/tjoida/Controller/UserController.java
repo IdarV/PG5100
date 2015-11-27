@@ -81,4 +81,11 @@ public class UserController {
     public void setSelectedID(int selectedID) {
         this.selectedID = selectedID;
     }
+
+    public String removeUserFromCourse(){
+        System.out.println("removeUserFromCourse(" + 2 + ", " + 2 + ");");
+//        persister.removeFromCourse(userID, courseID);
+//        return "/user/user-details.xhtml?id=" + userID;
+        return "2";
+    }
 }

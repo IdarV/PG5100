@@ -13,16 +13,22 @@
             <h1 class="col-lg-offset-2"><h:outputText value="Create a new user"/></h1>
             <h:form>
                 <h:messages/>
-                <h:outputLabel for="email" value="E-mail" styleClass="col-lg-offset-2 col-lg-1"/>
-                <h:inputText id="email" value="#{userController.user.email}"/>
+                <b:row>
+                    <h:outputLabel for="email" value="E-mail" styleClass="col-lg-offset-2 col-lg-1"/>
+                    <h:inputText id="email" value="#{userController.user.email}"/>
+                </b:row>
                 <br/>
-                <h:outputLabel for="password" value="Password" styleClass="col-lg-offset-2 col-lg-1"/>
-                <h:inputText id="password" value="#{userController.user.password}"/>
+                <b:row>
+                    <h:outputLabel for="password" value="Password" styleClass="col-lg-offset-2 col-lg-1"/>
+                    <h:inputText id="password" value="#{userController.user.password}"/>
+                </b:row>
                 <br/>
-                <h:outputLabel for="type" value="Yype" styleClass="col-lg-offset-2 col-lg-1"/>
-                <h:inputText id="type" value="#{userController.user.type}"/>
+                <b:row>
+                    <h:outputLabel for="type" value="Type" styleClass="col-lg-offset-2 col-lg-1"/>
+                    <h:inputText id="type" value="#{userController.user.type}"/>
+                </b:row>
                 <br/>
-                <h:commandButton value="Submit" action="#{userController.persistNewUser()}"/>
+                <h:commandButton styleClass="btn btn-default col-lg-offset-2 col-lg-1" value="Submit" action="#{userController.persistNewUser()}"/>
             </h:form>
         </b:container>
     </ui:define>
