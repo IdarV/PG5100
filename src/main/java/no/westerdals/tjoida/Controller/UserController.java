@@ -71,7 +71,7 @@ public class UserController {
         System.out.println("After: " + updateUser.toString());
         persister.update(updateUser);
 
-        return "/user/user-index.xhtml?faces-redirect=true";
+            return "/user/user-index.xhtml?faces-redirect=true";
     }
 
     public int getSelectedID() {

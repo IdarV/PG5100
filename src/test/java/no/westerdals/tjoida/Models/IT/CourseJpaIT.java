@@ -67,4 +67,19 @@ public class CourseJpaIT {
         existsInDatabase = entityManager.find(Course.class, course.getId());
         assertNull("after deletion, course should not exist in database", existsInDatabase);
     }
+
+    @Test
+    public void testUpdateCourse() throws Exception {
+        String firstName = "firstName";
+        String secondName = "secondName";
+        Course course = new Course();
+        course.setName(firstName);
+        courseJPA.persist(course);
+        assertTrue("Persisted course should have id", 0 < course.getId());
+        assertEquals(firstName, course.getName());
+
+        course.setName(secondName);
+        course = courseJPA.update(course);
+        assertEquals(secondName, course.getName());
+    }
 }

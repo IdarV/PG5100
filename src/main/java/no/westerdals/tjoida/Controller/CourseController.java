@@ -1,7 +1,6 @@
 package no.westerdals.tjoida.Controller;
 
 import no.westerdals.tjoida.Models.Course;
-import no.westerdals.tjoida.Models.User;
 import no.westerdals.tjoida.service.CourseService.CourseJPA;
 
 import javax.annotation.PostConstruct;
@@ -68,14 +67,33 @@ public class CourseController {
         return persister.getCourses();
     }
 
-    public int getUserSize(){
-       return course.getUserSize();
-//        StringBuilder stringBuilder = new StringBuilder();
-//        for(User s : course.getUsers()){
-//            stringBuilder.append(s.getEmail());
-//        }
-//        return stringBuilder.toString();
-//        String s = course.getUsers().stream().map(i->i.getEmail()).
-//        return course.getUsers().stream().forEach(stringBuilder.(User::getEmail));
+    public int getUserSize() {
+        return course.getUserSize();
+    }
+
+    public String updateExistingCourse(int id) {
+        System.out.println();
+        Course newCourse = persister.getCourse(id);
+        System.out.println("got from db (newCourse): " + newCourse);
+        if (course.getName() != null) {
+            System.out.println("updating course name: " + course.getName());
+            newCourse.setName(course.getName());
+        }
+
+        if (course.getLocation() != null) {
+            System.out.println("Updating course location: " + course.getLocation());
+            newCourse.setLocation(course.getLocation());
+        }
+
+        if (course.getUsers() != null && course.getUsers().size() > 0) {
+            System.out.println("updating course users: " + course.getUsers());
+            newCourse.setUsers(course.getUsers());
+        }
+        persister.update(newCourse);
+        return "/course/course-index.xhtml?faces-redirect=true";
+    }
+
+    public String getLocation() {
+        return course.getLocation().toString();
     }
 }

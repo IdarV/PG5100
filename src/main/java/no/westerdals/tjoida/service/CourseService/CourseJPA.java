@@ -14,7 +14,6 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-//@CourseQualifier
 @LocalBean
 @Stateless
 public class CourseJPA implements CourseDAO{
@@ -48,6 +47,12 @@ public class CourseJPA implements CourseDAO{
     @Override
     public void persist(Course course) {
         entityManager.persist(course);
+    }
+
+    @Override
+    public Course update(Course course) {
+        course = entityManager.merge(course);
+        return course;
     }
 
     @Override

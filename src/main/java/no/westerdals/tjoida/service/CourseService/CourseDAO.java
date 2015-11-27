@@ -14,4 +14,5 @@ public interface CourseDAO {
     String getName();
     void deleteCourse(Course course);
     void close();
+    Course update(Course course);
 }

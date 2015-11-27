@@ -43,13 +43,14 @@
             <br/>
             <b:row>
                 <div class="col-lg-1 col-lg-offset-2">Courses:</div>
-                <div class="col-lg-8">
-                    <h:dataTable styleClass="tab-label" value="#{userController.user.courses}" var="item">
+                    <h:dataTable styleClass="tab-label col-lg-6 " value="#{userController.user.courses}" var="item">
                         <h:column>
-                            <h:outputText value="#{item.name}"/>
+                            <h:outputText styleClass="col-lg-11" value="#{item.name}"/>
+                        </h:column>
+                        <h:column>
+                            <h:link styleClass="col-lg-offset-1" outcome="/course/course-details.xhtml?id=#{item.id}" value="show"/>
                         </h:column>
                     </h:dataTable>
-                </div>
             </b:row>
         </b:container>
 

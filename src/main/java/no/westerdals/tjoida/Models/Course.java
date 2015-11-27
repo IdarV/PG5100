@@ -73,6 +73,7 @@ public class Course {
                 "users=" + users +
                 ", name='" + name + '\'' +
                 ", id=" + id +
+                ", location=" + location +
                 '}';
     }
 }

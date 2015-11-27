@@ -13,29 +13,43 @@
             <f:viewAction action="#{courseController.initCourse()}"/>
         </f:metadata>
 
-        <b:container>
-            <h1 class="col-lg-offset-2">Course details</h1>
-            <b:row>
-                <div class="col-lg-1 col-lg-offset-2">ID:</div>
-                <div class="col-lg-8"><h:outputText value="#{courseController.course.id}"/></div>
-            </b:row>
-            <br/>
-            <b:row>
-                <div class="col-lg-1 col-lg-offset-2">Name:</div>
-                <div class="col-lg-8"><h:outputText value="#{courseController.course.name}"/></div>
-            </b:row> <br/>
-            <b:row>
-                <div class="col-lg-1 col-lg-offset-2">Users:</div>
-                <div class="col-lg-8"><h:outputText value="#{courseController.userSize}"/></div>
-            </b:row>
-            <br/>
-            <b:row>
-                <h:link styleClass="col-lg-1 col-lg-offset-2" outcome="/course/course-edit" value="Edit">
-                    <f:param name="id" value="#{courseController.course.id}"/>
-                </h:link>
-            </b:row>
-        </b:container>
-
+        <h1>Course details</h1>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">ID:</div>
+            <div class="col-lg-8"><h:outputText value="#{courseController.course.id}"/></div>
+        </b:row>
+        <br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">Name:</div>
+            <div class="col-lg-8"><h:outputText value="#{courseController.course.name}"/></div>
+        </b:row>
+        <br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">Users:</div>
+            <div class="col-lg-8"><h:outputText value="#{courseController.userSize}"/></div>
+        </b:row><br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">Location:</div>
+            <div class="col-lg-8"><h:outputText value="#{courseController.course.location.toFormattedString()}"/></div>
+        </b:row>
+        <br/>
+        <b:row>
+            <h:link styleClass="col-lg-1 col-lg-offset-2" outcome="/course/course-edit" value="Edit">
+                <f:param name="id" value="#{courseController.course.id}"/>
+            </h:link>
+        </b:row>
+        <br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">Users:</div>
+                <h:dataTable styleClass="tab-label col-lg-2" value="#{courseController.course.users}" var="item">
+                    <h:column>
+                        <h:outputText styleClass="" value="#{item.email}           "/>
+                    </h:column>
+                    <h:column>
+                        <h:link styleClass="col-lg-1" outcome="/user/user-details.xhtml?id=#{item.id}" value="show"/>
+                    </h:column>
+                </h:dataTable>
+        </b:row>
     </ui:define>
 </ui:composition>
 </html>
