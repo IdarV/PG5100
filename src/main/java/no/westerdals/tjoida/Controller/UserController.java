@@ -89,10 +89,11 @@ public class UserController {
     }
 
     public String removeUserFromCourse(){
-        System.out.println("removeUserFromCourse, selectedID: " + selectedID);
-        System.out.print("selectedItems (size = " + selectedCourses.size() + ") : ");
-        selectedCourses.stream().forEach(System.out::print);
-        System.out.println();
+//        System.out.println("removeUserFromCourse, selectedID: " + selectedID);
+//        System.out.print("selectedItems (size = " + selectedCourses.size() + ") : ");
+//        selectedCourses.stream().forEach(System.out::print);
+//        System.out.println();
+        System.out.println("REMOVEUSERFROMCOURSE");
         return "/user/user-edit.xhtml?id=" + selectedID + "&faces-redirect=true";
     }
 
