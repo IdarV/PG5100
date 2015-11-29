@@ -41,9 +41,9 @@
         <br/>
         <b:row>
             <div class="col-lg-1 col-lg-offset-2">Users:</div>
-                <h:dataTable styleClass="tab-label col-lg-2" value="#{courseController.course.users}" var="item">
+                <h:dataTable styleClass="tab-label col-lg-6" value="#{courseController.course.users}" var="item">
                     <h:column>
-                        <h:outputText styleClass="" value="#{item.email}           "/>
+                        <h:outputText styleClass="" value="#{item.email}"/>
                     </h:column>
                     <h:column>
                         <h:link styleClass="col-lg-1" outcome="/user/user-details.xhtml?id=#{item.id}" value="show"/>

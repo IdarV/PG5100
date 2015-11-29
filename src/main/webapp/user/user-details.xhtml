@@ -45,10 +45,10 @@
                 <div class="col-lg-1 col-lg-offset-2">Courses:</div>
                     <h:dataTable styleClass="tab-label col-lg-6 " value="#{userController.user.courses}" var="item">
                         <h:column>
-                            <h:outputText styleClass="col-lg-11" value="#{item.name}"/>
+                            <h:outputText styleClass="" value="#{item.name}"/>
                         </h:column>
                         <h:column>
-                            <h:link styleClass="col-lg-offset-1" outcome="/course/course-details.xhtml?id=#{item.id}" value="show"/>
+                            <h:link styleClass="col-lg-1" outcome="/course/course-details.xhtml?id=#{item.id}" value="show"/>
                         </h:column>
                     </h:dataTable>
             </b:row>

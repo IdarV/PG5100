@@ -5,7 +5,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+        >
 <ui:composition template="/template.xhtml">
     <ui:define name="content">
         <f:metadata>
@@ -13,46 +14,46 @@
             <f:viewAction action="#{userController.initUser()}"/>
         </f:metadata>
 
-        <b:container>
-            <h1 class="col-lg-offset-2 page-header"><h:outputText value="Edit user"/></h1>
-            <h:form>
-                <b:row>
-                    <h:outputText for="email" value="E-mail" class="col-lg-1 col-lg-offset-2"/>
-                    <h:inputText class="col-lg-3" id="email" value="#{userController.user.email}"/>
-                </b:row>
-                <br/>
-                <b:row>
-                    <h:outputText for="type" value="Type" class="col-lg-1 col-lg-offset-2"/>
-                    <h:inputText class="col-lg-3" id="type" value="#{userController.user.type}"/>
-                </b:row>
-                <br/>
-                <b:row>
 
-                    <h:inputHidden id="id" value="#{userController.user.id}" binding="#{userID}"/>
-                    <h:commandButton styleClass="btn btn-default col-lg-1 col-lg-offset-2"
-                                     action="#{userController.updateExistingUser(userID.value)}" value="Update"/>
-                </b:row>
-            </h:form>
+        <h1 class="col-lg-offset-2 page-header"><h:outputText value="Edit user"/></h1>
+        <h:form>
+            <b:row>
+                <h:outputText for="email" value="E-mail" class="col-lg-1 col-lg-offset-2"/>
+                <h:inputText class="col-lg-3" id="email" value="#{userController.user.email}"/>
+            </b:row>
             <br/>
             <b:row>
+                <h:outputText for="type" value="Type" class="col-lg-1 col-lg-offset-2"/>
+                <h:inputText class="col-lg-3" id="type" value="#{userController.user.type}"/>
+            </b:row>
+            <br/>
+            <b:row>
+
+                <h:inputHidden id="id" value="#{userController.user.id}" binding="#{userID}"/>
+                <h:commandButton styleClass="btn btn-default col-lg-1 col-lg-offset-2"
+                                 action="#{userController.updateExistingUser(userID.value)}" value="Update"/>
+            </b:row>
+        </h:form>
+        <br/>
+            <b:row>
                 <div class="col-lg-1 col-lg-offset-2">Courses:</div>
-                <h:dataTable styleClass="tab-label col-lg-6 " value="#{userController.user.courses}" var="item">
-                    <h:column>
-                        <h:outputText styleClass="col-lg-11" value="#{item.name}"/>
-                    </h:column>
-                    <h:column>
-                        <h:link styleClass="col-lg-offset-1" outcome="/course/course-details.xhtml?id=#{item.id}"
-                                value="show"/>
-                    </h:column>
+                <h:dataTable value="#{userController.user.courses}" var="course" styleClass=" col-lg-6">
                     <h:column>
                         <h:form>
-                            <h:commandLink styleClass="col-lg-offset-1" value="remove"
-                                           action="#{userController.removeUserFromCourse()}"/>
+                            <h:outputText value="#{course.name}" styleClass="col-lg-6"/>
+                            <!-- removeUserFromCourse simply prints a log statement and returns a redirect to index -->
+                            <h:commandLink value="Remove" action="#{userController.removeUserFromCourse}" styleClass="col-lg-offset-2"/>
                         </h:form>
                     </h:column>
                 </h:dataTable>
             </b:row>
-        </b:container>
+
+            <!--<h:form id="slect">-->
+                <!--<h:selectManyCheckbox value="#{userController.selectedCourses}">-->
+                    <!--<f:selectItems value="#{userController.availableCourses}"/>-->
+                <!--</h:selectManyCheckbox>-->
+                <!--<h:commandLink value="w" action="#{userController.removeUserFromCourse()}" styleClass="col-lg-offset-2"/>-->
+            <!--</h:form>-->
     </ui:define>
 </ui:composition>
 </html>

@@ -7,6 +7,7 @@ import no.westerdals.tjoida.service.UserService.UserDAO;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 @Model
@@ -15,6 +16,8 @@ public class UserController {
     private User user;
     private int selectedID;
     private String lastPassword;
+    private List<Integer> availableCourses = new ArrayList<>();
+    private List<Integer> selectedCourses = new ArrayList<>();
 
     @Inject
     public UserController(UserDAO persister) {
@@ -27,8 +30,11 @@ public class UserController {
     }
 
     public void initUser() {
+        System.out.println("initUser()");
         user = persister.getUser(selectedID);
         lastPassword = user.getPassword();
+        List<Course> c = user.getCourses();
+        c.forEach(i -> availableCourses.add(i.getId()));
     }
 
     public User getFirst() {
@@ -83,9 +89,26 @@ public class UserController {
     }
 
     public String removeUserFromCourse(){
-        System.out.println("removeUserFromCourse(" + 2 + ", " + 2 + ");");
-//        persister.removeFromCourse(userID, courseID);
-//        return "/user/user-details.xhtml?id=" + userID;
-        return "2";
+        System.out.println("removeUserFromCourse, selectedID: " + selectedID);
+        System.out.print("selectedItems (size = " + selectedCourses.size() + ") : ");
+        selectedCourses.stream().forEach(System.out::print);
+        System.out.println();
+        return "/user/user-edit.xhtml?id=" + selectedID + "&faces-redirect=true";
+    }
+
+    public List<Integer> getSelectedCourses() {
+        return selectedCourses;
+    }
+
+    public void setSelectedCourses(List<Integer> selectedCourses) {
+        System.out.println("-- SETSELECTEDCOURSES");
+        System.out.println(selectedCourses == null ? "SelectedCourses is NULL" : "SelectedCourses is not NULL" );
+        //selectedCourses.forEach(System.out::println);
+        System.out.println("--");
+        this.selectedCourses = selectedCourses;
+    }
+
+    public List<Integer> getAvailableCourses() {
+        return availableCourses;
     }
 }
