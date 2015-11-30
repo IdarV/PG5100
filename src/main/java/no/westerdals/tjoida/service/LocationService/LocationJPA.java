@@ -3,35 +3,31 @@ package no.westerdals.tjoida.service.LocationService;
 import no.westerdals.tjoida.Models.Location;
 import no.westerdals.tjoida.Models.User;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- * Created by Cyzla on 15.10.2015.
- */
-//@LocationQualifier
 @Stateless
-//@LocalBean
-public class LocationJPA implements LocationDAO{
-    private EntityManagerFactory entityManagerFactory;
-    @PersistenceContext
-    private EntityManager entityManager;
+public class LocationJPA implements LocationDAO {
+    EntityManagerFactory entityManagerFactory;
+    @PersistenceContext(name = "Egentreningprosjekt")
+    EntityManager entityManager;
 
     public LocationJPA() {
     }
 
 
-    public LocationJPA(EntityManager entityManager){
+    public LocationJPA(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
+
+    @Override
+    public List<Location> getLocations() {
+        return entityManager.createQuery("SELECT e FROM Location e", Location.class).getResultList();
+    }
 
     @Override
     public List<String> getRooms() {
@@ -49,8 +45,8 @@ public class LocationJPA implements LocationDAO{
     }
 
     @Override
-    public Location update(User user) {
-        return null;
+    public Location update(Location location) {
+        return entityManager.merge(location);
     }
 
     @Override
@@ -65,7 +61,8 @@ public class LocationJPA implements LocationDAO{
 
     @Override
     public void close() {
-
+        entityManager.close();
+        entityManagerFactory.close();
     }
 
 //    @AroundInvoke

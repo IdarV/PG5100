@@ -1,7 +1,10 @@
 package no.westerdals.tjoida.Controller;
 
 import no.westerdals.tjoida.Models.Course;
+import no.westerdals.tjoida.Models.Location;
+import no.westerdals.tjoida.service.CourseService.CourseDAO;
 import no.westerdals.tjoida.service.CourseService.CourseJPA;
+import no.westerdals.tjoida.service.LocationService.LocationJPA;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -10,7 +13,7 @@ import java.util.List;
 
 @Model
 public class CourseController {
-    private CourseJPA persister;
+    private CourseDAO persister;
     private Course course;
     private int selectedID;
 
@@ -18,7 +21,7 @@ public class CourseController {
     }
 
     @Inject
-    public CourseController(CourseJPA persister) {
+    public CourseController(CourseDAO persister) {
         this.persister = persister;
     }
 
@@ -35,7 +38,7 @@ public class CourseController {
         persister.persist(course);
     }
 
-    public CourseJPA getPersister() {
+    public CourseDAO getPersister() {
         return persister;
     }
 
@@ -96,4 +99,5 @@ public class CourseController {
     public String getLocation() {
         return course.getLocation().toString();
     }
+
 }

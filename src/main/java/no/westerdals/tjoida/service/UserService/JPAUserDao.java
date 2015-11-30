@@ -24,9 +24,8 @@ public class JPAUserDao implements UserDAO {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<String> names() {
-        return entityManager.createQuery("SELECT 'email' FROM User").getResultList();
+        return entityManager.createQuery("SELECT 'email' FROM User", String.class).getResultList();
     }
 
     @Override
@@ -37,9 +36,8 @@ public class JPAUserDao implements UserDAO {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<User> getUsers() {
-        return entityManager.createQuery("SELECT e FROM User e").getResultList();
+        return entityManager.createQuery("SELECT e FROM User e", User.class).getResultList();
     }
 
     @Override

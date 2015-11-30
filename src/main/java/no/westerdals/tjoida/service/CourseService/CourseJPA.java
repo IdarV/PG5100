@@ -1,24 +1,19 @@
 package no.westerdals.tjoida.service.CourseService;
 
 import no.westerdals.tjoida.Models.Course;
-import no.westerdals.tjoida.Models.Location;
 import no.westerdals.tjoida.Models.User;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@LocalBean
+
 @Stateless
 public class CourseJPA implements CourseDAO{
     EntityManagerFactory entityManagerFactory;
-    @PersistenceContext
+    @PersistenceContext(name = "Egentreningprosjekt")
     EntityManager entityManager;
 
     public CourseJPA() {
@@ -34,14 +29,13 @@ public class CourseJPA implements CourseDAO{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<User> getUsers(Course course) {
-        return entityManager.createQuery("SELECT users from Course ").getResultList();
+        return entityManager.createQuery("SELECT users from Course ", User.class).getResultList();
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
     public List<Course> getCourses(){
-        return entityManager.createQuery("SELECT e FROM Course e").getResultList();
+        return entityManager.createQuery("SELECT e FROM Course e", Course.class).getResultList();
     }
 
     @Override
@@ -54,11 +48,11 @@ public class CourseJPA implements CourseDAO{
         course = entityManager.merge(course);
         return course;
     }
-
-    @Override
-    public String getName() {
-        return null;
-    }
+//
+//    @Override
+//    public String getName() {
+//        return null;
+//    }
 
     @Override
     public void deleteCourse(Course course) {
@@ -70,14 +64,4 @@ public class CourseJPA implements CourseDAO{
         entityManagerFactory.close();
         entityManager.close();
     }
-
-//    @AroundInvoke
-//    private Object intercept(InvocationContext ic) throws Exception {
-//        entityManager.getTransaction().begin();
-//        try {
-//            return ic.proceed();
-//        } finally {
-//            entityManager.getTransaction().commit();
-//        }
-//    }
 }

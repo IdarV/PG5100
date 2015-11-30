@@ -5,7 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 <ui:composition template="/template.xhtml">
     <ui:define name="content">
@@ -13,40 +13,19 @@
             <f:viewParam name="id" value="#{userController.selectedID}"/>
             <f:viewAction action="#{userController.initUser()}"/>
         </f:metadata>
+        <h1 class="page-header">User <h:outputText value="#{userController.selectedID}"/> </h1>
 
+        <div class="col-lg-1 col-lg-offset-2">Courses:</div>
 
-        <h1 class="col-lg-offset-2 page-header"><h:outputText value="Edit user"/></h1>
-        <h:form>
-            <b:row>
-                <h:outputText for="email" value="E-mail" class="col-lg-1 col-lg-offset-2"/>
-                <h:inputText class="col-lg-3" id="email" value="#{userController.user.email}"/>
-            </b:row>
-            <br/>
-            <b:row>
-                <h:outputText for="type" value="Type" class="col-lg-1 col-lg-offset-2"/>
-                <h:inputText class="col-lg-3" id="type" value="#{userController.user.type}"/>
-            </b:row>
-            <br/>
-            <b:row>
+        <h:dataTable value="#{userController.getAll()}" var="course" styleClass=" col-lg-6">
+            <h:column>
+                <h:form>
+                    <h:commandLink value="Remove"
+                                   action="#{userController.removeUserFromCourse(course.id)}"/>
+                </h:form>
+            </h:column>
+        </h:dataTable>
 
-                <h:inputHidden id="id" value="#{userController.user.id}" binding="#{userID}"/>
-                <h:commandButton styleClass="btn btn-default col-lg-1 col-lg-offset-2"
-                                 action="#{userController.updateExistingUser(userID.value)}" value="Update"/>
-            </b:row>
-        </h:form>
-        <br/>
-            <b:row>
-                <div class="col-lg-1 col-lg-offset-2">Courses:</div>
-                <h:dataTable value="#{userController.user.courses}" var="course" styleClass=" col-lg-6">
-                    <h:column>
-                        <h:form>
-                            <h:outputText value="#{course.name}" styleClass="col-lg-6"/>
-                            <!-- removeUserFromCourse simply prints a log statement and returns a redirect to index -->
-                            <h:commandLink value="Remove" action="#{userController.removeUserFromCourse}" styleClass="col-lg-offset-2"/>
-                        </h:form>
-                    </h:column>
-                </h:dataTable>
-            </b:row>
     </ui:define>
 </ui:composition>
 </html>
