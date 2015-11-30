@@ -4,27 +4,19 @@ package no.westerdals.tjoida.service.UserService;
 import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- * Created by Cyzla on 08.10.2015.
- */
-//@UserQualifier
 @Stateless
-@LocalBean
 public class JPAUserDao implements UserDAO {
     EntityManagerFactory entityManagerFactory;
-    @PersistenceContext(name = "User")
+    @PersistenceContext(name = "Egentreningprosjekt")
     EntityManager entityManager;
 
     public JPAUserDao() {
-//        entityManagerFactory = Persistence.createEntityManagerFactory("User");
-//        entityManager = entityManagerFactory.createEntityManager();
     }
 
     public JPAUserDao(EntityManager entityManager){
@@ -32,20 +24,20 @@ public class JPAUserDao implements UserDAO {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<String> names() {
-        return entityManager.createQuery("SELECT 'email' FROM User").getResultList();
+        return entityManager.createQuery("SELECT 'email' FROM User", String.class).getResultList();
     }
 
     @Override
     public User update(User user) {
-        return entityManager.merge(user);
+        System.out.println("updating user " + user);
+        entityManager.merge(user);
+        return user;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<User> getUsers() {
-        return entityManager.createQuery("SELECT e FROM User e").getResultList();
+        return entityManager.createQuery("SELECT e FROM User e", User.class).getResultList();
     }
 
     @Override
@@ -61,12 +53,28 @@ public class JPAUserDao implements UserDAO {
     }
 
     @Override
+    public void removeFromCourse(int userID, int courseID) {
+        System.out.println("JPAUserDao:removeFromCourse(" + userID + ", " + courseID + ");");
+        User user = getUser(userID);
+        List<Course> courses = user.getCourses();
+        for (Course course : courses) {
+            if(course.getId() == courseID){
+                courses.remove(course);
+            }
+        }
+        user.setCourses(courses);
+        update(user);
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public List<Course> getCourses() {
+        System.out.println("GETCOUSES");
         return entityManager.createQuery("SELECT courses FROM User").getResultList();
     }
 
-    public void persist(User user){
+    @Override
+    public void persist(User user) {
         entityManager.persist(user);
     }
 
@@ -75,14 +83,4 @@ public class JPAUserDao implements UserDAO {
         entityManagerFactory.close();
         entityManager.close();
     }
-
-//    @AroundInvoke
-//    private Object intercept(InvocationContext ic) throws Exception {
-//        entityManager.getTransaction().begin();
-//        try {
-//            return ic.proceed();
-//        } finally {
-//            entityManager.getTransaction().commit();
-//        }
-//    }
 }

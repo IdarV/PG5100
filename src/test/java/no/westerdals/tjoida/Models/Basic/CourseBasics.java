@@ -26,13 +26,13 @@ public class CourseBasics {
         course = new Course();
     }
 
-    @Test
-    public void testCourseBasics() throws Exception {
-        assertNull(course.getLocation());
-        assertEquals(0, course.getId());
-        assertNull(course.getName());
-        assertNull(course.getUsers());
-    }
+//    @Test
+//    public void testCourseBasics() throws Exception {
+//        assertNull(course.getLocation());
+//        assertEquals(0, course.getId());
+//        assertNull(course.getName());
+//        assertNull(course.getUsers());
+//    }
 
     @Test
     public void testAddUsers() {

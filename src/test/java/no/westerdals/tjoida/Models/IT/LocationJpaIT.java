@@ -49,6 +49,17 @@ public class LocationJpaIT {
     }
 
     @Test
+    public void testGetAll() throws Exception {
+        List<Location> locations = locationJPA.getLocations();
+        System.out.println("LOCATOPINS:;");
+        locations.forEach(System.out::println);
+        System.out.println("END");
+
+        assertTrue("Locations should contain multiple locations", 1 < locations.size());
+
+    }
+
+    @Test
     public void testAddAndPersistWithCourses() throws Exception {
         Location location = getDefaultLocation();
 
@@ -77,4 +88,6 @@ public class LocationJpaIT {
         location.setRoom(DEFAULT_ROOM);
         return location;
     }
+
+
 }

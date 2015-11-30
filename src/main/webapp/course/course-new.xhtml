@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+        >
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+
+        <b:container>
+            <h1 class="col-lg-offset-2"><h:outputText value="Create a new course"/></h1>
+            <h:form>
+                <h:messages/>
+                <h:outputLabel for="name" value="Name" styleClass="col-lg-offset-2 col-lg-1"/>
+                <h:inputText id="name" value="#{courseController.course.name}"/>
+                <h:commandButton value="Submit" action="#{courseController.persistNewCourse()}"/>
+            </h:form>
+        </b:container>
+    </ui:define>
+</ui:composition>
+</html>

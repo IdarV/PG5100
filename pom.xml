@@ -30,8 +30,6 @@
             <version>5.0.2.Final</version>
             <scope>test</scope>
         </dependency>
-
-
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>

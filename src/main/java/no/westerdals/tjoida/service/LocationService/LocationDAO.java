@@ -13,8 +13,9 @@ public interface LocationDAO {
     List<String> getRooms();
     void persist(Location location);
     List<String> getBuildings();
-    Location update(User user);
+    Location update(Location location);
     Location getLocation(int id);
     int deleteLocation(int id);
+    public List<Location> getLocations();
     void close();
 }

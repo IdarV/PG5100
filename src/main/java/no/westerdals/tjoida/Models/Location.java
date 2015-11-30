@@ -57,6 +57,10 @@ public class Location {
         this.courses = courses;
     }
 
+    public String toFormattedString(){
+        return building.toUpperCase() + ", " + room;
+    }
+
     @Override
     public String toString() {
         return "Location{" +

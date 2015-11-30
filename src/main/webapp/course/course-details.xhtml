@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{courseController.selectedID}"/>
+            <f:viewAction action="#{courseController.initCourse()}"/>
+        </f:metadata>
+
+        <h1>Course details</h1>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">ID:</div>
+            <div class="col-lg-8"><h:outputText value="#{courseController.course.id}"/></div>
+        </b:row>
+        <br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">Name:</div>
+            <div class="col-lg-8"><h:outputText value="#{courseController.course.name}"/></div>
+        </b:row>
+        <br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">Users:</div>
+            <div class="col-lg-8"><h:outputText value="#{courseController.userSize}"/></div>
+        </b:row><br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">Location:</div>
+            <div class="col-lg-8"><h:outputText value="#{courseController.course.location.toFormattedString()}"/></div>
+        </b:row>
+        <br/>
+        <b:row>
+            <h:link styleClass="col-lg-1 col-lg-offset-2" outcome="/course/course-edit" value="Edit">
+                <f:param name="id" value="#{courseController.course.id}"/>
+            </h:link>
+        </b:row>
+        <br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">Users:</div>
+                <h:dataTable styleClass="tab-label col-lg-6" value="#{courseController.course.users}" var="item">
+                    <h:column>
+                        <h:outputText styleClass="" value="#{item.email}"/>
+                    </h:column>
+                    <h:column>
+                        <h:link styleClass="col-lg-1" outcome="/user/user-details.xhtml?id=#{item.id}" value="show"/>
+                    </h:column>
+                </h:dataTable>
+        </b:row>
+    </ui:define>
+</ui:composition>
+</html>
