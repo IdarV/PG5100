@@ -4,8 +4,10 @@ import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
 import no.westerdals.tjoida.service.UserService.UserDAO;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,37 +18,15 @@ public class UserController{
     private User user;
     private int selectedID = 103;
     private String lastPassword;
-
-    // ///
+    private List<Course> currentCourses;
 
     public List<Course> getCurrentCourses() {
-
-        System.out.println("(getcurrentCourse = " + currentCourse + ")");
         return currentCourses;
     }
 
     public void setCurrentCourses(List<Course> currentCourses) {
-
-        System.out.println("(setcurrentCourse = " + currentCourse + ")");
         this.currentCourses = currentCourses;
     }
-
-    private List<Course> currentCourses;
-
-    // .
-
-    private int currentCourse;
-
-    public int getCurrentCourse() {
-        return currentCourse;
-    }
-
-    public void setCurrentCourse(int currentCourse) {
-        this.currentCourse = currentCourse;
-    }
-    // //
-
-
 
     @Inject
     public UserController(UserDAO persister) {
@@ -56,12 +36,14 @@ public class UserController{
     @PostConstruct
     public void init() {
         this.user = new User();
+        currentCourses = new ArrayList<>();
     }
 
     public void initUser() {
         System.out.println("initUser()");
         user = persister.getUser(selectedID);
         lastPassword = user.getPassword();
+        currentCourses = user.getCourses();
     }
 
     public User getFirst() {
@@ -77,9 +59,7 @@ public class UserController{
     }
 
     public List<Course> getUserCourses() {
-        currentCourses =
-                persister.getUser(selectedID).getCourses();
-        return currentCourses;
+        return  persister.getUser(selectedID).getCourses();
     }
 
     public void setCurrentUserToSelectedId() {

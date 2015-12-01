@@ -66,8 +66,8 @@ public class JPAUserDao implements UserDAO {
         }
         if(courseToBeDeleted != null){
             courses.remove(courseToBeDeleted);
+            courseToBeDeleted.getUsers().remove(user);
         }
-        courseToBeDeleted.getUsers().remove(user);
         user.setCourses(courses);
         update(user);
         entityManager.merge(courseToBeDeleted);
