@@ -5,7 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui"
         >
 <ui:composition template="/template.xhtml">
     <ui:define name="content">
@@ -13,18 +13,42 @@
             <f:viewParam name="id" value="#{userController.selectedID}"/>
             <f:viewAction action="#{userController.initUser()}"/>
         </f:metadata>
-        <h1 class="page-header">User <h:outputText value="#{userController.selectedID}"/> </h1>
 
-        <div class="col-lg-1 col-lg-offset-2">Courses:</div>
+        <h1 class="page-header">User <h:outputText value="#{userController.selectedID}"/></h1>
 
-        <h:dataTable value="#{userController.getAll()}" var="course" styleClass=" col-lg-6">
-            <h:column>
-                <h:form>
-                    <h:commandLink value="Remove"
-                                   action="#{userController.removeUserFromCourse(course.id)}"/>
-                </h:form>
-            </h:column>
-        </h:dataTable>
+        <h1 class="col-lg-offset-2 page-header"><h:outputText value="Edit user"/></h1>
+        <h:form>
+            <b:row>
+                <h:outputText for="email" value="E-mail" class="col-lg-1 col-lg-offset-2"/>
+                <h:inputText class="col-lg-3" id="email" value="#{userController.user.email}"/>
+            </b:row>
+            <br/>
+            <b:row>
+                <h:outputText for="type" value="Type" class="col-lg-1 col-lg-offset-2"/>
+                <h:inputText class="col-lg-3" id="type" value="#{userController.user.type}"/>
+            </b:row>
+            <br/>
+            <b:row>
+                <h:inputHidden id="id" value="#{userController.user.id}" binding="#{userID}"/>
+                <h:commandButton styleClass="btn btn-default col-lg-1 col-lg-offset-2"
+                                 action="#{userController.updateExistingUser(userID.value)}" value="Update"/>
+            </b:row>
+        </h:form>
+        <br/>
+
+        <b:row>
+
+            <div class="col-lg-1 col-lg-offset-2">Courses:</div>
+
+            <h:form>
+                <h:dataTable id="myLittleDataTable" value="#{userController.getUserCourses()}" var="course" styleClass=" col-lg-6">
+                    <h:column>
+                        <h:outputText value="#{course.name} (#{course.id})" styleClass="col-lg-6"/>
+                        <h:commandLink update="myLittleDataTable" value="Remove" action="#{userController.removeUserFromCourse(course.id)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </b:row>
 
     </ui:define>
 </ui:composition>

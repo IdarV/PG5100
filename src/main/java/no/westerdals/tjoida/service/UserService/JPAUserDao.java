@@ -57,13 +57,20 @@ public class JPAUserDao implements UserDAO {
         System.out.println("JPAUserDao:removeFromCourse(" + userID + ", " + courseID + ");");
         User user = getUser(userID);
         List<Course> courses = user.getCourses();
-        for (Course course : courses) {
+        Course courseToBeDeleted = null;
+        for(Course course : courses){
             if(course.getId() == courseID){
-                courses.remove(course);
+                courseToBeDeleted = course;
+                System.out.println("FOUND COURSE TO REMOVE (" + course.getId() + ")");
             }
         }
+        if(courseToBeDeleted != null){
+            courses.remove(courseToBeDeleted);
+        }
+        courseToBeDeleted.getUsers().remove(user);
         user.setCourses(courses);
         update(user);
+        entityManager.merge(courseToBeDeleted);
     }
 
     @Override

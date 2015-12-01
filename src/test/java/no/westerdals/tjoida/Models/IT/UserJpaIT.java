@@ -47,6 +47,35 @@ public class UserJpaIT {
     }
 
     @Test
+    public void testRemoveFromCourse() throws Exception {
+        User user = new User();
+        user.setEmail("testMail");
+        List<Course> courses = new ArrayList<>();
+
+        Course course1 = new Course();
+        course1.setName("course1");
+        Course course2 = new Course();
+        course1.setName("course2");
+        Course course3 = new Course();
+        course1.setName("course3");
+
+        courses.add(course1);
+        courses.add(course2);
+        courses.add(course3);
+        user.setCourses(courses);
+
+        userJpa.persist(user);
+        assertTrue(0 < user.getId());
+
+        assertEquals(3, user.getCourses().size());
+        user.getCourses().stream().forEach(System.out::print);
+        System.out.println();
+        userJpa.removeFromCourse(user.getId(), course2.getId());
+        user.getCourses().stream().forEach(System.out::print);
+        assertEquals(2, user.getCourses().size());
+    }
+
+    @Test
     public void testId() throws Exception {
         User user = new User();
         user.setEmail("test@testmail.com");

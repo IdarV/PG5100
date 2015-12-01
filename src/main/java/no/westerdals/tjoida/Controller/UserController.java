@@ -17,28 +17,36 @@ public class UserController{
     private int selectedID = 103;
     private String lastPassword;
 
-    public List<Integer> getIntegerList() {
-        return integerList;
+    // ///
+
+    public List<Course> getCurrentCourses() {
+
+        System.out.println("(getcurrentCourse = " + currentCourse + ")");
+        return currentCourses;
     }
 
-    public void setIntegerList(List<Integer> integerList) {
-        this.integerList = integerList;
+    public void setCurrentCourses(List<Course> currentCourses) {
+
+        System.out.println("(setcurrentCourse = " + currentCourse + ")");
+        this.currentCourses = currentCourses;
     }
 
-    private List<Integer> integerList = new ArrayList<>();
-    private List<Integer> availableCourses = new ArrayList<>();
-    private List<Integer> selectedCourses = new ArrayList<>();
+    private List<Course> currentCourses;
 
-    private String testString;
+    // .
 
-    public String getTestString() {
-        return testString;
+    private int currentCourse;
+
+    public int getCurrentCourse() {
+        return currentCourse;
     }
 
-    public void setTestString(String testString) {
-        System.out.println("Setting textstring/" + testString + "/");
-        this.testString = testString;
+    public void setCurrentCourse(int currentCourse) {
+        this.currentCourse = currentCourse;
     }
+    // //
+
+
 
     @Inject
     public UserController(UserDAO persister) {
@@ -69,22 +77,9 @@ public class UserController{
     }
 
     public List<Course> getUserCourses() {
-        System.out.println("User courses: " + persister.getUser(selectedID).getCourses());
-        return user.getCourses();
-    }
-
-    public List<Integer> getUserCoursesAsIntegers(){
-        System.out.println("getUserCourseAsIntegers()");
-        System.out.println("User is " + (user == null ? "null" : "not null"));
-        System.out.println("User has " + user.getCourses().size() + " courses.");
-        for(Course c : user.getCourses()){
-            System.out.println(c);
-            if(c != null && c.getId() > 1){
-
-                integerList.add(c.getId());
-            }
-        }
-        return integerList;
+        currentCourses =
+                persister.getUser(selectedID).getCourses();
+        return currentCourses;
     }
 
     public void setCurrentUserToSelectedId() {
@@ -111,7 +106,7 @@ public class UserController{
         System.out.println("After: " + updateUser.toString());
         persister.update(updateUser);
 
-            return "/user/user-index.xhtml?faces-redirect=true";
+        return "/user/user-index.xhtml?faces-redirect=true";
     }
 
     public int getSelectedID() {
@@ -122,28 +117,9 @@ public class UserController{
         this.selectedID = selectedID;
     }
 
-    public String removeUserFromCourse(int courseID){
-//        System.out.println("removeUserFromCourse, selectedID: " + selectedID);
-//        System.out.print("selectedItems (size = " + selectedCourses.size() + ") : ");
-//        selectedCourses.stream().forEach(System.out::print);
-//        System.out.println();
+    public void removeUserFromCourse(int courseID){
+        persister.removeFromCourse(selectedID, courseID);
         System.out.println("REMOVEUSERFROMCOURSE withd SelectedID=" + selectedID + " and param = " + courseID) ;
-        return "/user/user-index.xhtml?faces-redirect=true";
-    }
-
-    public List<Integer> getSelectedCourses() {
-        return selectedCourses;
-    }
-
-    public void setSelectedCourses(List<Integer> selectedCourses) {
-        System.out.println("-- SETSELECTEDCOURSES");
-        System.out.println(selectedCourses == null ? "SelectedCourses is NULL" : "SelectedCourses is not NULL" );
-        //selectedCourses.forEach(System.out::println);
-        System.out.println("--");
-        this.selectedCourses = selectedCourses;
-    }
-
-    public List<Integer> getAvailableCourses() {
-        return availableCourses;
+        user = persister.getUser(selectedID);
     }
 }

@@ -43,7 +43,7 @@
             <br/>
             <b:row>
                 <div class="col-lg-1 col-lg-offset-2">Courses:</div>
-                    <h:dataTable styleClass="tab-label col-lg-6 " value="#{userController.user.courses}" var="item">
+                    <h:dataTable styleClass="tab-label col-lg-6 " value="#{userController.getUserCourses()}" var="item">
                         <h:column>
                             <h:outputText styleClass="" value="#{item.name}"/>
                         </h:column>
