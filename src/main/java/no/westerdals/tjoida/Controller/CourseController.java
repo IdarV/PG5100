@@ -16,6 +16,7 @@ public class CourseController {
     private CourseDAO persister;
     private Course course;
     private int selectedID;
+    private List<String> courses;
 
     public CourseController() {
     }
@@ -70,6 +71,14 @@ public class CourseController {
         return persister.getCourses();
     }
 
+    public List<String> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<String> courses) {
+        this.courses = courses;
+    }
+
     public int getUserSize() {
         return course.getUserSize();
     }
@@ -99,5 +108,6 @@ public class CourseController {
     public String getLocation() {
         return course.getLocation().toString();
     }
+
 
 }

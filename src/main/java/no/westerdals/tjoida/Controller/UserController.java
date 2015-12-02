@@ -35,6 +35,7 @@ public class UserController{
 
     @PostConstruct
     public void init() {
+        System.out.println("empty init");
         this.user = new User();
         currentCourses = new ArrayList<>();
     }
@@ -62,9 +63,6 @@ public class UserController{
         return  persister.getUser(selectedID).getCourses();
     }
 
-    public void setCurrentUserToSelectedId() {
-        user = persister.getUser(selectedID);
-    }
 
     public String persistNewUser() {
         persister.persist(user);
@@ -97,9 +95,9 @@ public class UserController{
         this.selectedID = selectedID;
     }
 
-    public void removeUserFromCourse(int courseID){
-        persister.removeFromCourse(selectedID, courseID);
-        System.out.println("REMOVEUSERFROMCOURSE withd SelectedID=" + selectedID + " and param = " + courseID) ;
-        user = persister.getUser(selectedID);
+    public void removeUserFromCourse(Course course){
+        System.out.println("REMOVEUSERFROMCOURSE withd SelectedID=" + selectedID + " and param = " + course);
+        persister.removeFromCourse(selectedID, course.getId());
+
     }
 }
