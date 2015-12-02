@@ -54,6 +54,12 @@ public class CourseJPA implements CourseDAO{
 //        return null;
 //    }
 
+
+    @Override
+    public void removeUser(User user) {
+        entityManager.remove(user);
+    }
+
     @Override
     public void deleteCourse(Course course) {
         entityManager.remove(course);

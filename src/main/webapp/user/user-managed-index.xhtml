@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <h:head>
+            <title>Really simple CRUD</title>
+        </h:head>
+        <h:body>
+            <h3>List items</h3>
+
+            <div>
+                <h:form rendered="#{not empty userControllerManaged.list}">
+                    <h:dataTable styleClass="table" value="#{userControllerManaged.list}" var="item">
+                        <h:column><f:facet name="header">ID</f:facet>#{item.id}</h:column>
+                        <h:column><f:facet name="header">Value</f:facet>#{item.email}</h:column>
+                        <h:column><h:commandButton value="edit" styleClass="btn btn-default"
+                                                   action="#{userControllerManaged.edit(item)}"/></h:column>
+                        <h:column><h:commandButton value="delete" styleClass="btn btn-default"
+                                                   action="#{userControllerManaged.delete(item)}"/></h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+            <h:panelGroup rendered="#{empty userControllerManaged.list}">
+                <p>Table is empty! Please add new items.</p>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{!userControllerManaged.edit}">
+                <h3>Add item</h3>
+                <h:form>
+                    <p>Value: <h:inputText value="#{userControllerManaged.user.email}"/></p>
+
+                    <p><h:commandButton value="add" styleClass="btn btn-default" action="#{userControllerManaged.add}"/></p>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userControllerManaged.edit}">
+                <h3>Edit item #{userControllerManaged.user.id}</h3>
+                <h:form>
+                    <p>Value: <h:inputText value="#{userControllerManaged.user.email}"/></p>
+
+                    <p><h:commandButton value="save" styleClass="btn btn-default" action="#{userControllerManaged.save}"/></p>
+                </h:form>
+
+                <h:form>
+                    <h:dataTable value="#{userControllerManaged.currentCourses}" var="crs">
+                        <h:column>
+                            <h:outputText value="#{crs.name}"/>
+                            <h:commandButton value="Remove" styleClass="btn btn-default"
+                                             action="#{userControllerManaged.removeUserFromCourse(crs.id)}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </h:panelGroup>
+        </h:body>
+    </ui:define>
+</ui:composition>
+</html>

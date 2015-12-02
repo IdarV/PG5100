@@ -4,8 +4,10 @@ import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
 import no.westerdals.tjoida.service.UserService.UserDAO;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,28 +18,14 @@ public class UserController{
     private User user;
     private int selectedID = 103;
     private String lastPassword;
+    private List<Course> currentCourses;
 
-    public List<Integer> getIntegerList() {
-        return integerList;
+    public List<Course> getCurrentCourses() {
+        return currentCourses;
     }
 
-    public void setIntegerList(List<Integer> integerList) {
-        this.integerList = integerList;
-    }
-
-    private List<Integer> integerList = new ArrayList<>();
-    private List<Integer> availableCourses = new ArrayList<>();
-    private List<Integer> selectedCourses = new ArrayList<>();
-
-    private String testString;
-
-    public String getTestString() {
-        return testString;
-    }
-
-    public void setTestString(String testString) {
-        System.out.println("Setting textstring/" + testString + "/");
-        this.testString = testString;
+    public void setCurrentCourses(List<Course> currentCourses) {
+        this.currentCourses = currentCourses;
     }
 
     @Inject
@@ -47,13 +35,16 @@ public class UserController{
 
     @PostConstruct
     public void init() {
+        System.out.println("empty init");
         this.user = new User();
+        currentCourses = new ArrayList<>();
     }
 
     public void initUser() {
         System.out.println("initUser()");
         user = persister.getUser(selectedID);
         lastPassword = user.getPassword();
+        currentCourses = user.getCourses();
     }
 
     public User getFirst() {
@@ -69,27 +60,9 @@ public class UserController{
     }
 
     public List<Course> getUserCourses() {
-        System.out.println("User courses: " + persister.getUser(selectedID).getCourses());
-        return user.getCourses();
+        return  persister.getUser(selectedID).getCourses();
     }
 
-    public List<Integer> getUserCoursesAsIntegers(){
-        System.out.println("getUserCourseAsIntegers()");
-        System.out.println("User is " + (user == null ? "null" : "not null"));
-        System.out.println("User has " + user.getCourses().size() + " courses.");
-        for(Course c : user.getCourses()){
-            System.out.println(c);
-            if(c != null && c.getId() > 1){
-
-                integerList.add(c.getId());
-            }
-        }
-        return integerList;
-    }
-
-    public void setCurrentUserToSelectedId() {
-        user = persister.getUser(selectedID);
-    }
 
     public String persistNewUser() {
         persister.persist(user);
@@ -111,7 +84,7 @@ public class UserController{
         System.out.println("After: " + updateUser.toString());
         persister.update(updateUser);
 
-            return "/user/user-index.xhtml?faces-redirect=true";
+        return "/user/user-index.xhtml?faces-redirect=true";
     }
 
     public int getSelectedID() {
@@ -122,28 +95,9 @@ public class UserController{
         this.selectedID = selectedID;
     }
 
-    public String removeUserFromCourse(int courseID){
-//        System.out.println("removeUserFromCourse, selectedID: " + selectedID);
-//        System.out.print("selectedItems (size = " + selectedCourses.size() + ") : ");
-//        selectedCourses.stream().forEach(System.out::print);
-//        System.out.println();
-        System.out.println("REMOVEUSERFROMCOURSE withd SelectedID=" + selectedID + " and param = " + courseID) ;
-        return "/user/user-index.xhtml?faces-redirect=true";
-    }
+    public void removeUserFromCourse(Course course){
+        System.out.println("REMOVEUSERFROMCOURSE withd SelectedID=" + selectedID + " and param = " + course);
+        persister.removeFromCourse(selectedID, course.getId());
 
-    public List<Integer> getSelectedCourses() {
-        return selectedCourses;
-    }
-
-    public void setSelectedCourses(List<Integer> selectedCourses) {
-        System.out.println("-- SETSELECTEDCOURSES");
-        System.out.println(selectedCourses == null ? "SelectedCourses is NULL" : "SelectedCourses is not NULL" );
-        //selectedCourses.forEach(System.out::println);
-        System.out.println("--");
-        this.selectedCourses = selectedCourses;
-    }
-
-    public List<Integer> getAvailableCourses() {
-        return availableCourses;
     }
 }

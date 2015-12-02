@@ -4,11 +4,18 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Course {
+public class Course  implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
