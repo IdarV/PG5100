@@ -79,8 +79,11 @@ public class User {
         this.password = password;
     }
 
-    public String getUserType() {
-        return userType.toString();
+    public UserType getUserType() {
+        // TODO: REMOVE
+        System.out.println(userType == null ? "usertype is null" : "usertype is not null: " + userType);
+
+        return userType;
     }
 
     public void setUserType(UserType userType) {

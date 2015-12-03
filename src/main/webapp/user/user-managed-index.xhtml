@@ -51,6 +51,15 @@
                     <h:outputLabel for="password" value="Password" styleClass="col-lg-1"/>
                     <h:inputSecret id="password" styleClass="col-lg-3" value="#{userController.user.password}"/>
                 </b:row>
+                <br/>
+                <b:row>
+                    <h:selectOneListbox value="#{userController.user.userType}">
+                        <h:outputLabel for="typeform" value="Type" styleClass="col-lg-1"/>
+                        <f:selectItems value="#{userController.userTypes}" var="type" itemValue="#{type.toString()}"
+                                       itemLabel="#{type.toString()}" id="typeform" styleClass="form-control col-lg-3">
+                        </f:selectItems>
+                    </h:selectOneListbox>
+                </b:row>
 
                 <p><h:commandButton value="add" styleClass="btn btn-default" action="#{userController.add}"/></p>
             </h:form>
@@ -67,6 +76,15 @@
                 <b:row>
                     <h:outputLabel for="password_edit" value="Password" styleClass="col-lg-1"/>
                     <h:inputText id="password_edit" value="#{userController.user.password}"/>
+                </b:row>
+                <br/>
+                <b:row>
+                    <h:selectOneListbox value="#{userController.user.userType}">
+                        <h:outputLabel for="edit_typeform" value="Type" styleClass="col-lg-1"/>
+                        <f:selectItems value="#{userController.userTypes}" var="type" itemValue="#{type.toString()}"
+                                       itemLabel="#{type.toString()}" id="edit_typeform" styleClass="form-control col-lg-3">
+                        </f:selectItems>
+                    </h:selectOneListbox>
                 </b:row>
 
                 <p><h:commandButton value="save" styleClass="btn btn-default" action="#{userController.save}"/>

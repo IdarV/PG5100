@@ -2,6 +2,7 @@ package no.westerdals.tjoida.Controller;
 
 import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
+import no.westerdals.tjoida.Models.UserType;
 import no.westerdals.tjoida.service.CourseService.CourseDAO;
 import no.westerdals.tjoida.service.UserService.UserDAO;
 
@@ -10,6 +11,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,6 +39,7 @@ public class UserController implements Serializable {
 
     private int selectedID;
     private String lastPassword;
+    private UserType currentUserType;
 
     public UserController() {
     }
@@ -51,12 +54,14 @@ public class UserController implements Serializable {
         user = persister.getUser(selectedID);
         lastPassword = user.getPassword();
         currentCourses = user.getCourses();
+        currentUserType = user.getUserType();
     }
 
 
     public void add() {
         user.setId(list.isEmpty() ? 1 : list.get(list.size() - 1).getId() + 1);
         list.add(user);
+        save();
         user = new User();
     }
 
@@ -70,6 +75,7 @@ public class UserController implements Serializable {
     public void save() {
         persister.update(user);
         user = new User();
+        user.setUserType(UserType.STUDENT);
         edit = false;
     }
 
@@ -167,5 +173,13 @@ public class UserController implements Serializable {
 
     public void setSelectedID(int selectedID) {
         this.selectedID = selectedID;
+    }
+
+    public List<UserType> getUserTypes(){
+        List<UserType> list = new ArrayList<>();
+        list.add(UserType.STUDENT);
+        list.add(UserType.TEACHER);
+        return list;
+
     }
 }
