@@ -8,8 +8,8 @@
     <ui:define name="content">
         <h3 class="page-header">Users</h3>
 
-        <h:form rendered="#{not empty userControllerManaged.list}">
-            <h:dataTable styleClass="table" value="#{userControllerManaged.list}" var="item">
+        <h:form rendered="#{not empty userController.list}">
+            <h:dataTable styleClass="table" value="#{userController.list}" var="item">
                 <h:column>
                     <f:facet name="header">ID</f:facet>
                     #{item.id}
@@ -20,7 +20,7 @@
                 </h:column>
                 <h:column>
                     <h:commandButton value="Edit" styleClass="btn btn-default  btn-md"
-                                     action="#{userControllerManaged.edit(item)}"/>
+                                     action="#{userController.edit(item)}"/>
                 </h:column>
                 <h:column>
                     <h:button styleClass="btn btn-info btn-md" outcome="/user/user-details" value="Details">
@@ -30,73 +30,73 @@
 
                 <h:column>
                     <h:commandButton value="delete" styleClass="btn btn-danger btn-md"
-                                     action="#{userControllerManaged.delete(item)}"/>
+                                     action="#{userController.delete(item)}"/>
                 </h:column>
             </h:dataTable>
         </h:form>
 
-        <h:panelGroup rendered="#{empty userControllerManaged.list}">
+        <h:panelGroup rendered="#{empty userController.list}">
             <p>Table is empty!</p>
         </h:panelGroup>
 
-        <h:panelGroup rendered="#{!userControllerManaged.edit}">
+        <h:panelGroup rendered="#{!userController.edit}">
             <h3>Add user</h3>
             <h:form>
                 <b:row>
                     <h:outputLabel for="email" value="E-mail" styleClass="col-lg-1"/>
-                    <h:inputText id="email" styleClass="col-lg-3" value="#{userControllerManaged.user.email}"/>
+                    <h:inputText id="email" styleClass="col-lg-3" value="#{userController.user.email}"/>
                 </b:row>
                 <br/>
                 <b:row>
                     <h:outputLabel for="password" value="Password" styleClass="col-lg-1"/>
-                    <h:inputSecret id="password" styleClass="col-lg-3" value="#{userControllerManaged.user.password}"/>
+                    <h:inputSecret id="password" styleClass="col-lg-3" value="#{userController.user.password}"/>
                 </b:row>
 
-                <p><h:commandButton value="add" styleClass="btn btn-default" action="#{userControllerManaged.add}"/></p>
+                <p><h:commandButton value="add" styleClass="btn btn-default" action="#{userController.add}"/></p>
             </h:form>
         </h:panelGroup>
 
-        <h:panelGroup rendered="#{userControllerManaged.edit}">
-            <h3>Edit user #{userControllerManaged.user.id}</h3>
+        <h:panelGroup rendered="#{userController.edit}">
+            <h3>Edit user #{userController.user.id}</h3>
             <h:form>
                 <b:row>
                     <h:outputLabel for="email_edit" value="E-mail" styleClass="col-lg-1"/>
-                    <h:inputText id="email_edit" value="#{userControllerManaged.user.email}"/>
+                    <h:inputText id="email_edit" value="#{userController.user.email}"/>
                 </b:row>
                 <br/>
                 <b:row>
                     <h:outputLabel for="password_edit" value="Password" styleClass="col-lg-1"/>
-                    <h:inputText id="password_edit" value="#{userControllerManaged.user.password}"/>
+                    <h:inputText id="password_edit" value="#{userController.user.password}"/>
                 </b:row>
 
-                <p><h:commandButton value="save" styleClass="btn btn-default" action="#{userControllerManaged.save}"/>
+                <p><h:commandButton value="save" styleClass="btn btn-default" action="#{userController.save}"/>
                 </p>
             </h:form>
 
             <div class="col-lg-5">
                 <h:form>
-                    <h:dataTable styleClass="table table-responsive" value="#{userControllerManaged.currentCourses}"
+                    <h:dataTable styleClass="table table-responsive" value="#{userController.currentCourses}"
                                  var="crs">
                         <h:column>
                             <h:outputText styleClass="" value="#{crs.name}"/>
                         </h:column>
                         <h:column>
                             <h:commandButton value="Remove" styleClass="btn btn-danger"
-                                             action="#{userControllerManaged.removeUserFromCourse(crs.id)}"/>
+                                             action="#{userController.removeUserFromCourse(crs.id)}"/>
                         </h:column>
                     </h:dataTable>
                 </h:form>
             </div>
             <div class="col-lg-5">
                 <h:form>
-                    <h:dataTable styleClass="table table-responsive" value="#{userControllerManaged.nonCurrentCourses}"
+                    <h:dataTable styleClass="table table-responsive" value="#{userController.nonCurrentCourses}"
                                  var="ncrs">
                         <h:column>
                             <h:outputText styleClass="" value="#{ncrs.name}"/>
                         </h:column>
                         <h:column>
                             <h:commandButton value="Add" styleClass="btn btn-info"
-                                             action="#{userControllerManaged.addUserToCourse(ncrs.id)}"/>
+                                             action="#{userController.addUserToCourse(ncrs.id)}"/>
                         </h:column>
                     </h:dataTable>
                 </h:form>

@@ -1,6 +1,6 @@
 package no.westerdals.tjoida.Validations;
 
-import no.westerdals.tjoida.Models.Type;
+import no.westerdals.tjoida.Models.UserType;
 import no.westerdals.tjoida.Models.User;
 
 import javax.validation.ConstraintValidator;
@@ -18,8 +18,8 @@ public class TypeValidator implements ConstraintValidator<ValidateType, User> {
 
     @Override
     public boolean isValid(User user, ConstraintValidatorContext constraintValidatorContext) {
-        for(Type type : Type.values()){
-            if(type.name().equals(user.getType().toUpperCase()))
+        for(UserType userType : UserType.values()){
+            if(userType.name().equals(user.getUserType().toUpperCase()))
             return true;
         }
         return false;

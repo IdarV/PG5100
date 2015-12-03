@@ -1,8 +1,6 @@
 package no.westerdals.tjoida.Validations;
 
 
-import no.westerdals.tjoida.Models.Type;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;

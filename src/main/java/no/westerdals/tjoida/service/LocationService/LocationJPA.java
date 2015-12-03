@@ -31,7 +31,7 @@ public class LocationJPA implements LocationDAO {
 
     @Override
     public List<String> getRooms() {
-        return null;
+        return entityManager.createQuery("SELECT room FROM Location", String.class).getResultList();
     }
 
     @Override

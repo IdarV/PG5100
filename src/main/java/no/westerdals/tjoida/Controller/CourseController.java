@@ -16,7 +16,6 @@ public class CourseController {
     private CourseDAO persister;
     private Course course;
     private int selectedID;
-    private List<String> courses;
 
     public CourseController() {
     }
@@ -37,14 +36,6 @@ public class CourseController {
 
     public void persistNewCourse() {
         persister.persist(course);
-    }
-
-    public CourseDAO getPersister() {
-        return persister;
-    }
-
-    public void setPersister(CourseJPA persister) {
-        this.persister = persister;
     }
 
     public Course getCourse() {
@@ -69,14 +60,6 @@ public class CourseController {
 
     public List<Course> getAll() {
         return persister.getCourses();
-    }
-
-    public List<String> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<String> courses) {
-        this.courses = courses;
     }
 
     public int getUserSize() {

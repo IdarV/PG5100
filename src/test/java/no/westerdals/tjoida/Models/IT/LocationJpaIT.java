@@ -24,13 +24,13 @@ public class LocationJpaIT {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
-    private LocationJPA locationJPA;
+    private LocationJPA persister;
 
     @Before
     public void setUp() throws Exception {
         entityManagerFactory = Persistence.createEntityManagerFactory("Location");
         entityManager = entityManagerFactory.createEntityManager();
-        locationJPA = new LocationJPA(entityManager);
+        persister = new LocationJPA(entityManager);
     }
 
     @After
@@ -44,13 +44,13 @@ public class LocationJpaIT {
         Location location = getDefaultLocation();
 
         assertFalse(0 < location.getId());
-        locationJPA.persist(location);
+        persister.persist(location);
         assertTrue(0 < location.getId());
     }
 
     @Test
     public void testGetAll() throws Exception {
-        List<Location> locations = locationJPA.getLocations();
+        List<Location> locations = persister.getLocations();
         System.out.println("LOCATOPINS:;");
         locations.forEach(System.out::println);
         System.out.println("END");
@@ -72,14 +72,16 @@ public class LocationJpaIT {
         assertFalse("Location should not persisted", 0 < location.getId());
         assertFalse("Location's courses is not persisted should not have a id", 0 < location.getCourses().get(0).getId());
 
-//        System.out.println("--persisting");
-        locationJPA.persist(location);
-//        System.out.println("--persisted");
-//
+        persister.persist(location);
         assertTrue("Location should be persisted", 0 < location.getId());
-//        assertNotNull(location.getCourses().get(0));
-//        System.out.println(location.getCourses().get(0));
         assertTrue("Location's courses should also be persisted and have a id", 0 < location.getCourses().get(0).getId());
+    }
+
+    @Test
+    public void testGetRooms() throws Exception {
+        List<String> rooms = persister.getRooms();
+        System.out.println("ROOM SIZE: " + rooms.size());
+        assertTrue("There exists at least 4 rooms in init.sql", 3 < rooms.size());
     }
 
     private Location getDefaultLocation() {
@@ -88,6 +90,8 @@ public class LocationJpaIT {
         location.setRoom(DEFAULT_ROOM);
         return location;
     }
+
+
 
 
 }

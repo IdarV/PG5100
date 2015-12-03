@@ -2,7 +2,6 @@ package no.westerdals.tjoida.Models.Controller;
 
 import no.westerdals.tjoida.Controller.CourseController;
 import no.westerdals.tjoida.Models.Course;
-import no.westerdals.tjoida.service.CourseService.CourseDAO;
 import no.westerdals.tjoida.service.CourseService.CourseJPA;
 import org.junit.After;
 import org.junit.Before;
@@ -19,17 +18,16 @@ import static org.junit.Assert.*;
 public class CourseControllerTest {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
-    private CourseJPA courseJpa;
+    private CourseJPA persister;
     private CourseController courseController;
 
     @Before
     public void setUp() throws Exception {
         entityManagerFactory = Persistence.createEntityManagerFactory("Course");
         entityManager = entityManagerFactory.createEntityManager();
-        courseJpa = new CourseJPA(entityManager);
-        courseController = new CourseController(courseJpa);
+        persister = new CourseJPA(entityManager);
+        courseController = new CourseController(persister);
         courseController.init();
-
     }
 
     @After
@@ -67,15 +65,18 @@ public class CourseControllerTest {
         course.setName(name);
 
         assertEquals(0, course.getId());
-
         courseController.persistNewCourse();
-
         assertTrue(0 < course.getId());
     }
 
     @Test
     public void testUpdateExistingCourse() throws Exception {
-        // TODO;
-
+        courseController.setCourse(persister.getCourses().get(0));
+        String oldName = courseController.getCourse().getName();
+        String newName = "newCourseNameInTest";
+        courseController.getCourse().setName(newName);
+        courseController.updateExistingCourse(courseController.getCourse().getId());
+        assertNotEquals(oldName, persister.getCourse(courseController.getCourse().getId()).getName());
+        assertEquals(newName, persister.getCourse(courseController.getCourse().getId()).getName());
     }
 }

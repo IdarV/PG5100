@@ -2,42 +2,48 @@ package no.westerdals.tjoida.Controller;
 
 import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
+import no.westerdals.tjoida.service.CourseService.CourseDAO;
 import no.westerdals.tjoida.service.UserService.UserDAO;
 
-import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Model;
-import javax.faces.bean.SessionScoped;
-import javax.inject.Inject;
-import java.util.ArrayList;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
 import java.util.List;
 
-@Model
-public class UserController{
+/**
+ * Copy of
+ * http://stackoverflow.com/questions/3180400/recommended-jsf-2-0-crud-frameworks
+ * <p>
+ * Read
+ * http://www.tutorialspoint.com/jsf/jsf_managed_beans.htm
+ */
+
+@ManagedBean
+@ViewScoped
+public class UserController implements Serializable {
+    @EJB
     private UserDAO persister;
-    private User user;
-    private int selectedID = 103;
-    private String lastPassword;
+
+    @EJB
+    private CourseDAO coursePersister;
+
+    private List<User> list;
     private List<Course> currentCourses;
+    private List<Course> nonCurrentCourses;
+    private User user = new User();
+    private boolean edit;
 
-    public List<Course> getCurrentCourses() {
-        return currentCourses;
-    }
+    private int selectedID;
+    private String lastPassword;
 
-    public void setCurrentCourses(List<Course> currentCourses) {
-        this.currentCourses = currentCourses;
-    }
-
-    @Inject
-    public UserController(UserDAO persister) {
-        this.persister = persister;
+    public UserController() {
     }
 
     @PostConstruct
     public void init() {
-        System.out.println("empty init");
-        this.user = new User();
-        currentCourses = new ArrayList<>();
+        list = persister.getUsers();
     }
 
     public void initUser() {
@@ -47,44 +53,112 @@ public class UserController{
         currentCourses = user.getCourses();
     }
 
-    public User getFirst() {
-        return persister.getUsers().get(0);
+
+    public void add() {
+        user.setId(list.isEmpty() ? 1 : list.get(list.size() - 1).getId() + 1);
+        list.add(user);
+        user = new User();
     }
 
-    public List<User> getAll() {
-        return persister.getUsers();
+    public void edit(User user) {
+        this.user = user;
+        currentCourses = persister.getUser(user.getId()).getCourses();
+        nonCurrentCourses = coursePersister.getNonCurrentCourses(user);
+        edit = true;
+    }
+
+    public void save() {
+        persister.update(user);
+        user = new User();
+        edit = false;
+    }
+
+    public void delete(User user) {
+        list.remove(user);
+    }
+
+    public List<User> getList() {
+        return list;
     }
 
     public User getUser() {
         return user;
     }
 
-    public List<Course> getUserCourses() {
-        return  persister.getUser(selectedID).getCourses();
+    public void setUser(User user) {
+        this.user = user;
+        updateUserInfo();
     }
 
-
-    public String persistNewUser() {
-        persister.persist(user);
-        return "/index.xhtml?faces-redirect=true";
+    public boolean isEdit() {
+        return edit;
     }
 
-    public String updateExistingUser(int id) {
-        System.out.println("User in updateUser = " + user);
-        User updateUser = persister.getUser(id);
-        System.out.println("updateuser in updateUser = " + user);
+    public List<Course> getCurrentCourses() {
+        return currentCourses;
+    }
 
-        updateUser.setType(user.getType());
-        updateUser.setEmail(user.getEmail());
-        if (user.getPassword() != null) {
+    public void setCurrentCourses(List<Course> currentCourses) {
+        this.currentCourses = currentCourses;
+    }
 
-            updateUser.setPassword(user.getPassword());
+    public List<Course> getNonCurrentCourses() {
+        return nonCurrentCourses;
+    }
+
+    public void setNonCurrentCourses(List<Course> nonCurrentCourses) {
+        this.nonCurrentCourses = nonCurrentCourses;
+    }
+
+    public void removeUserFromCourse(int courseId) {
+        Course course = coursePersister.getCourse(courseId);
+        List<User> courseUsers = course.getUsers();
+
+        User userToDelete = courseUsers.stream().filter(u -> u.getId() == user.getId()).findFirst().orElse(null);
+
+        if (userToDelete != null) {
+
+            courseUsers.remove(userToDelete);
+            course.setUsers(courseUsers);
+            user.getCourses().remove(course);
+            coursePersister.update(course);
+
+            updateUserInfo();
         }
-        System.out.println("Before: " + user.toString());
-        System.out.println("After: " + updateUser.toString());
-        persister.update(updateUser);
+    }
 
-        return "/user/user-index.xhtml?faces-redirect=true";
+    public void addUserToCourse(int courseId) {
+        Course course = coursePersister.getCourse(courseId);
+        List<User> courseUsers = course.getUsers();
+        courseUsers.add(user);
+        course.setUsers(courseUsers);
+        user.getCourses().add(course);
+        coursePersister.update(course);
+
+        updateUserInfo();
+    }
+
+    private void updateUserInfo() {
+        if (user.getId() > 0) {
+            currentCourses = persister.getUser(user.getId()).getCourses();
+            nonCurrentCourses = coursePersister.getNonCurrentCourses(persister.getUser(user.getId()));
+        }
+    }
+
+    public UserDAO getPersister() {
+        return persister;
+    }
+
+    public void setPersister(UserDAO persister) {
+        this.persister = persister;
+    }
+
+    public CourseDAO getCoursePersister() {
+        return coursePersister;
+    }
+
+    public void setCoursePersister(CourseDAO coursePersister) {
+        this.coursePersister = coursePersister;
     }
 
     public int getSelectedID() {
@@ -93,11 +167,5 @@ public class UserController{
 
     public void setSelectedID(int selectedID) {
         this.selectedID = selectedID;
-    }
-
-    public void removeUserFromCourse(Course course){
-        System.out.println("REMOVEUSERFROMCOURSE withd SelectedID=" + selectedID + " and param = " + course);
-        persister.removeFromCourse(selectedID, course.getId());
-
     }
 }

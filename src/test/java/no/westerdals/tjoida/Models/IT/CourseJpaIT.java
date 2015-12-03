@@ -2,6 +2,7 @@ package no.westerdals.tjoida.Models.IT;
 
 import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
+import no.westerdals.tjoida.Models.UserType;
 import no.westerdals.tjoida.service.CourseService.CourseJPA;
 import org.junit.After;
 import org.junit.Before;
@@ -41,7 +42,7 @@ public class CourseJpaIT {
 
         User listUser = new User();
         listUser.setEmail("email@email.com");
-        listUser.setType("Test");
+        listUser.setUserType(UserType.STUDENT);
         listUser.setPassword("JWOEHJWAKEN2323!212#");
         List<User> userList = new ArrayList<>();
         userList.add(listUser);

@@ -1,6 +1,7 @@
 package no.westerdals.tjoida.Models.Validation;
 
 import no.westerdals.tjoida.Models.User;
+import no.westerdals.tjoida.Models.UserType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class UserValidationTest {
     private final int STD_ID = 0;
     private final String STD_PASSWORD = "mYP4SSW0RD!";
 //    private final Type STD_TYPE = Type.STUDENT;
-    private final String STD_TYPE = "Student";
+    private final UserType STD_TYPE = UserType.STUDENT;
     private Validator validator;
 
     @Before

@@ -2,7 +2,7 @@ package no.westerdals.tjoida.Models.IT;
 
 import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
-import no.westerdals.tjoida.service.CourseService.CourseJPA;
+import no.westerdals.tjoida.Models.UserType;
 import no.westerdals.tjoida.service.UserService.JPAUserDao;
 import org.junit.After;
 import org.junit.Before;
@@ -10,16 +10,10 @@ import org.junit.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -47,40 +41,11 @@ public class UserJpaIT {
     }
 
     @Test
-    public void testRemoveFromCourse() throws Exception {
-        User user = new User();
-        user.setEmail("testMail");
-        List<Course> courses = new ArrayList<>();
-
-        Course course1 = new Course();
-        course1.setName("course1");
-        Course course2 = new Course();
-        course1.setName("course2");
-        Course course3 = new Course();
-        course1.setName("course3");
-
-        courses.add(course1);
-        courses.add(course2);
-        courses.add(course3);
-        user.setCourses(courses);
-
-        userJpa.persist(user);
-        assertTrue(0 < user.getId());
-
-        assertEquals(3, user.getCourses().size());
-        user.getCourses().stream().forEach(System.out::print);
-        System.out.println();
-        userJpa.removeFromCourse(user.getId(), course2.getId());
-        user.getCourses().stream().forEach(System.out::print);
-        assertEquals(2, user.getCourses().size());
-    }
-
-    @Test
     public void testId() throws Exception {
         User user = new User();
         user.setEmail("test@testmail.com");
         user.setPassword("wahej23S!JKLw");
-        user.setType("teacher");
+        user.setUserType(UserType.TEACHER);
 
         assertEquals(0, user.getId());
 

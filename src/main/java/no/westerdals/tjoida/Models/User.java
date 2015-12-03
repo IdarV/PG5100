@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 public class User {
@@ -27,7 +26,8 @@ public class User {
 
     @Size(min = 6)
     private String password;
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
     // Removed CascadeType.MERGE 03.12.2015 10:42, because of java.lang.IllegalStateException: Multiple representations of the same entity
     @ManyToMany(mappedBy = "users", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
@@ -36,15 +36,15 @@ public class User {
     public User() {
     }
 
-    public User(int id, String email, String password, String type) {
+    public User(int id, String email, String password, UserType type) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.type = type;
+        this.userType = type;
     }
 
     public User(int id, String email, String password) {
-        this(id, email, password, "student");
+        this(id, email, password, UserType.STUDENT);
     }
 
     public List<Course> getCourses() {
@@ -79,12 +79,12 @@ public class User {
         this.password = password;
     }
 
-    public String getType() {
-        return type;
+    public String getUserType() {
+        return userType.toString();
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", type=" + type +
+                ", type=" + userType +
                 '}';
     }
 }

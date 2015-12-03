@@ -21,6 +21,4 @@ public interface UserDAO {
     void close();
 
     void persist(User user);
-
-    void removeFromCourse(int userID, int courseID);
 }
