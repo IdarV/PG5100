@@ -21,11 +21,11 @@ public class Course  implements Serializable {
     private int id;
     @NotNull
     private String name;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(name = "USR_SUB")
     @Size(min = 0, max = 100)
     private List<User> users = new ArrayList<>();
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "FK_LOCATION")
     private Location location;
 

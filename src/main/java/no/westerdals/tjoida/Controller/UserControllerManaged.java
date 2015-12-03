@@ -51,7 +51,7 @@ public class UserControllerManaged implements Serializable {
 
     public void edit(User user) {
         this.user = user;
-        currentCourses = user.getCourses();
+        currentCourses = persister.getUser(user.getId()).getCourses();
         nonCurrentCourses = coursePersister.getNonCurrentCourses(user);
         edit = true;
     }
@@ -72,6 +72,11 @@ public class UserControllerManaged implements Serializable {
 
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        updateUserInfo();
     }
 
     public boolean isEdit() {
@@ -104,27 +109,29 @@ public class UserControllerManaged implements Serializable {
 
             courseUsers.remove(userToDelete);
             course.setUsers(courseUsers);
+            user.getCourses().remove(course);
             coursePersister.update(course);
 
             updateUserInfo();
         }
     }
 
-    public void addUserToCourse(int courseId){
+    public void addUserToCourse(int courseId) {
         Course course = coursePersister.getCourse(courseId);
         List<User> courseUsers = course.getUsers();
         courseUsers.add(user);
         course.setUsers(courseUsers);
+        user.getCourses().add(course);
         coursePersister.update(course);
 
         updateUserInfo();
-
     }
 
     private void updateUserInfo() {
-        user = persister.getUser(user.getId());
-        currentCourses = user.getCourses();
-        nonCurrentCourses = coursePersister.getNonCurrentCourses(user);
+        if (user.getId() > 0) {
+            currentCourses = persister.getUser(user.getId()).getCourses();
+            nonCurrentCourses = coursePersister.getNonCurrentCourses(persister.getUser(user.getId()));
+        }
     }
 
     public UserDAO getPersister() {
