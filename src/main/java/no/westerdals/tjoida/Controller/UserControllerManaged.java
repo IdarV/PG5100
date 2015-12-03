@@ -31,6 +31,7 @@ public class UserControllerManaged implements Serializable {
 
     private List<User> list;
     private List<Course> currentCourses;
+    private List<Course> nonCurrentCourses;
     private User user = new User();
     private boolean edit;
 
@@ -40,7 +41,6 @@ public class UserControllerManaged implements Serializable {
     @PostConstruct
     public void init() {
         list = persister.getUsers();
-
     }
 
     public void add() {
@@ -52,6 +52,7 @@ public class UserControllerManaged implements Serializable {
     public void edit(User user) {
         this.user = user;
         currentCourses = user.getCourses();
+        nonCurrentCourses = coursePersister.getNonCurrentCourses(user);
         edit = true;
     }
 
@@ -85,8 +86,16 @@ public class UserControllerManaged implements Serializable {
         this.currentCourses = currentCourses;
     }
 
-    public void removeUserFromCourse(int id) {
-        Course course = coursePersister.getCourse(id);
+    public List<Course> getNonCurrentCourses() {
+        return nonCurrentCourses;
+    }
+
+    public void setNonCurrentCourses(List<Course> nonCurrentCourses) {
+        this.nonCurrentCourses = nonCurrentCourses;
+    }
+
+    public void removeUserFromCourse(int courseId) {
+        Course course = coursePersister.getCourse(courseId);
         List<User> courseUsers = course.getUsers();
 
         User userToDelete = courseUsers.stream().filter(u -> u.getId() == user.getId()).findFirst().orElse(null);
@@ -95,11 +104,27 @@ public class UserControllerManaged implements Serializable {
 
             courseUsers.remove(userToDelete);
             course.setUsers(courseUsers);
-
             coursePersister.update(course);
-            user = persister.getUser(user.getId());
-            currentCourses = user.getCourses();
+
+            updateUserInfo();
         }
+    }
+
+    public void addUserToCourse(int courseId){
+        Course course = coursePersister.getCourse(courseId);
+        List<User> courseUsers = course.getUsers();
+        courseUsers.add(user);
+        course.setUsers(courseUsers);
+        coursePersister.update(course);
+
+        updateUserInfo();
+
+    }
+
+    private void updateUserInfo() {
+        user = persister.getUser(user.getId());
+        currentCourses = user.getCourses();
+        nonCurrentCourses = coursePersister.getNonCurrentCourses(user);
     }
 
     public UserDAO getPersister() {

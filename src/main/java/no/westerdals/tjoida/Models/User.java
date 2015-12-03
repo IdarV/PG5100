@@ -29,7 +29,8 @@ public class User {
     private String password;
     private String type;
 
-    @ManyToMany(mappedBy = "users", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    // Removed CascadeType.MERGE 03.12.2015 10:42, because of java.lang.IllegalStateException: Multiple representations of the same entity
+    @ManyToMany(mappedBy = "users", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private List<Course> courses;
 
     public User() {

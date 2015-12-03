@@ -15,5 +15,6 @@ public interface CourseDAO {
     void close();
     Course update(Course course);
     List<Course> getCourses();
+    List<Course> getNonCurrentCourses(User user);
     void removeUser(User user);
 }

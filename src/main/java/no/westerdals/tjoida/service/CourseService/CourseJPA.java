@@ -7,11 +7,12 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Stateless
-public class CourseJPA implements CourseDAO{
+public class CourseJPA implements CourseDAO {
     EntityManagerFactory entityManagerFactory;
     @PersistenceContext(name = "Egentreningprosjekt")
     EntityManager entityManager;
@@ -19,7 +20,7 @@ public class CourseJPA implements CourseDAO{
     public CourseJPA() {
     }
 
-    public CourseJPA(EntityManager entityManager){
+    public CourseJPA(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -34,8 +35,30 @@ public class CourseJPA implements CourseDAO{
     }
 
     @Override
-    public List<Course> getCourses(){
+    public List<Course> getCourses() {
         return entityManager.createQuery("SELECT e FROM Course e", Course.class).getResultList();
+    }
+
+    @Override
+    public List<Course> getNonCurrentCourses(User user) {
+        List<Course> allCourses;
+
+        if(user == null){
+            allCourses = new ArrayList<>();
+            return allCourses;
+        }
+
+        allCourses = entityManager.createQuery("SELECT e FROM Course e", Course.class).getResultList();
+
+        List<Course> userCourses = user.getCourses();
+        List<Course> removeCourse = new ArrayList<>();
+
+        for (Course userCourse : userCourses) {
+            allCourses.stream().filter(course -> userCourse.getId() == course.getId()).forEach(removeCourse::add);
+        }
+        removeCourse.forEach(allCourses::remove);
+
+        return allCourses;
     }
 
     @Override
@@ -48,12 +71,6 @@ public class CourseJPA implements CourseDAO{
         course = entityManager.merge(course);
         return course;
     }
-//
-//    @Override
-//    public String getName() {
-//        return null;
-//    }
-
 
     @Override
     public void removeUser(User user) {
