@@ -15,7 +15,7 @@ public interface LocationDAO {
     List<String> getBuildings();
     Location update(Location location);
     Location getLocation(int id);
-    int deleteLocation(int id);
+    void deleteLocation(Location location);
     public List<Location> getLocations();
     void close();
 }

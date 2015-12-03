@@ -51,12 +51,12 @@ public class LocationJPA implements LocationDAO {
 
     @Override
     public Location getLocation(int id) {
-        return null;
+        return entityManager.find(Location.class, id);
     }
 
     @Override
-    public int deleteLocation(int id) {
-        return 0;
+    public void deleteLocation(Location location) {
+         entityManager.remove(location);
     }
 
     @Override
@@ -64,14 +64,4 @@ public class LocationJPA implements LocationDAO {
         entityManager.close();
         entityManagerFactory.close();
     }
-
-//    @AroundInvoke
-//    private Object intercept(InvocationContext ic) throws Exception {
-//        entityManager.getTransaction().begin();
-//        try {
-//            return ic.proceed();
-//        } finally {
-//            entityManager.getTransaction().commit();
-//        }
-//    }
 }

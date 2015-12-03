@@ -4,6 +4,7 @@ import no.westerdals.tjoida.Controller.UserController;
 import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.User;
 import no.westerdals.tjoida.Models.UserType;
+import no.westerdals.tjoida.service.CourseService.CourseDAO;
 import no.westerdals.tjoida.service.CourseService.CourseJPA;
 import no.westerdals.tjoida.service.UserService.JPAUserDao;
 import org.junit.After;
@@ -25,7 +26,7 @@ public class UserControllerTest {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
     private JPAUserDao persister;
-    private CourseJPA coursePersister;
+    private CourseDAO coursePersister;
     private UserController userController;
 
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{locationController.selectedID}"/>
+            <f:viewAction action="#{locationController.initLocation()}"/>
+        </f:metadata>
+
+        <h1>Location details</h1>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">ID:</div>
+            <div class="col-lg-8"><h:outputText value="#{locationController.location.id}"/></div>
+        </b:row>
+        <br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">Building:</div>
+            <div class="col-lg-8"><h:outputText value="#{locationController.location.building}"/></div>
+        </b:row>
+        <br/>
+        <b:row>
+            <div class="col-lg-1 col-lg-offset-2">Room:</div>
+            <div class="col-lg-8"><h:outputText value="#{locationController.location.room}"/></div>
+        </b:row>
+        <br/>
+        <br/>
+        <b:row>
+            <h:link styleClass="col-lg-1 col-lg-offset-2" outcome="/location/location-edit" value="Edit">
+                <f:param name="id" value="#{locationController.location.id}"/>
+            </h:link>
+        </b:row>
+        <br/>
+    </ui:define>
+</ui:composition>
+</html>
