@@ -6,9 +6,6 @@ import no.westerdals.tjoida.Models.User;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-/**
- * Created by Cyzla on 25.09.2015.
- */
 public class TypeValidator implements ConstraintValidator<ValidateType, User> {
 
     @Override
