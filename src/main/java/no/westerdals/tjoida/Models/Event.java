@@ -13,7 +13,8 @@ public class Event {
     private int id;
 
     @NotNull
-    EventType type;
+    @Enumerated(EnumType.STRING)
+    EventType eventType;
 
     @Size(min = 5, max = 25)
     private String title;
@@ -37,8 +38,8 @@ public class Event {
     public Event() {
     }
 
-    public Event(EventType type, String title, String description, Course course, String startTime, String endTime) {
-        this.type = type;
+    public Event(EventType eventType, String title, String description, Course course, String startTime, String endTime) {
+        this.eventType = eventType;
         this.title = title;
         this.description = description;
         this.course = course;
@@ -54,12 +55,12 @@ public class Event {
         this.id = id;
     }
 
-    public EventType getType() {
-        return type;
+    public EventType getEventType() {
+        return eventType;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public void setEventType(EventType type) {
+        this.eventType = type;
     }
 
     public String getTitle() {

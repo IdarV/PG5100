@@ -1,11 +1,3 @@
--- INSERT INTO User (id, email, password, type) VALUES(100, 'idar@email.com', 's0m3pasSw0rD', 'student');
--- INSERT INTO User (id, email, password, type) VALUES(101, 'thomas@email.com', 'thomasPassword', 'student');
--- INSERT INTO Course(id, name) VALUES(100, 'course01');
--- INSERT INTO Course(id, name) VALUES(101, 'course02');
--- -- INSERT INTO Course(id, name) VALUES(100, 'course01');
--- -- INSERT INTO Course(id, name) VALUES(101, 'course02');
--- INSERT INTO Location(id, room, building) VALUES(100, 'room01', 'building01');
--- INSERT INTO Location(id, room, building) VALUES(101, 'room02', 'building01');
 INSERT INTO User (id, email, password, usertype) VALUES(100, 'idar@email.com', 's0m3pasSw0r!D', 'STUDENT');
 INSERT INTO User (id, email, password, usertype) VALUES(102, 'fredrick@email.com', 'freddyBo!y13', 'STUDENT');
 INSERT INTO User (id, email, password, usertype) VALUES(103, 'hans@email.com', 'HighP3rf0rmace!', 'STUDENT');
@@ -22,6 +14,11 @@ INSERT INTO Course(id, name, FK_LOCATION) VALUES(100, 'Avansert Javaprogrammerin
 INSERT INTO Course(id, name, FK_LOCATION) VALUES(101, 'Embedded Systems', 103);
 INSERT INTO Course(id, name, FK_LOCATION) VALUES(102, 'C for Linux', 102);
 INSERT INTO Course(id, name, FK_LOCATION) VALUES(103, 'Entrepreneurship', 101);
+
+INSERT INTO Event(id, eventtype, title, description, FK_COURSE) VALUES(100, 'LECTURE', 'JPA Basics', 'Learning the basics', 100);
+INSERT INTO Event(id, eventtype, title, description, FK_COURSE) VALUES(101, 'LECTURE', 'IO Basics', 'Learning the basics', 101);
+INSERT INTO Event(id, eventtype, title, description, FK_COURSE) VALUES(102, 'LECTURE', 'Pointers basics', 'Learning the basics', 102);
+INSERT INTO Event(id, eventtype, title, description, FK_COURSE) VALUES(103, 'LECTURE', 'LEAN basics', 'Learning the basics', 103);
 
 -- add together som tables
 -- USR_SUB (course, user)
