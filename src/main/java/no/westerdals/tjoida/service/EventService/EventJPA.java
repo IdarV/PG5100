@@ -45,12 +45,13 @@ public class EventJPA implements EventDAO{
     }
 
     @Override
-    public void close() {
-
+    public Event update(Event event) {
+        return entityManager.merge(event);
     }
 
     @Override
-    public Event update(Event event) {
-        return null;
+    public void close() {
+        entityManager.close();
+        entityManagerFactory.close();
     }
 }

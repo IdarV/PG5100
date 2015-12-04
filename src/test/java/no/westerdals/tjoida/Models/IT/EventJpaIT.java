@@ -70,6 +70,17 @@ public class EventJpaIT {
 
     }
 
+    @Test
+    public void testUpdate() throws Exception {
+        String newTitle = "newTitle";
+        event = getDefaultEvent();
+        assertNotEquals("event should not have the title we are setting it to", newTitle, event.getTitle());
+
+        event.setTitle(newTitle);
+        event = persister.update(event);
+        assertEquals("event should have new title", newTitle, event.getTitle());
+    }
+
     private Event getDefaultEvent() {
         Event event = new Event();
         event.setTitle("eventTitle");
