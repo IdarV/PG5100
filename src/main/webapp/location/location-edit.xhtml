@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{locationController.selectedID}"/>
+            <f:viewAction action="#{locationController.initLocation()}"/>
+        </f:metadata>
+
+        <b:container>
+            <h1 class="col-lg-offset-2"><h:outputText value="Edit location"/></h1>
+            <h:form>
+                <b:row>
+                    <h:outputText for="building" value="Building" class="col-lg-1 col-lg-offset-2"/>
+                    <h:inputText class="col-lg-3" id="building" value="#{locationController.location.building}" />
+                </b:row>
+                <br/>
+                <b:row>
+                    <h:outputText for="room" value="Room" class="col-lg-1 col-lg-offset-2"/>
+                    <h:inputText class="col-lg-3" id="room" value="#{locationController.location.room}" />
+                </b:row>
+                <br/>
+                <b:row>
+                    <h:inputHidden id="id" value="#{locationController.location.id}" binding="#{locationID}"/>
+                    <h:commandButton styleClass="btn btn-default col-lg-offset-5'"
+                                     action="#{locationController.updateLocation()}" value="Update"/>
+                </b:row>
+            </h:form>
+        </b:container>
+
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,6 +1,7 @@
 package no.westerdals.tjoida.Models.Validation;
 
 import no.westerdals.tjoida.Models.User;
+import no.westerdals.tjoida.Models.UserType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,15 +12,11 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Cyzla on 25.09.2015.
- */
 public class UserValidationTest {
     private final String STD_EMAIL = "email@email.com";
     private final int STD_ID = 0;
     private final String STD_PASSWORD = "mYP4SSW0RD!";
-//    private final Type STD_TYPE = Type.STUDENT;
-    private final String STD_TYPE = "Student";
+    private final UserType STD_TYPE = UserType.STUDENT;
     private Validator validator;
 
     @Before
@@ -75,7 +72,7 @@ public class UserValidationTest {
     public void testSetType() throws Exception {
         User user = new User(STD_ID, STD_EMAIL, STD_PASSWORD, STD_TYPE);
         Set<ConstraintViolation<User>> violations = validator.validate(user);
-        assertEquals(0, violations.size());
+        assertTrue("", violations.isEmpty());
     }
 
 

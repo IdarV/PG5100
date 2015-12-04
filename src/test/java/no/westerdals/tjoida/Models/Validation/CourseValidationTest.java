@@ -16,9 +16,6 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Cyzla on 23.10.2015.
- */
 public class CourseValidationTest {
     ValidatorFactory validatorFactory;
     Validator validator;

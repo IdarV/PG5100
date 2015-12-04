@@ -8,25 +8,24 @@
 
 <ui:composition template="/template.xhtml">
     <ui:define name="content">
-        <h2 style="">Users</h2>
+        <h2>Locations</h2>
 
         <div class="table-responsive">
-            <h:dataTable styleClass="table" value="#{userController.getAll()}" var="item">
+            <h:dataTable styleClass="table" value="#{locationController.getAll()}" var="item">
                 <h:column>
                     <f:facet name="header">ID</f:facet>
                     <h:outputText value="#{item.id}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Email</f:facet>
-                    <h:outputText value="#{item.email}"/>
+                    <f:facet name="header">Building</f:facet>
+                    <h:outputText value="#{item.building}"/>
                 </h:column>
                 <h:column>
-
-                    <f:facet name="header">Type</f:facet>
-                    <h:outputText value="#{item.type}"/>
+                    <f:facet name="header">Room</f:facet>
+                    <h:outputText value="#{item.room}"/>
                 </h:column>
                 <h:column>
-                    <h:link outcome="/user/user-details" value="Details">
+                    <h:link outcome="/location/location-details" value="Details">
                         <f:param name="id" value="#{item.id}"/>
                     </h:link>
                 </h:column>
