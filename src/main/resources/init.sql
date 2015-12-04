@@ -15,8 +15,12 @@ INSERT INTO Course(id, name, FK_LOCATION) VALUES(101, 'Embedded Systems', 103);
 INSERT INTO Course(id, name, FK_LOCATION) VALUES(102, 'C for Linux', 102);
 INSERT INTO Course(id, name, FK_LOCATION) VALUES(103, 'Entrepreneurship', 101);
 
--- add together som tables
--- USR_SUB (course, user)
+INSERT INTO Event(id, eventtype, title, description, FK_COURSE) VALUES(100, 'LECTURE', 'JPA Basics', 'Learning the basics', 100);
+INSERT INTO Event(id, eventtype, title, description, FK_COURSE) VALUES(101, 'LECTURE', 'IO Basics', 'Learning the basics', 101);
+INSERT INTO Event(id, eventtype, title, description, FK_COURSE) VALUES(102, 'LECTURE', 'Pointers basics', 'Learning the basics', 102);
+INSERT INTO Event(id, eventtype, title, description, FK_COURSE) VALUES(103, 'LECTURE', 'LEAN basics', 'Learning the basics', 103);
+
+-- USR_SUB(course, user) are *-* table of users int courses.
 INSERT INTO USR_SUB VALUES(100, 100);
 INSERT INTO USR_SUB VALUES(101, 100);
 INSERT INTO USR_SUB VALUES(102, 100);
@@ -34,3 +38,8 @@ INSERT INTO USR_SUB VALUES(103, 104);
 
 INSERT INTO USR_SUB VALUES(100, 105);
 INSERT INTO USR_SUB VALUES(101, 105);
+
+INSERT INTO Event_Details VALUES('123', '321', 100);
+INSERT INTO Event_Details VALUES('1525', '3551', 101);
+INSERT INTO Event_Details VALUES('1323', '3521', 102);
+INSERT INTO Event_Details VALUES('1263', '3211', 103);

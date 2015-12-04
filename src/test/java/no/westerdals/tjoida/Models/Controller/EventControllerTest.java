@@ -2,6 +2,8 @@ package no.westerdals.tjoida.Models.Controller;
 
 
 import no.westerdals.tjoida.Controller.EventController;
+import no.westerdals.tjoida.service.CourseService.CourseDAO;
+import no.westerdals.tjoida.service.CourseService.CourseJPA;
 import no.westerdals.tjoida.service.EventService.EventDAO;
 import no.westerdals.tjoida.service.EventService.EventJPA;
 import org.junit.After;
@@ -18,6 +20,7 @@ public class EventControllerTest {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
     private EventDAO persister;
+    private CourseDAO coursePersister;
     private EventController eventController;
 
     @Before
@@ -25,7 +28,8 @@ public class EventControllerTest {
         entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         entityManager = entityManagerFactory.createEntityManager();
         persister = new EventJPA(entityManager);
-        eventController = new EventController(persister);
+        coursePersister = new CourseJPA(entityManager);
+        eventController = new EventController(persister, coursePersister);
         eventController.init();
     }
 
@@ -55,5 +59,21 @@ public class EventControllerTest {
         assertEquals("Before persist, event does not have ID", 0, eventController.getEvent().getId());
         eventController.persistNewEvent();
         assertTrue("Before persist, event does not have ID", 0 < eventController.getEvent().getId());
+    }
+
+    @Test
+    public void testGetAll() throws Exception {
+        assertTrue("getAll should return multiple results, it's populated in init.sql", 1 < eventController.getAll().size());
+    }
+
+    @Test
+    public void testUpdateEvent() throws Exception {
+        String newTitle = "newTitle";
+        eventController.setSelectedID(100);
+        eventController.initEvent();
+        assertNotEquals(eventController.getEvent().getTitle(), newTitle);
+        eventController.getEvent().setTitle(newTitle);
+        eventController.updateEvent();
+        assertEquals(eventController.getEvent().getTitle(), newTitle);
     }
 }
