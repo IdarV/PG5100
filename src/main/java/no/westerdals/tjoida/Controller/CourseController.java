@@ -3,8 +3,7 @@ package no.westerdals.tjoida.Controller;
 import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.Location;
 import no.westerdals.tjoida.service.CourseService.CourseDAO;
-import no.westerdals.tjoida.service.CourseService.CourseJPA;
-import no.westerdals.tjoida.service.LocationService.LocationJPA;
+import no.westerdals.tjoida.service.LocationService.LocationDAO;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -14,15 +13,18 @@ import java.util.List;
 @Model
 public class CourseController {
     private CourseDAO persister;
+    private LocationDAO locationPersister;
     private Course course;
     private int selectedID;
+    private int selectedLocationID = 0;
 
     public CourseController() {
     }
 
     @Inject
-    public CourseController(CourseDAO persister) {
+    public CourseController(CourseDAO persister, LocationDAO locationPersister) {
         this.persister = persister;
+        this.locationPersister = locationPersister;
     }
 
     @PostConstruct
@@ -32,10 +34,16 @@ public class CourseController {
 
     public void initCourse() {
         this.course = persister.getCourse(selectedID);
+        selectedLocationID = course.getLocation().getId();
     }
 
     public void persistNewCourse() {
         persister.persist(course);
+        Location location = locationPersister.getLocation(selectedLocationID);
+
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\nCourse = " + course);
+        location.getCourses().add(course);
+        locationPersister.update(location);
     }
 
     public Course getCourse() {
@@ -84,12 +92,29 @@ public class CourseController {
             System.out.println("updating course users: " + course.getUsers());
             newCourse.setUsers(course.getUsers());
         }
+
+        if (selectedLocationID != 0) {
+            newCourse.setLocation(locationPersister.getLocation(selectedLocationID));
+        }
+
         persister.update(newCourse);
         return "/course/course-index.xhtml?faces-redirect=true";
     }
 
+    public int getSelectedLocationID() {
+        return selectedLocationID;
+    }
+
+    public void setSelectedLocationID(int selectedLocationID) {
+        this.selectedLocationID = selectedLocationID;
+    }
+
     public String getLocation() {
         return course.getLocation().toString();
+    }
+
+    public List<Location> getLocations() {
+        return locationPersister.getLocations();
     }
 
 

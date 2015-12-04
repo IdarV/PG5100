@@ -35,8 +35,9 @@
         </b:row>
         <br/>
         <b:row>
-            <div class="col-lg-1 col-lg-offset-2">Type:</div>
-            <div class="col-lg-8"><h:outputText value="#{eventController.event.description}"/></div>
+            <div class="col-lg-1 col-lg-offset-2">From-to:</div>
+            <div class="col-lg-8"><h:outputText
+                    value="#{eventController.event.startTime} - #{eventController.event.endTime}"/></div>
         </b:row>
         <br/>
         <b:row>
@@ -51,8 +52,6 @@
             </h:link>
         </b:row>
         <br/>
-        <b:row>
-        </b:row>
     </ui:define>
 </ui:composition>
 </html>

@@ -10,6 +10,8 @@
     <ui:define name="content">
         <h2>Events</h2>
 
+        <h:link outcome="/event/event-new" value="New"/>
+
         <div class="table-responsive">
             <h:dataTable styleClass="table" value="#{eventController.getAll()}" var="item">
                 <h:column>

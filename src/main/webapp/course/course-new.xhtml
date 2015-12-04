@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:b="http://bootsfaces.net/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
         >
 <ui:composition template="/template.xhtml">
     <ui:define name="content">
@@ -13,9 +13,26 @@
             <h1 class="col-lg-offset-2"><h:outputText value="Create a new course"/></h1>
             <h:form>
                 <h:messages/>
-                <h:outputLabel for="name" value="Name" styleClass="col-lg-offset-2 col-lg-1"/>
-                <h:inputText id="name" value="#{courseController.course.name}"/>
+                <b:row>
+                    <h:outputLabel for="name" value="Name" styleClass="col-lg-offset-2 col-lg-1"/>
+                    <h:inputText id="name" value="#{courseController.course.name}"/>
+                </b:row>
                 <h:commandButton value="Submit" action="#{courseController.persistNewCourse()}"/>
+                <b:row>
+                    <h:selectOneMenu value="#{courseController.selectedLocationID}" styleClass="col-lg-4">
+                        <h:outputLabel for="locationForm" value="Type"
+                                       styleClass="col-lg-1 col-lg-offset-2"/>
+                        <f:selectItems effect="fold"
+                                       value="#{courseController.getLocations()}"
+                                       var="type"
+                                       itemValue="#{type.id}"
+                                       itemLabel="#{type.toFormattedString()}"
+                                       id="locationForm"
+                                       styleClass="col-lg-4">
+                        </f:selectItems>
+
+                    </h:selectOneMenu>
+                </b:row>
             </h:form>
         </b:container>
     </ui:define>

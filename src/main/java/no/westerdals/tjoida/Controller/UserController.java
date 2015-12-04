@@ -19,7 +19,7 @@ import java.util.List;
  * http://stackoverflow.com/questions/3180400/recommended-jsf-2-0-crud-frameworks
  * <p>
  * Read
- * http://www.tutorialspoint.com/jsf/jsf_managed_beans.htm
+     * http://www.tutorialspoint.com/jsf/jsf_managed_beans.htm
  */
 
 @ManagedBean

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+<ui:composition template="/template.xhtml">
+    <ui:define name="content">
+
+        <b:container>
+            <h1 class="col-lg-offset-2"><h:outputText value="New event"/></h1>
+            <h:form>
+                <b:row>
+                    <h:outputText for="title" value="Title" class="col-lg-1 col-lg-offset-2"/>
+                    <h:inputText class="col-lg-3" id="title" value="#{eventController.event.title}"/>
+                </b:row>
+                <br/>
+                <b:row>
+                    <h:outputText for="description" value="Description" class="col-lg-1 col-lg-offset-2"/>
+                    <h:inputText class="col-lg-3" id="description" value="#{eventController.event.description}"/>
+                </b:row>
+                <br/>
+                <b:row>
+                    <h:selectOneMenu value="#{eventController.event.eventType}" styleClass="col-lg-2">
+                        <h:outputLabel for="typeform" value="Type"
+                                       styleClass="col-lg-1 col-lg-offset-2"/>
+                        <f:selectItems effect="fold"
+                                       value="#{eventController.eventTypes}"
+                                       var="type"
+                                       itemValue="#{type.toString()}"
+                                       itemLabel="#{type.toString()}"
+                                       id="typeform"
+                                       styleClass="col-lg-3">
+                        </f:selectItems>
+
+                    </h:selectOneMenu>
+                </b:row>
+                <br/>
+                <b:row>
+                    <h:selectOneMenu value="#{eventController.selectedCourseID}" styleClass="col-lg-2">
+                        <h:outputLabel for="typeform" value="Type"
+                                       styleClass="col-lg-1 col-lg-offset-2"/>
+                        <f:selectItems effect="fold"
+                                       value="#{eventController.getCourses()}"
+                                       var="type"
+                                       itemValue="#{type.id}"
+                                       itemLabel="#{type.name}"
+                                       id="courseForm"
+                                       styleClass="col-lg-3">
+                        </f:selectItems>
+
+                    </h:selectOneMenu>
+                </b:row>
+                <br/>
+                <b:row>
+
+                    <h:outputText for="datepicker_start" value="Start" class="col-lg-1 col-lg-offset-2"/>
+
+                    <div class="col-lg-3">
+                        <b:datepicker value="#{eventController.selectedStartDate}" styleClass="form" id="datepicker_start"
+                                      showButtonPanel="true" changeMonth="true" changeYear="true"/>
+                    </div>
+                </b:row>
+                <b:row>
+                    <div class="col-lg-5 col-lg-offset-3">
+                        <b:slider min="0" max="24"
+                                  label="Hour"
+                                  value="#{eventController.selectedStartHour}"
+                                />
+                    </div>
+                </b:row>
+
+                <b:row>
+                    <div class="col-lg-5 col-lg-offset-3">
+                        <b:slider min="0" max="50"
+                                  step="10"
+                                  label="Minute"
+                                  value="#{eventController.selectedStartMinute}"
+                                />
+                    </div>
+                </b:row>
+                <br/>
+                <b:row>
+                    <h:outputText for="datepicker_end" value="End" class="col-lg-1 col-lg-offset-2"/>
+
+                    <div class="col-lg-3">
+                        <b:datepicker value="#{eventController.selectedEndDate}" styleClass="form" id="datepicker_end"
+                                      showButtonPanel="true" changeMonth="true" changeYear="true" changeHour="true"
+                                      changeMinute="true"/>
+                    </div>
+                </b:row>
+                <b:row>
+                    <div class="col-lg-5 col-lg-offset-3">
+                        <b:slider min="0" max="24"
+                                  label="Hour"
+                                  value="#{eventController.selectedEndHour}"
+                                />
+                    </div>
+                </b:row>
+
+                <b:row>
+                    <div class="col-lg-5 col-lg-offset-3">
+                        <b:slider min="0" max="50"
+                                  step="10"
+                                  label="Minute"
+                                  value="#{eventController.selectedEndMinute}"
+                                />
+                    </div>
+                </b:row>
+                <br/>
+                <b:row>
+                    <h:inputHidden id="id" value="#{eventController.event.id}" binding="#{eventID}"/>
+                    <h:commandButton styleClass="btn btn-default col-lg-offset-2'"
+                                     action="#{eventController.updateEvent()}" value="Create"/>
+                </b:row>
+            </h:form>
+        </b:container>
+
+    </ui:define>
+</ui:composition>
+</html>

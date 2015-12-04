@@ -2,7 +2,10 @@ package no.westerdals.tjoida.Models.Controller;
 
 import no.westerdals.tjoida.Controller.CourseController;
 import no.westerdals.tjoida.Models.Course;
+import no.westerdals.tjoida.service.CourseService.CourseDAO;
 import no.westerdals.tjoida.service.CourseService.CourseJPA;
+import no.westerdals.tjoida.service.LocationService.LocationDAO;
+import no.westerdals.tjoida.service.LocationService.LocationJPA;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +21,8 @@ import static org.junit.Assert.*;
 public class CourseControllerTest {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
-    private CourseJPA persister;
+    private CourseDAO persister;
+    private LocationDAO locationPersister;
     private CourseController courseController;
 
     @Before
@@ -26,7 +30,8 @@ public class CourseControllerTest {
         entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         entityManager = entityManagerFactory.createEntityManager();
         persister = new CourseJPA(entityManager);
-        courseController = new CourseController(persister);
+        locationPersister = new LocationJPA(entityManager);
+        courseController = new CourseController(persister, locationPersister);
         courseController.init();
     }
 

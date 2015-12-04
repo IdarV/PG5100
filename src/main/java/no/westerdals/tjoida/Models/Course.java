@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Course  implements Serializable {
+public class Course implements Serializable {
 
     /**
      *
