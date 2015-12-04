@@ -17,9 +17,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Cyzla on 15.10.2015.
- */
 public class UserJpaIT {
     EntityManagerFactory entityManagerFactory;
     EntityManager entityManager;

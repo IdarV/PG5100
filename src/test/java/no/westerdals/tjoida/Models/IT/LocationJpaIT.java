@@ -23,7 +23,6 @@ public class LocationJpaIT {
 
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
-
     private LocationJPA persister;
 
     @Before
@@ -90,8 +89,4 @@ public class LocationJpaIT {
         location.setRoom(DEFAULT_ROOM);
         return location;
     }
-
-
-
-
 }
