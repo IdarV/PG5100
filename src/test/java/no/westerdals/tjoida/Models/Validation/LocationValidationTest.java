@@ -30,6 +30,5 @@ public class LocationValidationTest {
         location.setBuilding("testBuilding");
         location.setRoom("testRoom");
         assertFalse(0 < location.getId());
-
     }
 }
