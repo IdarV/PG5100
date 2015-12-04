@@ -24,7 +24,7 @@ public class LocationControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("Location");
+        entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         entityManager = entityManagerFactory.createEntityManager();
         persister = new LocationJPA(entityManager);
         locationController = new LocationController();

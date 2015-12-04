@@ -24,7 +24,7 @@ public class CourseJpaIT {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("Course");
+        entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         entityManager = entityManagerFactory.createEntityManager();
         courseJPA = new CourseJPA(entityManager);
         course = new Course();

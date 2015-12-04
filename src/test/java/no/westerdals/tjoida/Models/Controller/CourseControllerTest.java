@@ -23,7 +23,7 @@ public class CourseControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("Course");
+        entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         entityManager = entityManagerFactory.createEntityManager();
         persister = new CourseJPA(entityManager);
         courseController = new CourseController(persister);

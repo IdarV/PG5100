@@ -32,7 +32,7 @@ public class UserControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("User");
+        entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         entityManager = entityManagerFactory.createEntityManager();
         persister = new JPAUserDao(entityManager);
         coursePersister = new CourseJPA(entityManager);

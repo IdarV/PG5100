@@ -26,7 +26,7 @@ public class UserJpaIT {
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory("User");
+        entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         entityManager = entityManagerFactory.createEntityManager();
         userJpa = new JPAUserDao(entityManager);
     }

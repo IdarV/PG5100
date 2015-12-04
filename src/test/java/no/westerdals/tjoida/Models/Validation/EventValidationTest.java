@@ -70,7 +70,7 @@ public class EventValidationTest {
 
     @Test
     public void testEmptyType() throws Exception {
-        event.setType(null);
+        event.setEventType(null);
         Set<ConstraintViolation<Event>> validate = validator.validate(event);
         assertTrue("Event type cannot be null", 1 == validate.size());
     }
