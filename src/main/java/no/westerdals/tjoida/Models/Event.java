@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@SecondaryTable(name="Event_Details")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -25,8 +26,11 @@ public class Event {
     @Valid
     private Course course;
 
+    @Column(table = "Event_Details")
     @NotNull
     private String startTime;
+
+    @Column(table = "Event_Details")
     @NotNull
     private String endTime;
 
