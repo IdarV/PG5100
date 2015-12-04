@@ -20,13 +20,15 @@
                     <h:outputText for="building" value="Building" class="col-lg-1 col-lg-offset-2"/>
                     <h:inputText class="col-lg-3" id="building" value="#{locationController.location.building}" />
                 </b:row>
+                <br/>
                 <b:row>
                     <h:outputText for="room" value="Room" class="col-lg-1 col-lg-offset-2"/>
                     <h:inputText class="col-lg-3" id="room" value="#{locationController.location.room}" />
                 </b:row>
+                <br/>
                 <b:row>
                     <h:inputHidden id="id" value="#{locationController.location.id}" binding="#{locationID}"/>
-                    <h:commandButton styleClass="btn btn-default col-lg-1 col-lg-offset-2'"
+                    <h:commandButton styleClass="btn btn-default col-lg-offset-5'"
                                      action="#{locationController.updateLocation()}" value="Update"/>
                 </b:row>
             </h:form>

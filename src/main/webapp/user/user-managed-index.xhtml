@@ -53,15 +53,24 @@
                 </b:row>
                 <br/>
                 <b:row>
-                    <h:selectOneListbox value="#{userController.user.userType}">
-                        <h:outputLabel for="typeform" value="Type" styleClass="col-lg-1"/>
-                        <f:selectItems value="#{userController.userTypes}" var="type" itemValue="#{type.toString()}"
-                                       itemLabel="#{type.toString()}" id="typeform" styleClass="form-control col-lg-3">
+                    <h:selectOneMenu value="#{userController.user.userType}">
+                        <h:outputLabel for="typeform" value="Type"
+                                       styleClass="col-lg-1"/>
+                        <f:selectItems effect="fold"
+                                       value="#{userController.userTypes}"
+                                       var="type"
+                                       itemValue="#{type.toString()}"
+                                       itemLabel="#{type.toString()}"
+                                       id="typeform"
+                                       styleClass="col-lg-3">
                         </f:selectItems>
-                    </h:selectOneListbox>
+
+                    </h:selectOneMenu>
                 </b:row>
 
-                <p><h:commandButton value="add" styleClass="btn btn-default" action="#{userController.add}"/></p>
+                <p><h:commandButton value="add"
+                                    styleClass="btn btn-default"
+                                    action="#{userController.add}"/></p>
             </h:form>
         </h:panelGroup>
 
@@ -69,34 +78,52 @@
             <h3>Edit user #{userController.user.id}</h3>
             <h:form>
                 <b:row>
-                    <h:outputLabel for="email_edit" value="E-mail" styleClass="col-lg-1"/>
-                    <h:inputText id="email_edit" value="#{userController.user.email}"/>
+                    <h:outputLabel for="email_edit"
+                                   value="E-mail"
+                                   styleClass="col-lg-1"/>
+                    <h:inputText id="email_edit"
+                                 value="#{userController.user.email}"/>
                 </b:row>
                 <br/>
                 <b:row>
-                    <h:outputLabel for="password_edit" value="Password" styleClass="col-lg-1"/>
-                    <h:inputText id="password_edit" value="#{userController.user.password}"/>
+                    <h:outputLabel for="password_edit"
+                                   value="Password"
+                                   styleClass="col-lg-1"/>
+                    <h:inputText id="password_edit"
+                                 value="#{userController.user.password}"/>
                 </b:row>
                 <br/>
                 <b:row>
-                    <h:selectOneListbox value="#{userController.user.userType}">
-                        <h:outputLabel for="edit_typeform" value="Type" styleClass="col-lg-1"/>
-                        <f:selectItems value="#{userController.userTypes}" var="type" itemValue="#{type.toString()}"
-                                       itemLabel="#{type.toString()}" id="edit_typeform" styleClass="form-control col-lg-3">
+                    <h:selectOneMenu value="#{userController.user.userType}">
+                        <h:outputLabel for="edit_typeform"
+                                       value="Type"
+                                       styleClass="col-lg-1"/>
+                        <f:selectItems effect="fold"
+                                       value="#{userController.userTypes}"
+                                       var="type"
+                                       itemValue="#{type.toString()}"
+                                       itemLabel="#{type.toString()}"
+                                       id="edit_typeform"
+                                       styleClass="col-lg-3">
                         </f:selectItems>
-                    </h:selectOneListbox>
+                    </h:selectOneMenu>
                 </b:row>
 
-                <p><h:commandButton value="save" styleClass="btn btn-default" action="#{userController.save}"/>
+                <p>
+                    <h:commandButton value="save"
+                                     styleClass="btn btn-default"
+                                     action="#{userController.save}"/>
                 </p>
             </h:form>
 
             <div class="col-lg-5">
                 <h:form>
-                    <h:dataTable styleClass="table table-responsive" value="#{userController.currentCourses}"
+                    <h:dataTable styleClass="table table-responsive"
+                                 value="#{userController.currentCourses}"
                                  var="crs">
                         <h:column>
-                            <h:outputText styleClass="" value="#{crs.name}"/>
+                            <h:outputText styleClass=""
+                                          value="#{crs.name}"/>
                         </h:column>
                         <h:column>
                             <h:commandButton value="Remove" styleClass="btn btn-danger"
@@ -107,13 +134,16 @@
             </div>
             <div class="col-lg-5">
                 <h:form>
-                    <h:dataTable styleClass="table table-responsive" value="#{userController.nonCurrentCourses}"
+                    <h:dataTable styleClass="table table-responsive"
+                                 value="#{userController.nonCurrentCourses}"
                                  var="ncrs">
                         <h:column>
-                            <h:outputText styleClass="" value="#{ncrs.name}"/>
+                            <h:outputText styleClass=""
+                                          value="#{ncrs.name}"/>
                         </h:column>
                         <h:column>
-                            <h:commandButton value="Add" styleClass="btn btn-info"
+                            <h:commandButton value="Add"
+                                             styleClass="btn btn-info"
                                              action="#{userController.addUserToCourse(ncrs.id)}"/>
                         </h:column>
                     </h:dataTable>

@@ -80,9 +80,6 @@ public class User {
     }
 
     public UserType getUserType() {
-        // TODO: REMOVE
-        System.out.println(userType == null ? "usertype is null" : "usertype is not null: " + userType);
-
         return userType;
     }
 
