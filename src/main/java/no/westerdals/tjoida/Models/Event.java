@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @SecondaryTable(name="Event_Details")
@@ -29,16 +30,16 @@ public class Event {
 
     @Column(table = "Event_Details")
     @NotNull
-    private String startTime;
+    private Date startTime;
 
     @Column(table = "Event_Details")
     @NotNull
-    private String endTime;
+    private Date endTime;
 
     public Event() {
     }
 
-    public Event(EventType eventType, String title, String description, Course course, String startTime, String endTime) {
+    public Event(EventType eventType, String title, String description, Course course, Date startTime, Date endTime) {
         this.eventType = eventType;
         this.title = title;
         this.description = description;
@@ -87,19 +88,19 @@ public class Event {
         this.course = course;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 }

@@ -14,16 +14,16 @@
         </f:metadata>
 
         <b:container>
-            <h1 class="col-lg-offset-2"><h:outputText value="Edit event"/></h1>
+            <h1 class="col-lg-offset-2"><h:outputText value="New event"/></h1>
             <h:form>
                 <b:row>
                     <h:outputText for="title" value="Title" class="col-lg-1 col-lg-offset-2"/>
-                    <h:inputText class="col-lg-3" id="title" value="#{eventController.event.title}" />
+                    <h:inputText class="col-lg-3" id="title" value="#{eventController.event.title}"/>
                 </b:row>
                 <br/>
                 <b:row>
                     <h:outputText for="description" value="Description" class="col-lg-1 col-lg-offset-2"/>
-                    <h:inputText class="col-lg-3" id="description" value="#{eventController.event.description}" />
+                    <h:inputText class="col-lg-3" id="description" value="#{eventController.event.description}"/>
                 </b:row>
                 <br/>
                 <b:row>
@@ -59,18 +59,65 @@
                 </b:row>
                 <br/>
                 <b:row>
-                    <h:outputText for="starttime" value="Start" class="col-lg-1 col-lg-offset-2"/>
-                    <h:inputText class="col-lg-3" id="starttime" value="#{eventController.event.startTime}" />
+
+                    <h:outputText for="datepicker_start" value="Start" class="col-lg-1 col-lg-offset-2"/>
+
+                    <div class="col-lg-3">
+                        <b:datepicker value="#{eventController.finalStartDate}" styleClass="form" id="datepicker_start"
+                                      showButtonPanel="true" changeMonth="true" changeYear="true"/>
+                    </div>
+                </b:row>
+                <b:row>
+                    <div class="col-lg-5 col-lg-offset-3">
+                        <b:slider min="0" max="24"
+                                  label="Hour"
+                                  value="#{eventController.selectedStartHour}"
+                                />
+                    </div>
+                </b:row>
+
+                <b:row>
+                    <div class="col-lg-5 col-lg-offset-3">
+                        <b:slider min="0" max="50"
+                                  step="10"
+                                  label="Minute"
+                                  value="#{eventController.selectedStartMinute}"
+                                />
+                    </div>
                 </b:row>
                 <br/>
                 <b:row>
-                    <h:outputText for="endtime" value="End" class="col-lg-1 col-lg-offset-2"/>
-                    <h:inputText class="col-lg-3" id="endtime" value="#{eventController.event.endTime}" />
+                    <h:outputText for="datepicker_end" value="End" class="col-lg-1 col-lg-offset-2"/>
+
+                    <div class="col-lg-3">
+                        <b:datepicker value="#{eventController.finalEndDate}" styleClass="form" id="datepicker_end"
+                                      showButtonPanel="true" changeMonth="true" changeYear="true" changeHour="true"
+                                      changeMinute="true"/>
+                    </div>
                 </b:row>
                 <b:row>
+                    <div class="col-lg-5 col-lg-offset-3">
+                        <b:slider min="0" max="24"
+                                  label="Hour"
+                                  value="#{eventController.selectedEndHour}"
+                                />
+                    </div>
+                </b:row>
+
+                <b:row>
+                    <div class="col-lg-5 col-lg-offset-3">
+                        <b:slider min="0" max="50"
+                                  step="10"
+                                  label="Minute"
+                                  value="#{eventController.selectedEndMinute}"
+                                />
+                    </div>
+                </b:row>
+                <br/>
+                <b:row>
                     <h:inputHidden id="id" value="#{eventController.event.id}" binding="#{eventID}"/>
-                    <h:commandButton styleClass="btn btn-default col-lg-offset-5'"
-                                     action="#{eventController.updateEvent()}" value="Update"/>
+                    <h:commandButton styleClass="btn btn-default col-lg-offset-2'"
+                                     action="#{eventController.updateEvent()}" value="Create"/>
                 </b:row>
             </h:form>
         </b:container>

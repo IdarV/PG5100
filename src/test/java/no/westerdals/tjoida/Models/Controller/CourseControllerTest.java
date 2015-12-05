@@ -66,6 +66,7 @@ public class CourseControllerTest {
     @Test
     public void testPersistNewCourse() throws Exception {
         Course course = courseController.getCourse();
+        courseController.setSelectedLocationID(100);
         String name = "courseName";
         course.setName(name);
 

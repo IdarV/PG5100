@@ -59,7 +59,7 @@
                     <h:outputText for="datepicker_start" value="Start" class="col-lg-1 col-lg-offset-2"/>
 
                     <div class="col-lg-3">
-                        <b:datepicker value="#{eventController.selectedStartDate}" styleClass="form" id="datepicker_start"
+                        <b:datepicker value="#{eventController.finalStartDate}" styleClass="form" id="datepicker_start"
                                       showButtonPanel="true" changeMonth="true" changeYear="true"/>
                     </div>
                 </b:row>
@@ -86,7 +86,7 @@
                     <h:outputText for="datepicker_end" value="End" class="col-lg-1 col-lg-offset-2"/>
 
                     <div class="col-lg-3">
-                        <b:datepicker value="#{eventController.selectedEndDate}" styleClass="form" id="datepicker_end"
+                        <b:datepicker value="#{eventController.finalEndDate}" styleClass="form" id="datepicker_end"
                                       showButtonPanel="true" changeMonth="true" changeYear="true" changeHour="true"
                                       changeMinute="true"/>
                     </div>

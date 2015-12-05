@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,42 +22,46 @@ public class EventController {
 
     private int selectedID = 100;
     private int selectedCourseID = 0;
-
-    private String selectedStartDate;
-    private String selectedEndDate;
-    private String selectedStartHour;
-    private String selectedStartMinute;
-    private String selectedEndHour;
-    private String selectedEndMinute;
-    private String finalEndDate;
-    private String finalStartDate;
-
-    private List<String> months = new ArrayList<>();
+    private int selectedStartHour;
+    private int selectedStartMinute;
+    private int selectedEndHour;
+    private int selectedEndMinute;
+    private Date finalEndDate;
+    private Date finalStartDate;
 
     public EventController() {
     }
 
     @Inject
-    public EventController(EventDAO persister, CourseDAO coursePersister){
+    public EventController(EventDAO persister, CourseDAO coursePersister) {
         this.persister = persister;
         this.coursePersister = coursePersister;
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
+        finalStartDate = new Date();
+        finalEndDate = new Date();
+        selectedStartHour = selectedEndHour = 12;
+        selectedStartMinute = selectedEndMinute = 30;
         event = new Event();
-        initMonths();
     }
 
-    public void initEvent(){
+    public void initEvent() {
         event = persister.getEvent(selectedID);
+        finalStartDate = event.getStartTime();
+        finalEndDate = event.getEndTime();
+
+        selectedStartHour = getHourFromDate(finalStartDate);
+        selectedEndHour = getHourFromDate(finalEndDate);
+        selectedStartMinute = getMinuteFromDate(finalStartDate);
+        selectedEndMinute = getMinuteFromDate(finalEndDate);
+
         selectedCourseID = event.getCourse().getId() == 0 ? 0 : event.getCourse().getId();
-        initMonths();
     }
 
-    public void persistNewEvent(){
-        event.setStartTime(selectedStartDate);
-        event.setEndTime(selectedEndDate);
+    public void persistNewEvent() {
+        parseDates();
         persister.persist(event);
     }
 
@@ -64,16 +69,17 @@ public class EventController {
         return event;
     }
 
-    public List<Event> getAll(){
+    public List<Event> getAll() {
         return persister.getEvents();
     }
 
-    public void updateEvent(){
+    public void updateEvent() {
         parseDates();
         Course selectedCourse = coursePersister.getCourse(selectedCourseID);
+
         event.setCourse(selectedCourse);
-        event.setStartTime(selectedStartDate);
-        event.setEndTime(selectedEndDate);
+        event.setStartTime(finalStartDate);
+        event.setEndTime(finalEndDate);
         event = persister.update(event);
     }
 
@@ -81,32 +87,34 @@ public class EventController {
         this.event = event;
     }
 
-    public List<EventType> getEventTypes(){
+    public List<EventType> getEventTypes() {
         List<EventType> eventTypes = new ArrayList<>();
         eventTypes.add(EventType.LECTURE);
         eventTypes.add(EventType.PRACTICE);
         return eventTypes;
     }
 
-    public void parseDates(){
-        String[] selectedStartArray = selectedStartDate.split("\\s+");
-        selectedStartArray[3] = selectedStartHour + ":" + selectedStartMinute + ":00";
+    // Cheap solution of setting time
+    public void parseDates() {
+        Calendar calendarStart = Calendar.getInstance();
+        Calendar calendarEnd = Calendar.getInstance();
 
-        selectedStartDate = "";
-        for(String s : selectedStartArray){
-            selectedStartDate += (s + " ");
-        }
+        calendarStart.setTime(finalStartDate);
+        calendarStart.set(Calendar.HOUR_OF_DAY, selectedStartHour);
+        calendarStart.set(Calendar.MINUTE, selectedStartMinute);
+        calendarStart.set(Calendar.SECOND, 0);
+        calendarStart.set(Calendar.MILLISECOND, 0);
+        finalStartDate = calendarStart.getTime();
 
-        String[] selectedEndArray = selectedEndDate.split("\\s+");
-        selectedEndArray[3] = selectedEndHour + ":" + selectedEndMinute + ":00";
-
-        selectedEndDate = "";
-        for(String s : selectedEndArray){
-            selectedEndDate += (s + " ");
-        }
+        calendarEnd.setTime(finalEndDate);
+        calendarEnd.set(Calendar.HOUR_OF_DAY, selectedEndHour);
+        calendarEnd.set(Calendar.MINUTE, selectedEndMinute);
+        calendarEnd.set(Calendar.SECOND, 0);
+        calendarEnd.set(Calendar.MILLISECOND, 0);
+        finalEndDate = calendarEnd.getTime();
     }
 
-    public List<Course> getCourses(){
+    public List<Course> getCourses() {
         return coursePersister.getCourses();
     }
 
@@ -126,82 +134,63 @@ public class EventController {
         this.selectedCourseID = selectedCourseID;
     }
 
-    public String getSelectedStartHour() {
+    public int getSelectedStartHour() {
         return selectedStartHour;
     }
 
-    public void setSelectedStartHour(String selectedStartHour) {
+    public void setSelectedStartHour(int selectedStartHour) {
         this.selectedStartHour = selectedStartHour;
     }
 
-    public String getSelectedStartMinute() {
+    public int getSelectedStartMinute() {
         return selectedStartMinute;
     }
 
-    public void setSelectedStartMinute(String selectedStartMinute) {
+    public void setSelectedStartMinute(int selectedStartMinute) {
         this.selectedStartMinute = selectedStartMinute;
     }
 
-    public String getSelectedEndHour() {
+    public int getSelectedEndHour() {
         return selectedEndHour;
     }
 
-    public void setSelectedEndHour(String selectedEndHour) {
+    public void setSelectedEndHour(int selectedEndHour) {
         this.selectedEndHour = selectedEndHour;
     }
 
-    public String getSelectedEndMinute() {
+    public int getSelectedEndMinute() {
         return selectedEndMinute;
     }
 
-    public void setSelectedEndMinute(String selectedEndMinute) {
+    public void setSelectedEndMinute(int selectedEndMinute) {
         this.selectedEndMinute = selectedEndMinute;
     }
 
-    public String getSelectedStartDate() {
-        return selectedStartDate;
-    }
-
-    public void setSelectedStartDate(String selectedStartDate) {
-        this.selectedStartDate = selectedStartDate;
-    }
-
-    public String getSelectedEndDate() {
-        return selectedEndDate;
-    }
-
-    public void setSelectedEndDate(String selectedEndDate) {
-        this.selectedEndDate = selectedEndDate;
-    }
-
-    public String getFinalEndDate() {
+    public Date getFinalEndDate() {
         return finalEndDate;
     }
 
-    public void setFinalEndDate(String finalEndDate) {
+    public void setFinalEndDate(Date finalEndDate) {
         this.finalEndDate = finalEndDate;
     }
 
-    public String getFinalStartDate() {
+    public Date getFinalStartDate() {
         return finalStartDate;
     }
 
-    public void setFinalStartDate(String finalStartDate) {
+    public void setFinalStartDate(Date finalStartDate) {
         this.finalStartDate = finalStartDate;
     }
 
-    public void initMonths(){
-        months.add("Jan");
-        months.add("Feb");
-        months.add("Mar");
-        months.add("Apr");
-        months.add("May");
-        months.add("Jun");
-        months.add("Jul");
-        months.add("Aug");
-        months.add("Sep");
-        months.add("Oct");
-        months.add("Nov");
-        months.add("Dec");
+    private int getHourFromDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.HOUR);
+    }
+
+    private int getMinuteFromDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.MINUTE);
     }
 }
