@@ -40,7 +40,7 @@
                 <br/>
                 <b:row>
                     <h:selectOneMenu value="#{eventController.selectedCourseID}" styleClass="col-lg-2">
-                        <h:outputLabel for="typeform" value="Type"
+                        <h:outputLabel for="typeform" value="Course"
                                        styleClass="col-lg-1 col-lg-offset-2"/>
                         <f:selectItems effect="fold"
                                        value="#{eventController.getCourses()}"
@@ -113,7 +113,7 @@
                 <b:row>
                     <h:inputHidden id="id" value="#{eventController.event.id}" binding="#{eventID}"/>
                     <h:commandButton styleClass="btn btn-default col-lg-offset-2'"
-                                     action="#{eventController.updateEvent()}" value="Create"/>
+                                     action="#{eventController.persistNewEvent()}" value="Create"/>
                 </b:row>
             </h:form>
         </b:container>

@@ -19,7 +19,7 @@ import java.util.List;
  * http://stackoverflow.com/questions/3180400/recommended-jsf-2-0-crud-frameworks
  * <p>
  * Read
-     * http://www.tutorialspoint.com/jsf/jsf_managed_beans.htm
+ * http://www.tutorialspoint.com/jsf/jsf_managed_beans.htm
  */
 
 @ManagedBean
@@ -50,7 +50,6 @@ public class UserController implements Serializable {
     }
 
     public void initUser() {
-        System.out.println("initUser()");
         user = persister.getUser(selectedID);
         lastPassword = user.getPassword();
         currentCourses = user.getCourses();
@@ -59,10 +58,11 @@ public class UserController implements Serializable {
 
 
     public void add() {
-        user.setId(list.isEmpty() ? 1 : list.get(list.size() - 1).getId() + 1);
+        user = persister.update(user);
         list.add(user);
-        save();
         user = new User();
+        user.setUserType(UserType.STUDENT);
+        edit = false;
     }
 
     public void edit(User user) {
@@ -73,13 +73,14 @@ public class UserController implements Serializable {
     }
 
     public void save() {
-        persister.update(user);
+        user = persister.update(user);
         user = new User();
         user.setUserType(UserType.STUDENT);
         edit = false;
     }
 
     public void delete(User user) {
+        persister.deleteUser(user.getId());
         list.remove(user);
     }
 
@@ -151,16 +152,8 @@ public class UserController implements Serializable {
         }
     }
 
-    public UserDAO getPersister() {
-        return persister;
-    }
-
     public void setPersister(UserDAO persister) {
         this.persister = persister;
-    }
-
-    public CourseDAO getCoursePersister() {
-        return coursePersister;
     }
 
     public void setCoursePersister(CourseDAO coursePersister) {
@@ -175,7 +168,7 @@ public class UserController implements Serializable {
         this.selectedID = selectedID;
     }
 
-    public List<UserType> getUserTypes(){
+    public List<UserType> getUserTypes() {
         List<UserType> list = new ArrayList<>();
         list.add(UserType.STUDENT);
         list.add(UserType.TEACHER);

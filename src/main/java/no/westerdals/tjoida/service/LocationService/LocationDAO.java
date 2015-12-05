@@ -1,7 +1,6 @@
 package no.westerdals.tjoida.service.LocationService;
 
 import no.westerdals.tjoida.Models.Location;
-import no.westerdals.tjoida.Models.User;
 
 import java.util.List;
 
@@ -11,11 +10,18 @@ import java.util.List;
 public interface LocationDAO {
 
     List<String> getRooms();
+
     void persist(Location location);
+
     List<String> getBuildings();
+
     Location update(Location location);
+
     Location getLocation(int id);
+
     void deleteLocation(Location location);
+
     public List<Location> getLocations();
+
     void close();
 }

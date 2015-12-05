@@ -16,7 +16,7 @@ public class EventValidator implements ConstraintValidator<ValidateEvent, Event>
     @Override
     public boolean isValid(Event event, ConstraintValidatorContext constraintValidatorContext) {
         for (EventType eventType : EventType.values()) {
-            if(eventType.name().equals(event.getEventType().toString().toUpperCase())){
+            if (eventType.name().equals(event.getEventType().toString().toUpperCase())) {
                 return true;
             }
         }

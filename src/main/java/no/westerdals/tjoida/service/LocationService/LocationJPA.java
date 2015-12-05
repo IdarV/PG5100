@@ -1,7 +1,6 @@
 package no.westerdals.tjoida.service.LocationService;
 
 import no.westerdals.tjoida.Models.Location;
-import no.westerdals.tjoida.Models.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -56,7 +55,7 @@ public class LocationJPA implements LocationDAO {
 
     @Override
     public void deleteLocation(Location location) {
-         entityManager.remove(location);
+        entityManager.remove(location);
     }
 
     @Override

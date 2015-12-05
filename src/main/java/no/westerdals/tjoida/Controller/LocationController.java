@@ -23,23 +23,25 @@ public class LocationController {
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         this.location = new Location();
     }
 
-    public void initLocation(){
+    public void initLocation() {
         this.location = persister.getLocation(selectedID);
     }
 
-    public void persistNewLocation(){
+    public String persistNewLocation() {
         persister.persist(location);
+        return "/location/location-index.xhtml?faces-redirect=true";
     }
 
-    public void updateLocation() {
+    public String updateLocation() {
         persister.update(location);
+        return "/location/location-index.xhtml?faces-redirect=true";
     }
 
-    public List<Location> getAll(){
+    public List<Location> getAll() {
         return persister.getLocations();
     }
 

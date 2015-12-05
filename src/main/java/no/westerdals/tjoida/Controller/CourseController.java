@@ -37,13 +37,12 @@ public class CourseController {
         selectedLocationID = course.getLocation().getId();
     }
 
-    public void persistNewCourse() {
+    public String persistNewCourse() {
         persister.persist(course);
         Location location = locationPersister.getLocation(selectedLocationID);
-
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\nCourse = " + course);
         location.getCourses().add(course);
         locationPersister.update(location);
+        return "/course/course-index.xhtml?faces-redirect=true";
     }
 
     public Course getCourse() {
@@ -77,19 +76,15 @@ public class CourseController {
     public String updateExistingCourse(int id) {
         System.out.println();
         Course newCourse = persister.getCourse(id);
-        System.out.println("got from db (newCourse): " + newCourse);
         if (course.getName() != null) {
-            System.out.println("updating course name: " + course.getName());
             newCourse.setName(course.getName());
         }
 
         if (course.getLocation() != null) {
-            System.out.println("Updating course location: " + course.getLocation());
             newCourse.setLocation(course.getLocation());
         }
 
         if (course.getUsers() != null && course.getUsers().size() > 0) {
-            System.out.println("updating course users: " + course.getUsers());
             newCourse.setUsers(course.getUsers());
         }
 
@@ -116,6 +111,4 @@ public class CourseController {
     public List<Location> getLocations() {
         return locationPersister.getLocations();
     }
-
-
 }

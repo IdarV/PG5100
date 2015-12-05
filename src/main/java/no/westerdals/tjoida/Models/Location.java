@@ -9,9 +9,9 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    @NotNull
+    @NotNull(message = "Location must have a room")
     String room;
-    @NotNull
+    @NotNull(message = "Location must have a building")
     String building;
     @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "FK_LOCATION")
@@ -57,7 +57,7 @@ public class Location {
         this.courses = courses;
     }
 
-    public String toFormattedString(){
+    public String toFormattedString() {
         return building.toUpperCase() + ", " + room;
     }
 

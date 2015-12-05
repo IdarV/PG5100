@@ -58,7 +58,7 @@ public class EventControllerTest {
     public void testPersistNewEvent() throws Exception {
         assertEquals("Before persist, event does not have ID", 0, eventController.getEvent().getId());
         eventController.persistNewEvent();
-        assertTrue("Before persist, event does not have ID", 0 < eventController.getEvent().getId());
+        assertTrue("Before persist, event does not have ID", -1 < eventController.getEvent().getId());
     }
 
     @Test

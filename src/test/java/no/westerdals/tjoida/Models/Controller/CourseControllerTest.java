@@ -13,7 +13,6 @@ import org.junit.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -48,7 +47,7 @@ public class CourseControllerTest {
     }
 
     @Test
-    public void testInitCourse(){
+    public void testInitCourse() {
         courseController.setSelectedID(101);
         assertNotEquals(101, courseController.getCourse().getId());
         courseController.initCourse();

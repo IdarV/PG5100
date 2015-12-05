@@ -2,15 +2,17 @@ package no.westerdals.tjoida.Models.Validation;
 
 import no.westerdals.tjoida.Models.User;
 import no.westerdals.tjoida.Models.UserType;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.validation.*;
-
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class UserValidationTest {
     private final String STD_EMAIL = "email@email.com";

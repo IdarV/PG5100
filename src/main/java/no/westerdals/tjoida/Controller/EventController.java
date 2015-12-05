@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Model
 public class EventController {
@@ -60,9 +61,15 @@ public class EventController {
         selectedCourseID = event.getCourse().getId() == 0 ? 0 : event.getCourse().getId();
     }
 
-    public void persistNewEvent() {
+    public String persistNewEvent() {
         parseDates();
-        persister.persist(event);
+        Course selectedCourse = coursePersister.getCourse(selectedCourseID);
+
+        event.setCourse(selectedCourse);
+        event.setStartTime(finalStartDate);
+        event.setEndTime(finalEndDate);
+        persister.update(event);
+        return "/event/event-index.xhtml?faces-redirect=true";
     }
 
     public Event getEvent() {
@@ -70,10 +77,13 @@ public class EventController {
     }
 
     public List<Event> getAll() {
-        return persister.getEvents();
+        return persister.getEvents()
+                .stream()
+                .sorted((e1, e2) -> e1.getStartTime().compareTo(e2.getStartTime()))
+                .collect(Collectors.toList());
     }
 
-    public void updateEvent() {
+    public String updateEvent() {
         parseDates();
         Course selectedCourse = coursePersister.getCourse(selectedCourseID);
 
@@ -81,6 +91,7 @@ public class EventController {
         event.setStartTime(finalStartDate);
         event.setEndTime(finalEndDate);
         event = persister.update(event);
+        return "/event/event-index.xhtml?faces-redirect=true";
     }
 
     public void setEvent(Event event) {
