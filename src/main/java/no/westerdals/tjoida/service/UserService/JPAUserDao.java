@@ -19,7 +19,7 @@ public class JPAUserDao implements UserDAO {
     public JPAUserDao() {
     }
 
-    public JPAUserDao(EntityManager entityManager){
+    public JPAUserDao(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -30,9 +30,7 @@ public class JPAUserDao implements UserDAO {
 
     @Override
     public User update(User user) {
-        System.out.println("updating user " + user);
-        entityManager.merge(user);
-        return user;
+        return entityManager.merge(user);
     }
 
     @Override
@@ -54,7 +52,6 @@ public class JPAUserDao implements UserDAO {
 
     @Override
     public List<Course> getCourses() {
-        System.out.println("GETCOUSES");
         return entityManager.createQuery("SELECT courses FROM User", Course.class).getResultList();
     }
 

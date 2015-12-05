@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CourseValidationTest {
@@ -48,7 +47,7 @@ public class CourseValidationTest {
         validate = validator.validate(course);
         assertTrue("empty list should be allowed", 0 == validate.size());
 
-        for(int i = 0; i <= 100; i++) {
+        for (int i = 0; i <= 100; i++) {
             users.add(new User());
         }
 

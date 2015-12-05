@@ -2,7 +2,10 @@ package no.westerdals.tjoida.Models.Controller;
 
 import no.westerdals.tjoida.Controller.CourseController;
 import no.westerdals.tjoida.Models.Course;
+import no.westerdals.tjoida.service.CourseService.CourseDAO;
 import no.westerdals.tjoida.service.CourseService.CourseJPA;
+import no.westerdals.tjoida.service.LocationService.LocationDAO;
+import no.westerdals.tjoida.service.LocationService.LocationJPA;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +13,6 @@ import org.junit.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -18,7 +20,8 @@ import static org.junit.Assert.*;
 public class CourseControllerTest {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
-    private CourseJPA persister;
+    private CourseDAO persister;
+    private LocationDAO locationPersister;
     private CourseController courseController;
 
     @Before
@@ -26,7 +29,8 @@ public class CourseControllerTest {
         entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         entityManager = entityManagerFactory.createEntityManager();
         persister = new CourseJPA(entityManager);
-        courseController = new CourseController(persister);
+        locationPersister = new LocationJPA(entityManager);
+        courseController = new CourseController(persister, locationPersister);
         courseController.init();
     }
 
@@ -43,7 +47,7 @@ public class CourseControllerTest {
     }
 
     @Test
-    public void testInitCourse(){
+    public void testInitCourse() {
         courseController.setSelectedID(101);
         assertNotEquals(101, courseController.getCourse().getId());
         courseController.initCourse();
@@ -61,6 +65,7 @@ public class CourseControllerTest {
     @Test
     public void testPersistNewCourse() throws Exception {
         Course course = courseController.getCourse();
+        courseController.setSelectedLocationID(100);
         String name = "courseName";
         course.setName(name);
 

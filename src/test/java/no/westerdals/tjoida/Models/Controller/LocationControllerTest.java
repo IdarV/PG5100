@@ -11,7 +11,6 @@ import org.junit.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -63,6 +62,6 @@ public class LocationControllerTest {
     @Test
     public void testGetAll() throws Exception {
         List<Location> locationList = locationController.getAll();
-        assert(locationList.size() > 0);
+        assert (locationList.size() > 0);
     }
 }

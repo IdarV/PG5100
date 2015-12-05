@@ -6,12 +6,11 @@ import no.westerdals.tjoida.Models.Event;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
-public class EventJPA implements EventDAO{
+public class EventJPA implements EventDAO {
     EntityManagerFactory entityManagerFactory;
     @PersistenceContext(name = "Egentreningprosjekt")
     EntityManager entityManager;
@@ -19,7 +18,7 @@ public class EventJPA implements EventDAO{
     public EventJPA() {
     }
 
-    public EventJPA(EntityManager entityManager){
+    public EventJPA(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

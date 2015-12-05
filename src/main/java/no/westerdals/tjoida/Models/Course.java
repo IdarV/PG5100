@@ -2,28 +2,21 @@ package no.westerdals.tjoida.Models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Course  implements Serializable {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    @NotNull
+    @NotNull(message = "Name cannot be empty")
     private String name;
     @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(name = "USR_SUB")
-    @Size(min = 0, max = 100)
+    @Size(message = "Course cannot have over 100 users", min = 0, max = 100)
     private List<User> users = new ArrayList<>();
     @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "FK_LOCATION")
@@ -58,7 +51,7 @@ public class Course  implements Serializable {
         return users;
     }
 
-    public int getUserSize(){
+    public int getUserSize() {
         return users.size();
     }
 

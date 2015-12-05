@@ -8,10 +8,6 @@
       xmlns:b="http://bootsfaces.net/ui">
 <ui:composition template="/template.xhtml">
     <ui:define name="content">
-        <f:metadata>
-            <f:viewParam name="id" value="#{eventController.selectedID}"/>
-            <f:viewAction action="#{eventController.initEvent()}"/>
-        </f:metadata>
 
         <b:container>
             <h1 class="col-lg-offset-2"><h:outputText value="New event"/></h1>
@@ -117,7 +113,7 @@
                 <b:row>
                     <h:inputHidden id="id" value="#{eventController.event.id}" binding="#{eventID}"/>
                     <h:commandButton styleClass="btn btn-default col-lg-offset-2'"
-                                     action="#{eventController.updateEvent()}" value="Create"/>
+                                     action="#{eventController.persistNewEvent()}" value="Create"/>
                 </b:row>
             </h:form>
         </b:container>

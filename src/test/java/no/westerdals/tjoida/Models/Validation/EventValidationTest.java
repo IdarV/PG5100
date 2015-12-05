@@ -11,13 +11,14 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.Date;
 import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
 public class EventValidationTest {
-    private final static String STD_START_TIME = "2010_11_11_23:59";
-    private final static String STD_END_TIME = "2010_11_12_23:59";
+    private Date STD_START_TIME = new Date();
+    private Date STD_END_TIME = new Date();
     private final static EventType STD_EVENT_TYPE = EventType.LECTURE;
     private final static String STD_TITLE = "myEventTitle";
     private final static String STD_DESCRIPTION = "myDescription";

@@ -20,8 +20,7 @@ INSERT INTO Event(id, eventtype, title, description, FK_COURSE) VALUES(101, 'LEC
 INSERT INTO Event(id, eventtype, title, description, FK_COURSE) VALUES(102, 'LECTURE', 'Pointers basics', 'Learning the basics', 102);
 INSERT INTO Event(id, eventtype, title, description, FK_COURSE) VALUES(103, 'LECTURE', 'LEAN basics', 'Learning the basics', 103);
 
--- add together som tables
--- USR_SUB (course, user)
+-- USR_SUB(course, user) are *-* table of users int courses.
 INSERT INTO USR_SUB VALUES(100, 100);
 INSERT INTO USR_SUB VALUES(101, 100);
 INSERT INTO USR_SUB VALUES(102, 100);
@@ -40,8 +39,8 @@ INSERT INTO USR_SUB VALUES(103, 104);
 INSERT INTO USR_SUB VALUES(100, 105);
 INSERT INTO USR_SUB VALUES(101, 105);
 
-INSERT INTO Event_Details VALUES('123', '321', 100);
-INSERT INTO Event_Details VALUES('1525', '3551', 101);
-INSERT INTO Event_Details VALUES('1323', '3521', 102);
-INSERT INTO Event_Details VALUES('1263', '3211', 103);
-
+-- Event_Details(endTime, startTime, eventID)
+INSERT INTO Event_Details VALUES('2015-12-05 12:00:00.000', '2015-12-05 11:20:00.000', 100);
+INSERT INTO Event_Details VALUES('2015-12-06 15:20:00.000', '2015-12-06 11:30:00.000', 101);
+INSERT INTO Event_Details VALUES('2015-12-08 18:00:00.000', '2015-12-08 17:00:00.000', 102);
+INSERT INTO Event_Details VALUES('2015-12-09 10:40:00.000', '2015-12-09 08:10:00.000',  103);

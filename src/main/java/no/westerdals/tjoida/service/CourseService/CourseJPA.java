@@ -39,11 +39,14 @@ public class CourseJPA implements CourseDAO {
         return entityManager.createQuery("SELECT e FROM Course e", Course.class).getResultList();
     }
 
+    /**
+     * Get all courses that a user is not a member in
+     */
     @Override
     public List<Course> getNonCurrentCourses(User user) {
         List<Course> allCourses;
 
-        if(user == null){
+        if (user == null) {
             allCourses = new ArrayList<>();
             return allCourses;
         }
@@ -51,6 +54,11 @@ public class CourseJPA implements CourseDAO {
         allCourses = entityManager.createQuery("SELECT e FROM Course e", Course.class).getResultList();
 
         List<Course> userCourses = user.getCourses();
+
+        if (userCourses == null) {
+            return allCourses;
+        }
+
         List<Course> removeCourse = new ArrayList<>();
 
         for (Course userCourse : userCourses) {

@@ -4,22 +4,23 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
-@SecondaryTable(name="Event_Details")
+@SecondaryTable(name = "Event_Details")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    @NotNull
+    @NotNull(message = "Event type cannot be empty")
     @Enumerated(EnumType.STRING)
     EventType eventType;
 
-    @Size(min = 5, max = 25)
+    @Size(min = 5, max = 25, message = "Title must be between 5 and 25 characters")
     private String title;
 
-    @Size(max = 100)
+    @Size(max = 100, message = "Description cannot be more than 100 characters long")
     private String description;
 
     @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
@@ -28,17 +29,17 @@ public class Event {
     private Course course;
 
     @Column(table = "Event_Details")
-    @NotNull
-    private String startTime;
+    @NotNull(message = "Event must have a start date.")
+    private Date startTime;
 
     @Column(table = "Event_Details")
-    @NotNull
-    private String endTime;
+    @NotNull(message = "Event must have a end date")
+    private Date endTime;
 
     public Event() {
     }
 
-    public Event(EventType eventType, String title, String description, Course course, String startTime, String endTime) {
+    public Event(EventType eventType, String title, String description, Course course, Date startTime, Date endTime) {
         this.eventType = eventType;
         this.title = title;
         this.description = description;
@@ -87,19 +88,19 @@ public class Event {
         this.course = course;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 }
