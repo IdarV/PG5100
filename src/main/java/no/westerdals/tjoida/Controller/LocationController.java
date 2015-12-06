@@ -1,5 +1,6 @@
 package no.westerdals.tjoida.Controller;
 
+import no.westerdals.tjoida.Models.Course;
 import no.westerdals.tjoida.Models.Location;
 import no.westerdals.tjoida.service.LocationService.LocationDAO;
 
@@ -37,7 +38,8 @@ public class LocationController {
     }
 
     public String updateLocation() {
-        persister.update(location);
+        location.setCourses(persister.getLocation(location.getId()).getCourses());
+        location = persister.update(location);
         return "/location/location-index.xhtml?faces-redirect=true";
     }
 

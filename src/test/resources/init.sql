@@ -5,7 +5,7 @@ INSERT INTO User (id, email, password, usertype) VALUES(104, 'kim@email.com', 'k
 INSERT INTO User (id, email, password, usertype) VALUES(105, 'tomas@email.com', 'ruud1337', 'STUDENT');
 INSERT INTO User (id, email, password, usertype) VALUES(106, 'test@email.com', 'test!4747JH4!.', 'STUDENT');
 
-INSERT INTO Location(id, room, building) VALUES(100, '81', 'Schweigaardsgate 14');
+INSERT INTO Location(id, room, building) VALUES(100, '82', 'Schweigaardsgate 14');
 INSERT INTO Location(id, room, building) VALUES(101, 'Vrimle', 'Schweigaardsgate 14');
 INSERT INTO Location(id, room, building) VALUES(102, 'Auditoriet', 'Schweigaardsgate 14');
 INSERT INTO Location(id, room, building) VALUES(103, '41', 'Schweigaardsgate 14');
