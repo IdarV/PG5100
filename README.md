@@ -8,4 +8,4 @@ By Idar Vassdal
 4) Given that Wildfly runs on the default port 8080, navigate to: http://localhost:8080/tjoida-1.0-SNAPSHOT/index.xhtml
 
 #### About
-The program is a management program for a typical school, with models for users, courses, events and locations. The user view is a little more advanced than the rest of the views, allowing CRUD operations on the same page. I like to think of this view as a teacher-view, where they can add students to courses, add manage their students. I added the extra functionality as a challenge for myself.
+The program is a management program for a typical school, with models for users, courses, events and locations.
